@@ -39,7 +39,8 @@ public class Map extends JPanel {
 					}
 					else if(color == 2){
 						try{
-							final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
+							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
+							final BufferedImage image =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
 							for(model.character.Hero hero: model.Game.heroes)
 							g.drawImage(image,  hero.getPosX()*40, hero.getPosY()*40, 50, 50,  null);
 							}catch(IOException e){}
