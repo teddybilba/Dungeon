@@ -46,7 +46,19 @@ public class Map extends JPanel {
 							}catch(IOException e){}
 					}
 					else if(color == 3){
-						g.setColor(Color.YELLOW);
+						g.setColor(Color.RED);
+					}
+					else if(color == 4){
+						//g.setColor(Color.YELLOW);
+						try {
+						final BufferedImage coinImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png"));
+						for(model.item.Coin coin : model.Game.coinsOnFloor){
+							g.drawImage(coinImage,  coin.getPosX()*40, coin.getPosY()*40, 50, 50,  null);
+						}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					g.fillRect(x*50, y*50, 48, 48); 
 

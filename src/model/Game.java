@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import view.Window;
 import model.character.*;
 import model.dalle.*;
+import model.item.Coin;
 
 public class Game {
 	public static ArrayList<Hero> heroes = new ArrayList<Hero>();
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
 	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
+	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private Window window;
 	private int size = 20;
 		
@@ -31,7 +33,7 @@ public class Game {
 		// Creating one Player at position (1,1)
 		heroes.add(new Hero(10,10,1));
 		PNJs.add(new PNJ(15,13,1,1));
-		
+		coinsOnFloor.add(new Coin(4,4));
 		window.draw(this.getMap());
 	}
 		
@@ -46,8 +48,8 @@ public class Game {
 			}
 		}
 		/*for (Tile tile: tiles){					//TODO voir avec Coline (lignes inutiles?)
-			if(tile.getPresence()==true){
-				res=true;
+			if(tile.getPresence()==true){           // servait à utiliser l' attribut présence des dalles
+				res=true;                           // plutôt que de parcourir les listes de joueurs et d' ennemis
 			}
 		}*/
 		for (PNJ pnj: PNJs){
@@ -153,6 +155,11 @@ public class Game {
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
 			map[x][y] = 3;
+		}
+		for(Coin coin: coinsOnFloor){
+			int x = coin.getPosX();
+			int y = coin.getPosY();
+			map[x][y] = 4;
 		}
 		System.out.println(map);
 		return map;
