@@ -1,6 +1,6 @@
 package model.character;
 
-import model.item.Coin;// sinon ça bugg
+import model.item.*;
 
 public class Hero extends Player{
 	private int coinsNumber;

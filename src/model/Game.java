@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import view.Window;
 import model.character.*;
 import model.dalle.*;
-import model.item.Coin;
+import model.item.*;
 
 public class Game {
 	public static ArrayList<Hero> heroes = new ArrayList<Hero>();
