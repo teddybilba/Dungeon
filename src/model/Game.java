@@ -15,6 +15,7 @@ public class Game {
 	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private Window window;
 	private int size = 20;
+	private int PNJNumber=5;
 		
 	public Game(Window window){
 		this.window = window;
@@ -32,7 +33,17 @@ public class Game {
 		}
 		// Creating one Player at position (1,1)
 		heroes.add(new Hero(10,10,1));
-		PNJs.add(new PNJ(15,13,1,1));
+		for (int i=0; i<PNJNumber; i++){
+			int posX = randomNum(1, size - 2);
+			int posY = randomNum(1, size - 2);
+			
+			while(Collision(posX, posY)==true){
+				posX = randomNum(1,size-2);
+				posY = randomNum(1,size-2);
+			}
+			PNJs.add(new PNJ(posX,posY,1,1));
+		}
+		
 		coinsOnFloor.add(new Coin(4,4));
 		window.draw(this.getMap());
 	}
