@@ -34,19 +34,23 @@ public class Map extends JPanel {
 						g.drawRect(x*50, y*50, 48, 48); 
 					}
 					else if(color == 1){
-						g.setColor(Color.DARK_GRAY);
+						/*g.setColor(Color.DARK_GRAY);
 						g.fillRect(x*50, y*50, 48, 48); 
 
-						g.drawRect(x*50, y*50, 48, 48); 
+						g.drawRect(x*50, y*50, 48, 48);*/
+						try {
+							final BufferedImage wallImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/wall.png"));
+							for(model.dalle.Wall wall : model.Game.walls){
+								g.drawImage(wallImage,  (wall.getPosX())*50, (wall.getPosY())*50, 48, 48,  null);
+				
+							}
+							
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 					}
-					else if(color == 2){
-						try{
-							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							final BufferedImage image =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
-							for(model.character.Hero hero: model.Game.heroes)
-							g.drawImage(image,  hero.getPosX()*50, hero.getPosY()*50, 48, 48,  null);
-							}catch(IOException e){}
-					}
+					
 					else if(color == 3){
 						g.setColor(Color.RED);
 						g.fillRect(x*50, y*50, 48, 48); 
@@ -66,6 +70,14 @@ public class Map extends JPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}
+					else if(color == 2){
+						try{
+							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
+							final BufferedImage image =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
+							for(model.character.Hero hero: model.Game.heroes)
+							g.drawImage(image,  hero.getPosX()*50, hero.getPosY()*50, 48, 48,  null);
+							}catch(IOException e){}
 					}
 					
 					System.out.print(color);

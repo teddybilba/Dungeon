@@ -10,7 +10,7 @@ import model.item.*;
 public class Game {
 	public static ArrayList<Hero> heroes = new ArrayList<Hero>();
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
-	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
+	public static ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
 	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
 	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private Window window;
@@ -140,6 +140,10 @@ public class Game {
 				System.out.println("Well Done!!!"); 		
 			}
 		}
+		
+	}
+	public void takeCoin(){
+		
 		
 	}
 
