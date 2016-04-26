@@ -16,6 +16,7 @@ public class Game {
 	private Window window;
 	private int size = 20;
 	private int PNJNumber=5;
+	private int coinNumber=6;
 	
 	//*GETTERS*//
 	
@@ -33,6 +34,8 @@ public class Game {
 		return PNJs;
 	}
 	
+	//* FONCTIONS RANDOM*//
+	
 		
 	public Game(Window window){
 		this.window = window;
@@ -48,7 +51,8 @@ public class Game {
 				tiles.add(new Tile(i,j));// les cases
 			}
 		}
-		// Creating one Player at position (1,1)
+		// Creating Hero at  position 
+		
 		hero= new Hero(10,10,1);
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
@@ -61,8 +65,17 @@ public class Game {
 			}
 			PNJs.add(new PNJ(posX,posY,1,1));
 		}
+		for (int i=0; i<coinNumber; i++){
+			int cX = randomNum(1, size - 2);
+			int cY = randomNum(1, size - 2);
+			
+			while(Collision(cX, cY)==true){
+				cX = randomNum(1,size-2);
+				cY = randomNum(1,size-2);
+			}
+			coinsOnFloor.add(new Coin(cX,cY));
+		}
 		
-		coinsOnFloor.add(new Coin(4,4));
 		window.draw(this.getMap());
 	}
 		
@@ -103,12 +116,22 @@ public class Game {
 		return nb;
 	}
 	
-	//renvoie l' indice d' une dalle etant dans une liste et dont on a la position.
+	//renvoie l' indice d' une pièce  dans la liste sachant sa  position.
 	
-	public int tileIndex(ArrayList<Tile> tiles,int x,int y){
+	public int listIndexCoin(ArrayList<Coin> list,int x,int y){
 		int res=0;
-		for(int i=0; i<tiles.size();i++){
-			if(tiles.get(i).getPosX()==x && tiles.get(i).getPosY()==y){
+		for(int i=0; i<list.size();i++){
+			if(list.get(i).getPosX()==x && list.get(i).getPosY()==y){
+				res=i;
+			}
+		}
+		return res;
+	}
+	//revoie l' indice d' un ennemi dans la liste et sachant sa position
+	public int listIndexPNJ(ArrayList<PNJ> list,int x,int y){
+		int res=0;
+		for(int i=0; i<list.size();i++){
+			if(list.get(i).getPosX()==x && list.get(i).getPosY()==y){
 				res=i;
 			}
 		}
@@ -118,24 +141,28 @@ public class Game {
 	public void movePlayerLeft(){
 		if (Collision(hero.getPosX() - 1, hero.getPosY()) == false){
 			hero.move(-1, 0);
+			takeCoin();
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerRight(){
 		if (Collision(hero.getPosX() + 1, hero.getPosY()) == false){
 			hero.move(1,0);
+			takeCoin();
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerDown(){
 		if (Collision(hero.getPosX(), hero.getPosY() + 1) == false){
 			hero.move(0,1);
+			takeCoin();
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerUp(){
 		if (Collision(hero.getPosX(), hero.getPosY() - 1) == false){
 			hero.move(0,-1);
+			takeCoin();
 			window.draw(this.getMap());
 		}
 	}
@@ -159,7 +186,14 @@ public class Game {
 		
 	}
 	public void takeCoin(){
-		
+		int x= hero.getPosX();
+		int y= hero.getPosY();
+		for( int i=0;i< coinsOnFloor.size(); i++){
+			if(coinsOnFloor.get(i).getPosX()==x && coinsOnFloor.get(i).getPosY()==y){
+				hero.grabCoin();
+				coinsOnFloor.remove(i);
+			}
+		}
 		
 	}
 

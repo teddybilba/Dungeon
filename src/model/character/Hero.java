@@ -1,6 +1,7 @@
 package model.character;
 
-import model.item.*;
+//import model.item.*;
+
 
 public class Hero extends Player{
 	private int coinsNumber;
@@ -17,10 +18,8 @@ public class Hero extends Player{
 		return this.maxCoinsNumber;
 	}
 	
-	public void grabCoin (Coin coin){
-		if(this.getPosX()==coin.getPosX()&& this.getPosY()==coin.getPosY()){
-			this.coinsNumber+=1;
-		}
-		
+	public void grabCoin (){
+		this.coinsNumber+=1;
+				
 	}
 }
