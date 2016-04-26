@@ -16,6 +16,7 @@ public class Map extends JPanel {
 	private BufferedImage coinImage;
 	private BufferedImage gokuImage;
 	private BufferedImage tileImage;
+	private BufferedImage ratImage;
 	public Map(){
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -24,6 +25,7 @@ public class Map extends JPanel {
 			gokuImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
 			coinImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png"));
 			tileImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/tile.png"));
+			ratImage  =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/rat.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,11 +64,19 @@ public class Map extends JPanel {
 					}
 					
 					else if(color == 3){
-						g.setColor(Color.RED);
+						/*g.setColor(Color.RED);
 						g.fillRect(x*50, y*50, 48, 48); 
 
-						g.drawRect(x*50, y*50, 48, 48); 
+						g.drawRect(x*50, y*50, 48, 48);*/
+						try {
+							g.drawImage(ratImage,  x*50, y*50, 48, 48,  null);
+						}
+						catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+					
 					else if(color == 4){
 						try {
 							g.drawImage(coinImage,  x*50, y*50, 48, 48,  null);
