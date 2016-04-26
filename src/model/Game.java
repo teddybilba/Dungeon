@@ -8,14 +8,33 @@ import model.dalle.*;
 import model.item.*;
 
 public class Game {
-	public static ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
-	public static ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
-	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
-	public static ArrayList<Hero> heroes = new ArrayList<Hero>();
+	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
+	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
+	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
+	private ArrayList<Hero> heroes = new ArrayList<Hero>();
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private int size = 20;
 	private int PNJNumber=5;
+	
+	//*GETTERS*//
+	
+	public ArrayList<Wall> getWalls(){
+		return walls;
+	}
+	public ArrayList<Tile> getTiles(){
+		return tiles;
+	}
+	public ArrayList<Coin> getCoins(){
+		return coinsOnFloor;
+	}
+	public ArrayList<Hero> getHeroes(){
+		return heroes;
+	}
+	public ArrayList<PNJ> getPNJs(){
+		return PNJs;
+	}
+	
 		
 	public Game(Window window){
 		this.window = window;
