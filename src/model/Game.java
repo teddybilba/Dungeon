@@ -11,7 +11,7 @@ public class Game {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
 	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
-	private ArrayList<Hero> heroes = new ArrayList<Hero>();
+	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private int size = 20;
@@ -28,9 +28,7 @@ public class Game {
 	public ArrayList<Coin> getCoins(){
 		return coinsOnFloor;
 	}
-	public ArrayList<Hero> getHeroes(){
-		return heroes;
-	}
+	
 	public ArrayList<PNJ> getPNJs(){
 		return PNJs;
 	}
@@ -51,7 +49,7 @@ public class Game {
 			}
 		}
 		// Creating one Player at position (1,1)
-		heroes.add(new Hero(10,10,1));
+		hero= new Hero(10,10,1);
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
 			int posX = randomNum(1, size - 2);
@@ -90,13 +88,12 @@ public class Game {
 				res = true;
 			}
 		}
-		for (Hero hero : heroes){
-			int heroPosX = hero.getPosX();
-			int heroPosY = hero.getPosY();
-			if(heroPosX == posX && heroPosY == posY ){
-				res = true;
-			}
+		int heroPosX = hero.getPosX();
+		int heroPosY = hero.getPosY();
+		if(heroPosX == posX && heroPosY == posY ){
+			res = true;
 		}
+		
 		return res;
 	}
 	
@@ -119,41 +116,40 @@ public class Game {
 	}
 	
 	public void movePlayerLeft(){
-		if (Collision(heroes.get(0).getPosX() - 1, heroes.get(0).getPosY()) == false){
-			heroes.get(0).move(-1, 0);
+		if (Collision(hero.getPosX() - 1, hero.getPosY()) == false){
+			hero.move(-1, 0);
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerRight(){
-		if (Collision(heroes.get(0).getPosX() + 1, heroes.get(0).getPosY()) == false){
-			heroes.get(0).move(1,0);
+		if (Collision(hero.getPosX() + 1, hero.getPosY()) == false){
+			hero.move(1,0);
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerDown(){
-		if (Collision(heroes.get(0).getPosX(), heroes.get(0).getPosY() + 1) == false){
-			heroes.get(0).move(0,1);
+		if (Collision(hero.getPosX(), hero.getPosY() + 1) == false){
+			hero.move(0,1);
 			window.draw(this.getMap());
 		}
 	}
 	public void movePlayerUp(){
-		if (Collision(heroes.get(0).getPosX(), heroes.get(0).getPosY() - 1) == false){
-			heroes.get(0).move(0,-1);
+		if (Collision(hero.getPosX(), hero.getPosY() - 1) == false){
+			hero.move(0,-1);
 			window.draw(this.getMap());
 		}
 	}
 	
 	public void heroAttacks(){
-		heroes.get(0).attack(heroes.get(0),PNJs.get(0), 5);
+		hero.attack(hero,PNJs.get(0), 5);
 		System.out.println("Attack !");
 	}
 	public void PlayerDeath (){ // Diparition du joueur ou des ennemis car morts
-		for (Hero hero : heroes){
-			if(hero.getLife()==0){
-				heroes.remove(hero);
-				System.out.println("Game Over!!!"); 		//TODO Game Over
-			}
+		
+		if(hero.getLife()==0){
+			System.out.println("Game Over!!!"); 		//TODO Game Over
 		}
+		
 		for (PNJ pnj:PNJs){
 			if(pnj.getLife()==0){
 				PNJs.remove(pnj);
@@ -191,11 +187,11 @@ public class Game {
 			int y = pnj.getPosY();
 			map[x][y] = 3;
 		}
-		for(Hero hero: heroes){
+		
 			int x = hero.getPosX();
 			int y = hero.getPosY();
 			map[x][y] = 2;
-		}
+		
 		
 		
 		System.out.println(map);
