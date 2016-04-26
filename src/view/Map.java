@@ -15,7 +15,7 @@ public class Map extends JPanel {
 	private BufferedImage wallImage;
 	private BufferedImage coinImage;
 	private BufferedImage gokuImage;
-	
+	private BufferedImage tileImage;
 	public Map(){
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -23,6 +23,7 @@ public class Map extends JPanel {
 			wallImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/wall.png"));
 			gokuImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
 			coinImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png"));
+			tileImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/tile.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,21 +40,19 @@ public class Map extends JPanel {
 					int color = mapMatrix[i][j];
 					
 					if(color == 0){
-						g.setColor(Color.GRAY);
-						g.fillRect(x*50, y*50, 48, 48); 
-
-						g.drawRect(x*50, y*50, 48, 48); 
+						
+						try {
+							g.drawImage(tileImage,  x*50, y*50, 48, 48,  null);
+					
+						} 
+						catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+						}
 					}
 					else if(color == 1){
-						/*g.setColor(Color.DARK_GRAY);
-						g.fillRect(x*50, y*50, 48, 48); 
-
-						g.drawRect(x*50, y*50, 48, 48);*/
 						try {
-							for(model.dalle.Wall wall : model.Game.walls){
-								g.drawImage(wallImage,  (wall.getPosX())*50, (wall.getPosY())*50, 48, 48,  null);
-				
-							}
+								g.drawImage(wallImage, x*50,y*50, 48, 48,  null);
 							
 						} 
 						catch (Exception e) {
@@ -70,12 +69,8 @@ public class Map extends JPanel {
 					}
 					else if(color == 4){
 						try {
-							for(model.item.Coin coin : model.Game.coinsOnFloor){
-								g.drawImage(coinImage,  (coin.getPosX())*50, (coin.getPosY())*50, 48, 48,  null);
-			
-							}
-						
-						} 
+							g.drawImage(coinImage,  x*50, y*50, 48, 48,  null);
+						}
 						catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -84,9 +79,10 @@ public class Map extends JPanel {
 					else if(color == 2){
 						try{
 							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							for(model.character.Hero hero: model.Game.heroes)
-							g.drawImage(gokuImage,  hero.getPosX()*50, hero.getPosY()*50, 48, 48,  null);
-							}catch(Exception e){}
+							
+							g.drawImage(gokuImage, x*50, y*50, 48, 48,  null);
+						}
+						catch(Exception e){}
 					}
 					
 					System.out.print(color);

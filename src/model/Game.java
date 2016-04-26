@@ -8,11 +8,11 @@ import model.dalle.*;
 import model.item.*;
 
 public class Game {
+	public static ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
+	public static ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
+	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	public static ArrayList<Hero> heroes = new ArrayList<Hero>();
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
-	public static ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
-	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
-	public static ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private Window window;
 	private int size = 20;
 	private int PNJNumber=5;
@@ -33,6 +33,7 @@ public class Game {
 		}
 		// Creating one Player at position (1,1)
 		heroes.add(new Hero(10,10,1));
+		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
 			int posX = randomNum(1, size - 2);
 			int posY = randomNum(1, size - 2);
@@ -161,21 +162,23 @@ public class Game {
 			int y = wall.getPosY();
 			map[x][y] = 1;
 		}
-		for(Hero hero: heroes){
-			int x = hero.getPosX();
-			int y = hero.getPosY();
-			map[x][y] = 2;
+		for(Coin coin: coinsOnFloor){
+			int x = coin.getPosX();
+			int y = coin.getPosY();
+			map[x][y] = 4;
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
 			map[x][y] = 3;
 		}
-		for(Coin coin: coinsOnFloor){
-			int x = coin.getPosX();
-			int y = coin.getPosY();
-			map[x][y] = 4;
+		for(Hero hero: heroes){
+			int x = hero.getPosX();
+			int y = hero.getPosY();
+			map[x][y] = 2;
 		}
+		
+		
 		System.out.println(map);
 		return map;
 	}
