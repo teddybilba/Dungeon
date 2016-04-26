@@ -129,9 +129,10 @@ public class Game {
 	}
 	//revoie l' indice d' un ennemi dans la liste et sachant sa position
 	public int listIndexPNJ(ArrayList<PNJ> list,int x,int y){
+		int range= hero.getAttackRange();
 		int res=0;
 		for(int i=0; i<list.size();i++){
-			if(list.get(i).getPosX()==x && list.get(i).getPosY()==y){
+			if(Math.abs(list.get(i).getPosX()-x )<=range&& Math.abs( list.get(i).getPosY()-y)<=range){
 				res=i;
 			}
 		}
@@ -168,21 +169,26 @@ public class Game {
 	}
 	
 	public void heroAttacks(){
-		hero.attack(hero,PNJs.get(0), 5);
+		int x=hero.getPosX();
+		int y= hero.getPosY();
+		int targetIndex=listIndexPNJ(PNJs,x,y);
+		hero.attack(PNJs.get(targetIndex), 5);
 		System.out.println("Attack !");
 	}
 	public void PlayerDeath (){ // Diparition du joueur ou des ennemis car morts
 		
 		if(hero.getLife()==0){
 			System.out.println("Game Over!!!"); 		//TODO Game Over
+			window.draw(this.getMap());
 		}
 		
-		for (PNJ pnj:PNJs){
-			if(pnj.getLife()==0){
-				PNJs.remove(pnj);
+		for (int i=0; i<PNJs.size();i++){
+			if(PNJs.get(i).getLife()==0){
+				PNJs.remove(i);
 				System.out.println("Well Done!!!"); 		
 			}
 		}
+		window.draw(this.getMap());
 		
 	}
 	public void takeCoin(){

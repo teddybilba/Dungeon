@@ -34,6 +34,7 @@ public class KeyBoard implements KeyListener{
 				case KeyEvent.VK_SPACE:
 					//System.out.println("Do something...");
 					game.heroAttacks();
+					game.PlayerDeath();
 					break;
 			}
 		}

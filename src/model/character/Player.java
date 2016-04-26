@@ -143,14 +143,14 @@ public class Player {
 		}
 	} */
 	
-	public boolean attackIsPossible(Player attacker, Player target){
+	public boolean attackIsPossible( Player target){
 		// permet de voir si la port�e de l' attaquant permet de toucher la cible
 		boolean res= false;
 		int xTar = target.getPosX();
 		int yTar = target.getPosY();
-		int xAtt = attacker.getPosX();
-		int yAtt = attacker.getPosY();
-		int range = attacker.getAttackRange();
+		int xAtt = this.getPosX();
+		int yAtt = this.getPosY();
+		int range = this.getAttackRange();
 		
 		if(range <= Math.abs(xTar-xAtt) && range <= Math.abs(yTar-yAtt)){
 			res=true;
@@ -158,9 +158,10 @@ public class Player {
 		return res;
 	}
 	
-	public void attack(Player attacker, Player target, int damage){
-		if(attackIsPossible(attacker, target) == true){
+	public void attack( Player target, int damage){
+		if(attackIsPossible( target) == true){
 			target.setDamage(damage);
+			   
 		}
 		
 	}
