@@ -19,7 +19,7 @@ public class Rat extends PNJ {
 			
 		}
 	}
-*/	
+	
 	public void move2(Player target){
 		int targetPosX = target.getPosX();
 		int targetPosY = target.getPosY();
