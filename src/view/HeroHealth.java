@@ -5,6 +5,6 @@ import javax.swing.JPanel;
 
 public class HeroHealth extends JPanel{
 	public HeroHealth(){
-		this.setBackground(Color.RED);
+		this.setBackground(Color.gray);
 	}
 }

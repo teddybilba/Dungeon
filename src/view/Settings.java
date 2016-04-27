@@ -18,6 +18,6 @@ public class Settings extends JFrame{
 	    this.setVisible(true);
 	    this.setResizable(true);
 	    this.getContentPane().add(this.inventory,BorderLayout.CENTER);
-	    this.getContentPane().add(this.health,BorderLayout.NORTH);
+	    this.getContentPane().add(this.health,BorderLayout.CENTER);
 	}
 }
