@@ -15,7 +15,8 @@ private Map map = new Map();// cette ligne pose problème pour les labels!!
 	    window.setBounds(0, 0, 1000, 1020);
 	    window.getContentPane().setBackground(Color.gray);
 	    window.getContentPane().add(this.map);
-	    window.setVisible(true);		    
+	    window.setVisible(true);
+	    
 	}	
 	
 	public void draw(int[][] mapMatrix){
