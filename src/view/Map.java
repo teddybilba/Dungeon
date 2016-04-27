@@ -8,16 +8,24 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class Map extends JPanel {
+	/*ATTRIBUTS*/
 	private int[][] mapMatrix;
 	private BufferedImage wallImage;
 	private BufferedImage coinImage;
 	private BufferedImage gokuImage;
 	private BufferedImage tileImage;
 	private BufferedImage ratImage;
+	
+	
+	/*CONSTRUCTEUR*/
 	public Map(){
+		
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		try {
@@ -30,11 +38,20 @@ public class Map extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
+	
+	
+	
+		
+		
+	
 	
 	public void paint(Graphics g) { 
 		if(mapMatrix == null){
-		}else{
+		}
+		else{
 			for(int i = 0; i<mapMatrix.length; i++){
 				for(int j = 0; j<mapMatrix.length; j++){
 					int x = i;
@@ -101,6 +118,7 @@ public class Map extends JPanel {
 				System.out.println("");
 			}
 		}
+		
 	}
 	
 	public void setMapMatrix(int[][] mapMatrix){

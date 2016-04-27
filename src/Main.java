@@ -7,6 +7,7 @@ public class Main {
 		Window window = new Window();
 		
 		Game game = new Game(window);
+		
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 	}

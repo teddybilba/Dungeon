@@ -19,6 +19,9 @@ public class Game {
 	private int coinNumber=6;
 	
 	//*GETTERS*//
+	public Hero getHero(){
+		return this.hero;
+	}
 	
 	public ArrayList<Wall> getWalls(){
 		return walls;

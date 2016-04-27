@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 
 
 public class Window {
-private Map map = new Map();
+
+private Map map = new Map();// cette ligne pose problème pour les labels!!
 	
 	public Window(){	    
 	    JFrame window = new JFrame("Game");
@@ -24,4 +25,6 @@ private Map map = new Map();
 	public void setKeyListener(KeyListener keyboard){
 	    this.map.addKeyListener(keyboard);
 	}
+	
+	
 }
