@@ -33,6 +33,9 @@ public class Game {
 	public ArrayList<PNJ> getPNJs(){
 		return PNJs;
 	}
+	public Hero getHero(){
+		return hero;
+	}
 	
 	//* FONCTIONS RANDOM*//
 	
@@ -90,8 +93,8 @@ public class Game {
 			}
 		}
 		/*for (Tile tile: tiles){					//TODO voir avec Coline (lignes inutiles?)
-			if(tile.getPresence()==true){           // servait à utiliser l' attribut présence des dalles
-				res=true;                           // plutôt que de parcourir les listes de joueurs et d' ennemis
+			if(tile.getPresence()==true){           // servait ï¿½ utiliser l' attribut prï¿½sence des dalles
+				res=true;                           // plutï¿½t que de parcourir les listes de joueurs et d' ennemis
 			}
 		}*/
 		for (PNJ pnj: PNJs){
@@ -116,7 +119,7 @@ public class Game {
 		return nb;
 	}
 	
-	//renvoie l' indice d' une pièce  dans la liste sachant sa  position.
+	//renvoie l' indice d' une piï¿½ce  dans la liste sachant sa  position.
 	
 	public int listIndexCoin(ArrayList<Coin> list,int x,int y){
 		int res=0;
