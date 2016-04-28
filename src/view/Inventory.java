@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class Inventory extends JPanel {
 	public Inventory(){
-		this.setBackground(Color.gray);
+		this.setBackground(Color.YELLOW);
 	}
 
 }

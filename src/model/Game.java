@@ -80,6 +80,8 @@ public class Game {
 		}
 		
 		window.draw(this.getMap());
+		window.uploadCoins(this.getCoinsNumber());
+		window.uploadLife(this.getHeroLife());
 	}
 		
 	//  collision avec un mur?:
@@ -147,6 +149,7 @@ public class Game {
 			hero.move(-1, 0);
 			takeCoin();
 			window.draw(this.getMap());
+			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public void movePlayerRight(){
@@ -154,6 +157,7 @@ public class Game {
 			hero.move(1,0);
 			takeCoin();
 			window.draw(this.getMap());
+			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public void movePlayerDown(){
@@ -161,6 +165,7 @@ public class Game {
 			hero.move(0,1);
 			takeCoin();
 			window.draw(this.getMap());
+			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public void movePlayerUp(){
@@ -168,6 +173,7 @@ public class Game {
 			hero.move(0,-1);
 			takeCoin();
 			window.draw(this.getMap());
+			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	
@@ -192,6 +198,7 @@ public class Game {
 			}
 		}
 		window.draw(this.getMap());
+		window.uploadLife(this.getHeroLife());
 		
 	}
 	public void takeCoin(){
@@ -239,6 +246,12 @@ public class Game {
 		
 		System.out.println(map);
 		return map;
+	}
+	public int getCoinsNumber(){
+		return this.hero.getCoinsNumber();
+	}
+	public int getHeroLife(){
+		return this.hero.getLife();
 	}
 
 
