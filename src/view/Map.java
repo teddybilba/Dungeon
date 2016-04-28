@@ -21,6 +21,7 @@ public class Map extends JPanel {
 	private BufferedImage gokuImage;
 	private BufferedImage tileImage;
 	private BufferedImage ratImage;
+	private BufferedImage potionImage;
 	
 	
 	/*CONSTRUCTEUR*/
@@ -34,6 +35,7 @@ public class Map extends JPanel {
 			coinImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png"));
 			tileImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/tile.png"));
 			ratImage  =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/rat.png"));
+			potionImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/potion.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,6 +104,14 @@ public class Map extends JPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}
+					else if(color == 5){
+						try{
+							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
+							
+							g.drawImage(potionImage, x*50, y*50, 48, 48,  null);
+						}
+						catch(Exception e){}
 					}
 					else if(color == 2){
 						try{

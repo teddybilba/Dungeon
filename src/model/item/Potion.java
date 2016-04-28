@@ -3,7 +3,7 @@ package model.item;
 public class Potion extends Item {
 	private boolean goodPotion;
 	
-	public Potion(boolean bool,int x, int y){
+	public Potion(int x, int y,boolean bool){
 		super(x,y);
 		this.goodPotion=bool;
 	}

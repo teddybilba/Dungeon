@@ -11,12 +11,14 @@ public class Game {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
 	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
+	private ArrayList<Potion> potions =new ArrayList<Potion>();
 	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private int size = 20;
 	private int PNJNumber=5;
 	private int coinNumber=6;
+	private int potionNumber=5;
 	
 	//*GETTERS*//
 	public Hero getHero(){
@@ -35,6 +37,9 @@ public class Game {
 	
 	public ArrayList<PNJ> getPNJs(){
 		return PNJs;
+	}
+	public ArrayList<Potion> getPotions(){
+		return potions;
 	}
 	
 	//* FONCTIONS RANDOM*//
@@ -77,6 +82,16 @@ public class Game {
 				cY = randomNum(1,size-2);
 			}
 			coinsOnFloor.add(new Coin(cX,cY));
+		}
+		for (int i=0; i<potionNumber; i++){
+			int pX = randomNum(1, size - 2);
+			int pY = randomNum(1, size - 2);
+			
+			while(Collision(pX, pY)==true){
+				pX = randomNum(1,size-2);
+				pY = randomNum(1,size-2);
+			}
+			potions.add(new Potion(pX,pY,false));
 		}
 		
 		window.draw(this.getMap());
@@ -231,6 +246,11 @@ public class Game {
 			int x = coin.getPosX();
 			int y = coin.getPosY();
 			map[x][y] = 4;
+		}
+		for(Potion potion: potions){
+			int x = potion.getPosX();
+			int y = potion.getPosY();
+			map[x][y] = 5;
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
