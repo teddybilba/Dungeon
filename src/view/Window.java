@@ -22,7 +22,7 @@ private HeroHealth health= new HeroHealth();
 	    
 	    split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, health,inventory);
 	    //On place le premier séparateur
-	    split1.setDividerLocation(300);
+	    split1.setDividerLocation(100);
 	    
 	    split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,map, split1);
 	    //On place le deuxième séparateur

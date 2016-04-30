@@ -17,7 +17,7 @@ public class Inventory extends JPanel {
 	}
 	public void setPotionNumber(int pNumber){
 		this.potionNumber=pNumber;
-		label1.setText(String.valueOf(potionNumber));
+		label1.setText("Nb Potions: "+String.valueOf(potionNumber));
 	}
 	public void labelComponent(){
 		ImageIcon iPotion = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/potion.png");

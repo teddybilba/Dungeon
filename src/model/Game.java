@@ -18,7 +18,7 @@ public class Game {
 	private int size = 20;
 	private int PNJNumber=5;
 	private int coinNumber=6;
-	private int potionNumber=5;
+	private int potionNumber=8;
 	
 	//*GETTERS*//
 	public Hero getHero(){
@@ -230,8 +230,9 @@ public class Game {
 	public void takePotion (){
 		int x= hero.getPosX();
 		int y= hero.getPosY();
+		int max=getMaxPotion();
 		for( int i=0;i< potions.size(); i++){
-			if(potions.get(i).getPosX()==x && potions.get(i).getPosY()==y){
+			if(potions.get(i).getPosX()==x && potions.get(i).getPosY()==y&& getPotionNumber()<max){
 				hero.grabPotion(potions.get(i));
 				potions.remove(i);
 				window.uploadPotion(getPotionNumber());
@@ -239,9 +240,11 @@ public class Game {
 		}
 	}
 	public void drinkPotion(){
-		hero.drinkPotion();
-		window.uploadLife(getHeroLife());
-		window.uploadPotion(getPotionNumber());
+		if (getPotionNumber()>0){
+			hero.drinkPotion();
+			window.uploadLife(getHeroLife());
+			window.uploadPotion(getPotionNumber());
+		}
 	}
 		
 
@@ -292,6 +295,9 @@ public class Game {
 	}
 	public int getPotionNumber(){
 		return this.hero.getPotionNumInventory();
+	}
+	public int getMaxPotion(){
+		return hero.getMaxPotion();
 	}
 
 

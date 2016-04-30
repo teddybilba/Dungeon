@@ -39,6 +39,12 @@ public class KeyBoard implements KeyListener{
 				case KeyEvent.VK_P:
 					//System.out.println("potion taken");
 					game.takePotion();
+					break;
+				case KeyEvent.VK_D:
+					System.out.println("potion drank");
+					game.drinkPotion();
+					break;
+					
 					
 			}
 		}

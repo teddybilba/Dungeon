@@ -8,12 +8,14 @@ import model.item.Potion;
 public class Hero extends Player{
 	private int coinsNumber;
 	private int maxCoinsNumber;
+	private int maxPotion;
 	private ArrayList<Potion> potionsInventory=new ArrayList<Potion> ();
 	
 	public Hero(int posX,int posY, int attackRange){
 		super(posX, posY, attackRange);
 		this.coinsNumber=0;
 		this.maxCoinsNumber=50;
+		this.maxPotion=5;
 		
 	}
 	public int getCoinsNumber(){
@@ -24,6 +26,9 @@ public class Hero extends Player{
 	}
 	public int getPotionNumInventory(){
 		return this.potionsInventory.size();
+	}
+	public int getMaxPotion(){
+		return this.maxPotion;
 	}
 	public int randomNum(int min, int max){
 		int nb = min + (int)(Math.random() * ((max - min) + 1));
@@ -36,6 +41,8 @@ public class Hero extends Player{
 	}
 	public void grabPotion(Potion potion){
 		potionsInventory.add(potion);
+		
+		
 	}
 	public int choseRandomPotion(){
 		int index =randomNum(0,getPotionNumInventory()-1);
