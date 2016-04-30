@@ -31,12 +31,12 @@ public class HeroHealth extends JPanel{
 	public void setCoinsNumber(int coinsNumber){
 		this.heroCoins=coinsNumber;
 		label1.setText(String.valueOf(heroCoins));
-		System.out.print(String.valueOf(heroCoins));
+		//System.out.print(String.valueOf(heroCoins));
 	}
 	public void setLife(int life){
 		this.heroLife=life;
 		label2.setText(String.valueOf(heroLife));
-		System.out.println(String.valueOf(heroLife));
+		//System.out.println(String.valueOf(heroLife));
 	}
 	public void labelComponent(){
 		ImageIcon iCoin = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png");

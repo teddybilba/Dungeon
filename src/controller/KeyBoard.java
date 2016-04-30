@@ -36,6 +36,10 @@ public class KeyBoard implements KeyListener{
 					game.heroAttacks();
 					game.PlayerDeath();
 					break;
+				case KeyEvent.VK_P:
+					//System.out.println("potion taken");
+					game.takePotion();
+					
 			}
 		}
 

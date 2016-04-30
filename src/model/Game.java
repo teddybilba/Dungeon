@@ -91,7 +91,7 @@ public class Game {
 				pX = randomNum(1,size-2);
 				pY = randomNum(1,size-2);
 			}
-			potions.add(new Potion(pX,pY,false));
+			potions.add(new Potion(pX,pY));
 		}
 		
 		window.draw(this.getMap());
@@ -227,6 +227,23 @@ public class Game {
 		}
 		
 	}
+	public void takePotion (){
+		int x= hero.getPosX();
+		int y= hero.getPosY();
+		for( int i=0;i< potions.size(); i++){
+			if(potions.get(i).getPosX()==x && potions.get(i).getPosY()==y){
+				hero.grabPotion(potions.get(i));
+				potions.remove(i);
+				window.uploadPotion(getPotionNumber());
+			}
+		}
+	}
+	public void drinkPotion(){
+		hero.drinkPotion();
+		window.uploadLife(getHeroLife());
+		window.uploadPotion(getPotionNumber());
+	}
+		
 
 	
 	public int[][] getMap(){
@@ -272,6 +289,9 @@ public class Game {
 	}
 	public int getHeroLife(){
 		return this.hero.getLife();
+	}
+	public int getPotionNumber(){
+		return this.hero.getPotionNumInventory();
 	}
 
 

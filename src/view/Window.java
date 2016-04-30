@@ -45,6 +45,9 @@ private HeroHealth health= new HeroHealth();
 	public void uploadLife(int life){
 		health.setLife(life);
 	}
+	public void uploadPotion(int pNum){
+		inventory.setPotionNumber(pNum);
+	}
 	
 	public void setKeyListener(KeyListener keyboard){
 	    this.map.addKeyListener(keyboard);
