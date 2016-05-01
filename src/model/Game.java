@@ -13,7 +13,7 @@ public class Game {
 	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();// TODO teleportation du hero
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private ArrayList<Potion> potions =new ArrayList<Potion>();
-	private static Hero hero;
+	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private int size = 20;
@@ -23,7 +23,7 @@ public class Game {
 	private int potionNumber=8;
 	
 	//*GETTERS*//
-	public static Hero getHero(){
+	public Hero getHero(){
 		return hero;
 	}
 	
@@ -86,7 +86,7 @@ public class Game {
 				posX = randomNum(1,size-2);
 				posY = randomNum(1,size-2);
 			}
-			PNJs.add(new PNJ(posX,posY,1,1));
+			PNJs.add(new PNJ(posX,posY,1,1, hero));
 		}
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){
@@ -252,7 +252,7 @@ public class Game {
 		
 	}
 	public void dropItem(PNJ pnj){
-		//remplacement par un objet pièce ou potion
+		//remplacement par un objet piï¿½ce ou potion
 		int i= pnj.dropPNJ();
 		if (i==1){
 			coinsOnFloor.add(new Coin(pnj.getPosX(),pnj.getPosY()));

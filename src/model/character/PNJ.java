@@ -3,9 +3,12 @@ import model.item.*;
 
 public class PNJ extends Player{
 	private int visionRange;
-	public PNJ(int posX, int posY, int visionRange, int attackRange){
+	private Player hero;
+	
+	public PNJ(int posX, int posY, int visionRange, int attackRange, Player hero){
 		super(posX, posY, attackRange);
 		this.visionRange = visionRange;
+		this.hero = hero;
 	}
 	
 	public int getVisionRange(){
@@ -21,7 +24,7 @@ public class PNJ extends Player{
 		return nb;
 	}
 	public int dropPNJ(){
-		// retourne un indice pour placer un objet aleatoire à sa place.
+		// retourne un indice pour placer un objet aleatoire ï¿½ sa place.
 		int i=randomNum(1,2);
 		return i;
 	}

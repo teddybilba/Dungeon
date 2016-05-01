@@ -6,8 +6,8 @@ public class Rat extends PNJ implements Runnable{
 	
 	private int type;
 	
-	public Rat(int posX, int posY, int visionRange, int attackRange){
-		super(posX, posY, visionRange, attackRange);
+	public Rat(int posX, int posY, int visionRange, int attackRange, Player hero){
+		super(posX, posY, visionRange, attackRange, hero);
 		if(randomNum(1,10) == 1){
 			type = 0;
 			}
@@ -35,10 +35,10 @@ public class Rat extends PNJ implements Runnable{
 		
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
 				if(Math.abs(differenceX) <= Math.abs(differenceY)){
-					if(! Game.Collision(newPosX, posY)){				// TODO verifier collision
+					if(! Game.Collide(newPosX, posY)){				// TODO verifier collision
 						this.setPosX(newPosX);
 						break;											// TODO needed?
-					}else if(! Game.Collision(posX, newPosY)){
+					}else if(! Game.Collide(posX, newPosY)){
 						this.setPosY(newPosY);
 					}else{
 						this.changeType();
@@ -136,7 +136,7 @@ public class Rat extends PNJ implements Runnable{
 
 	public void run(){
 		if(type == 0){
-			kamikaze(Game.getHero());
+			kamikaze(game.getHero());
 		}else{
 			flee(Game.getHero());
 		}
