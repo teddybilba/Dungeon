@@ -35,10 +35,11 @@ private HeroHealth health= new HeroHealth();
 	   
 	    
 	}	
-	
+	//Mise à jour de la Map
 	public void draw(int[][] mapMatrix){
 		map.setMapMatrix(mapMatrix);
 	}
+	//Mise a jour des objets et vies dans la sante et l inventaire
 	public void uploadCoins(int coinsNumber){
 		health.setCoinsNumber(coinsNumber);
 	}
@@ -47,6 +48,9 @@ private HeroHealth health= new HeroHealth();
 	}
 	public void uploadPotion(int pNum){
 		inventory.setPotionNumber(pNum);
+	}
+	public void uploadPowerNum(int num){
+		inventory.setPowerNum(num);
 	}
 	
 	public void setKeyListener(KeyListener keyboard){

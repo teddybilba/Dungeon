@@ -257,6 +257,7 @@ public class Game {
 			if(coinsOnFloor.get(i).getPosX()==x && coinsOnFloor.get(i).getPosY()==y){
 				hero.grabCoin();
 				coinsOnFloor.remove(i);
+				window.uploadPowerNum(getPowerNum());
 			}
 		}
 		
@@ -282,7 +283,7 @@ public class Game {
 	}
 		
 
-	
+// donne des images a la map	
 	public int[][] getMap(){
 		int[][] map = new int[this.size][this.size];
 		for (Tile tile: tiles){
@@ -327,6 +328,7 @@ public class Game {
 		System.out.println(map);
 		return map;
 	}
+	// Donne les nombre utiles (objets, vies..) du heros
 	public int getCoinsNumber(){
 		return this.hero.getCoinsNumber();
 	}
@@ -338,6 +340,9 @@ public class Game {
 	}
 	public int getMaxPotion(){
 		return hero.getMaxPotion();
+	}
+	public int getPowerNum(){
+		return hero.getSpecialPowerNum();
 	}
 
 
