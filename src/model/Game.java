@@ -242,6 +242,7 @@ public class Game {
 		
 		for (int i=0; i<PNJs.size();i++){
 			if(PNJs.get(i).getLife()==0){
+				dropItem(PNJs.get(i));
 				PNJs.remove(i);
 				System.out.println("Well Done!!!"); 		
 			}
@@ -249,6 +250,16 @@ public class Game {
 		window.draw(this.getMap());
 		window.uploadLife(this.getHeroLife());
 		
+	}
+	public void dropItem(PNJ pnj){
+		//remplacement par un objet pièce ou potion
+		int i= pnj.dropPNJ();
+		if (i==1){
+			coinsOnFloor.add(new Coin(pnj.getPosX(),pnj.getPosY()));
+		}
+		else{
+			potions.add(new Potion(pnj.getPosX(),pnj.getPosY()));
+		}
 	}
 	public void takeCoin(){
 		int x= hero.getPosX();
