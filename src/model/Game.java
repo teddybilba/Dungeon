@@ -13,7 +13,7 @@ public class Game {
 	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();// TODO teleportation du hero
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private ArrayList<Potion> potions =new ArrayList<Potion>();
-	private Hero hero;
+	private static Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private int size = 20;
@@ -23,8 +23,8 @@ public class Game {
 	private int potionNumber=8;
 	
 	//*GETTERS*//
-	public Hero getHero(){
-		return this.hero;
+	public static Hero getHero(){
+		return hero;
 	}
 	
 	public ArrayList<Wall> getWalls(){
@@ -127,8 +127,8 @@ public class Game {
 			}
 		}
 		/*for (Tile tile: tiles){					//TODO voir avec Coline (lignes inutiles?)
-			if(tile.getPresence()==true){           // servait à utiliser l' attribut présence des dalles
-				res=true;                           // plutôt que de parcourir les listes de joueurs et d' ennemis
+			if(tile.getPresence()==true){           // servait ï¿½ utiliser l' attribut prï¿½sence des dalles
+				res=true;                           // plutï¿½t que de parcourir les listes de joueurs et d' ennemis
 			}
 		}*/
 		for (PNJ pnj: PNJs){

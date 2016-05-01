@@ -3,23 +3,23 @@ package model.character;
 public class Player {
 	private int posX;
 	private int posY;
-	private int vitX;
-	private int vitY;
+	private int vit;
 	private int life;
 	private int damage;
 	private int maxDamage;
 	private int attackRange;
+	private int attackDamage;
 	
 	
 	public Player(int posX, int posY, int attackRange){
 		this.posX = posX;
 		this.posY = posY;
-		vitX = 1;
-		vitY = 1;
+		vit = 1;
 		life = 3;
 		damage = 0;
 		maxDamage = 10;
 		this.attackRange= attackRange;
+		attackDamage = 1;
 	}
 	
 	/* ##### Getters & Setters ##### */
@@ -40,21 +40,12 @@ public class Player {
 		this.posY = posY;
 	}
 	/* Vitesse player */
-	public int getVitX(){
-		return vitX;
+	public int getVit(){
+		return vit;
 	}
-	public void setVitX(int vitX){
-		if(vitX > 0 && vitX < 5){
-			this.vitX = vitX;
-		}
-	}
-	
-	public int getVitY(){
-		return vitY;
-	}
-	public void setVitY(int vitY){
-		if(vitY > 0 && vitY < 5){
-			this.vitY = vitY;
+	public void setVit(int vit){
+		if(vit > 0 && vit < 3){
+			this.vit = vit;
 		}
 	}
 	
@@ -66,6 +57,11 @@ public class Player {
 		if(life >= 0 && life < 10){
 			this.life = life;
 		}
+	}
+	
+	public void die(Player target){
+		target.setLife(0);
+		// TODO Game Over
 	}
 	
 	/* Damage */
@@ -110,6 +106,14 @@ public class Player {
 	public void setAttackRange(int range){
 		if(range > 0){
 			this.attackRange = range;
+		}
+	}
+	public int getAttackDamage(){
+		return attackDamage;
+	}
+	public void setAttackDamage(int attackDamage){
+		if(attackDamage > 0 && attackDamage < 10){
+			this.attackDamage = attackDamage;
 		}
 	}
 	

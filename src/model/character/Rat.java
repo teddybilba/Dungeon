@@ -1,26 +1,101 @@
 package model.character;
 
-//import model.Game;
+import model.Game;
 
-public class Rat extends PNJ {
+public class Rat extends PNJ implements Runnable{
+	
+	private int type;
+	
 	public Rat(int posX, int posY, int visionRange, int attackRange){
-		super(posX, posY,visionRange, attackRange);
-	}
-	public void flee(Player target){
-	// fuite du rat face au h�ros ( fuit aussi les squelettes...?)
-	}
-/*	
-	public void move(){
-		int posX = this.getPosX();
-		int posY = this.getPosY();
-		int visionRange = this.getVisionRange();
-		for(int i=1; i >= visionRange; i++){
-			for(int j=1; j <= visionRange; j++){}
-			
-		}
+		super(posX, posY, visionRange, attackRange);
+		if(randomNum(1,10) == 1){
+			type = 0;
+			}
+		else{type = 1;
+		} 
 	}
 	
-	public void move2(Player target){
+	public int getType(){
+		return type;
+	}
+	
+	private void changeType(){
+		type = (type+1) % 2;			// Changes '1 in 0' and "0 in 1"
+		}
+	
+	public void flee(Player target){
+		int targetPosX = target.getPosX();
+		int targetPosY = target.getPosY();
+		int posX = this.getPosX();
+		int posY = this.getPosY();
+		int differenceX = posX - targetPosX;
+		int differenceY = posY - targetPosY;
+		int newPosX = posX + (Integer.signum(differenceX));
+		int newPosY = posY + (Integer.signum(differenceY));
+		
+		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
+				if(Math.abs(differenceX) <= Math.abs(differenceY)){
+					if(! Game.Collision(newPosX, posY)){				// TODO verifier collision
+						this.setPosX(newPosX);
+						break;											// TODO needed?
+					}else if(! Game.Collision(posX, newPosY)){
+						this.setPosY(newPosY);
+					}else{
+						this.changeType();
+						}
+				}else{
+					if(! Game.Collision(PosX, newPosY)){				// TODO verifier collision
+						this.setPosY(newPosY);
+						break;											// TODO needed?
+					}else if(! Game.Collision(newPosX, PosY)){
+						this.setPosX(newPosX);
+					}else{
+						this.changeType();
+						}	
+					}
+		}else{
+			randomMove(this);																						// *** Just moves randomly because player not in view 
+		}
+}
+
+	public void approach(Player target){
+		int targetPosX = target.getPosX();
+		int targetPosY = target.getPosY();
+		int posX = this.getPosX();
+		int posY = this.getPosY();
+		int differenceX = posX - targetPosX;
+		int differenceY = posY - targetPosY;
+		int newPosX = posX - (Integer.signum(differenceX));
+		int newPosY = posY - (Integer.signum(differenceY));
+		
+		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
+				if(Math.abs(differenceX) <= Math.abs(differenceY)){
+					if(! Game.Collision(newPosX, posY)){				// TODO verifier collision
+						this.setPosX(newPosX);
+						break;											// TODO needed?
+					}else if(! Game.Collision(posX, newPosY)){
+						this.setPosY(newPosY);
+					}else{
+						this.changeType();
+						}
+				}else{
+					if(! Game.Collision(PosX, newPosY)){				// TODO verifier collision
+						this.setPosY(newPosY);
+						break;											// TODO needed?
+					}else if(! Game.Collision(newPosX, PosY)){
+						this.setPosX(newPosX);
+					}else{
+						this.changeType();
+						}	
+					}
+		}else{
+			randomMove(this);																						// *** Just moves randomly because player not in view 
+		}
+}
+
+	
+/*	
+	public void approach(Player target){
 		int targetPosX = target.getPosX();
 		int targetPosY = target.getPosY();
 		int posX = this.getPosX();
@@ -28,30 +103,44 @@ public class Rat extends PNJ {
 		int differenceX = posX - targetPosX;
 		int differenceY = posY - targetPosY;
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){
-			if(Math.abs(differenceX) >= Math.abs(differenceY)){
-				this.setPosX(posX + differenceX);
-				//this.setPosX(posX + (Integer.signum(differenceX)*this.getVitX()));
+			if(Math.abs(differenceX) <= Math.abs(differenceY)){
+				this.setPosX(posX - (Integer.signum(differenceX)*this.getVit()));
 			}else{
-				this.setPosY(posY + differenceY);
-				//this.setPosY(posY + (Integer.signum(differenceY)*this.getVitY()));
+				this.setPosY(posY - (Integer.signum(differenceY)*this.getVit()));
 			}
 		}
+	}
+	*/
+	public void randomMove(Player target){
 		
-	} 
-/*	
+	}
+	
+	public void kamikaze(Player target){
+		int targetPosX = target.getPosX();
+		int targetPosY = target.getPosY();
+		int posX = this.getPosX();
+		int posY = this.getPosY();
+		int differenceX = posX - targetPosX;
+		int differenceY = posY - targetPosY;
+		if(differenceX == 1 || differenceY == 1){
+			target.setDamage((this.getMaxDamage()-this.getDamage())*this.getLife());
+			this.die(this);
+		}
+		else{this.approach(target);}
+	}
+	
 	public int randomNum(int min, int max){
 		int nb = min + (int)(Math.random() * ((max - min) + 1));
 		return nb;
 	}
 
-	public void actionPerformed(){
-		int random = randomNum(1, 10);
-		if(random < 2){
-			kamikaze();
+	public void run(){
+		if(type == 0){
+			kamikaze(Game.getHero());
 		}else{
-			flee(hero);
+			flee(Game.getHero());
 		}
 	} 
-*/
+
 
 }
