@@ -31,13 +31,13 @@ public class Map extends JPanel {
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		try {
-			wallImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/wall.png"));
-			gokuImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/goku.png"));
-			coinImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png"));
-			tileImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/tile.png"));
-			ratImage  =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/rat.png"));
-			potionImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/potion.png"));
-			teleTileImage =ImageIO.read(new File("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/teletile.png"));
+			wallImage =ImageIO.read(new File("images/wall.png"));
+			gokuImage =ImageIO.read(new File("images/goku.png"));
+			coinImage =ImageIO.read(new File("images/coin.png"));
+			tileImage =ImageIO.read(new File("images/tile.png"));
+			ratImage  =ImageIO.read(new File("images/rat.png"));
+			potionImage =ImageIO.read(new File("images/potion.png"));
+			teleTileImage =ImageIO.read(new File("images/teletile.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

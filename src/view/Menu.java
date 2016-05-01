@@ -48,7 +48,7 @@ public class Menu extends JFrame {
 		pan.setLayout(null);
 		menu.setContentPane(pan); 
 		menu.setVisible(true);
-		ImageIcon iMenu = new ImageIcon("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/donjon.png");
+		ImageIcon iMenu = new ImageIcon("images/donjon.png");
 
 		image = new JLabel(iMenu);
 		image.setBounds(0, 0,1024,681);

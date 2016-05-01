@@ -30,8 +30,8 @@ public class Inventory extends JPanel {
 		label2.setText("Nb PouvoirsBonus: "+String.valueOf(powerNum));
 	}
 	public void labelComponent(){
-		ImageIcon iPotion = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/potion.png");
-		ImageIcon iPower = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/shield.png");
+		ImageIcon iPotion = new ImageIcon ("images/potion.png");
+		ImageIcon iPower = new ImageIcon ("images/shield.png");
 		label1 = new JLabel("text");
 		label1 = new JLabel(iPotion);
 		label1.setText("Nb Potions: "+String.valueOf(potionNumber));

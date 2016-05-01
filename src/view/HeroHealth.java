@@ -39,14 +39,14 @@ public class HeroHealth extends JPanel{
 		//System.out.println(String.valueOf(heroLife));
 	}
 	public void labelComponent(){
-		ImageIcon iCoin = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/coin.png");
-		ImageIcon iLife = new ImageIcon ("/Users/coline/Documents/GitHub/Dungeon/Dungeon/src/images/life.png");
+		ImageIcon iCoin = new ImageIcon ("images/coin.png");
+		ImageIcon iLife = new ImageIcon ("images/life.png");
 		
 		
 		label1 = new JLabel("text");
 		//label1 = new JLabel(iCoin);
-		label1.setText("Nb Pieces: "+String.valueOf(heroCoins));//TODO régler le problème
-		label1.setBounds(1050, 50,10,10);                       // d apparition des images en arrière plan!!
+		label1.setText("Nb Pieces: "+String.valueOf(heroCoins));//TODO rï¿½gler le problï¿½me
+		label1.setBounds(1050, 50,10,10);                       // d apparition des images en arriï¿½re plan!!
 		                                                        //set bounds inefficaces on dirait
 		label2 = new JLabel("text");
 		//label2 = new JLabel(iLife);
