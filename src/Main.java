@@ -1,13 +1,9 @@
-import controller.KeyBoard;
-import model.Game;
-import view.Window;
+
+import view.Menu;
 
 
 public class Main {
 	public static void main(String[] args) {
-		Window window = new Window();
-		Game game = new Game(window);
-		KeyBoard keyboard = new KeyBoard(game);
-		window.setKeyListener(keyboard);
+		Menu menu= new Menu(); //TODO mettre ce qu'il y avait dans Main dans le menu
 	}
 }

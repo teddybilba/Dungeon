@@ -1,5 +1,6 @@
 package view;
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+/*import javax.swing.Timer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;*/
 
-import controller.*;
-import model.*;
+import controller.KeyBoard;
+import model.Game;
 import view.Window;
 
 public class Menu extends JFrame {
@@ -55,7 +56,7 @@ public class Menu extends JFrame {
 		start.setBounds((1024 - 300)/2, 750/2, 300, 50);
 		Font police = new Font("Arial", Font.BOLD, 30);
 		start.setFont(police);
-		start.setForeground(Color.BLUE);
+		start.setForeground(Color.WHITE);
 		start.setBackground(Color.BLACK);
 		start.addActionListener(new ActionListener(){
 			@Override
@@ -67,7 +68,7 @@ public class Menu extends JFrame {
 
 		exit.setBounds((1024-200)/2, 850/2, 200, 50);
 		exit.setFont(police);
-		exit.setForeground(Color.BLUE);
+		exit.setForeground(Color.WHITE);
 		exit.setBackground(Color.BLACK);
 		exit.addActionListener(new ActionListener(){
 			@Override
@@ -84,7 +85,10 @@ public class Menu extends JFrame {
 	}
 	
 	private void lancerJeu() {
-		
+		Window window = new Window();
+		Game game = new Game(window);
+		KeyBoard keyboard = new KeyBoard(game);
+		window.setKeyListener(keyboard);
 		
 	}
 
