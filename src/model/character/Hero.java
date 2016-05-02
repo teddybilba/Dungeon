@@ -1,6 +1,7 @@
 package model.character;
 
 import java.util.ArrayList;
+import model.Game;
 
 import model.item.Potion;
 
@@ -13,8 +14,8 @@ public class Hero extends Player{
 	private int specialPowerNum;
 	private int maxPowerNum;
 	/*CONSTRUCTEUR*/
-	public Hero(int posX,int posY, int attackRange){
-		super(posX, posY, attackRange);
+	public Hero(int posX,int posY, int attackRange, Game game){
+		super(posX, posY, attackRange, game);
 		this.coinsNumber=0;
 		this.maxCoinsNumber=20;
 		this.maxPotion=5;
@@ -46,7 +47,7 @@ public class Hero extends Player{
 	//MANIPULATION DES PIECES
 	
 	public void grabCoin (){
-		//Si on a 50 pièces, on gagne un pouvoir bonus (3 max) si
+		//Si on a 50 piï¿½ces, on gagne un pouvoir bonus (3 max) si
 		//on en a deja 3 on gagne une vie.
 		this.coinsNumber+=1;
 		if (coinsNumber>=maxCoinsNumber){
@@ -70,7 +71,7 @@ public class Hero extends Player{
 		return res;
 	}
 	public void specialPower(){
-		// TODO implementer l' invincibilt" du joueur pendant une certaine durée
+		// TODO implementer l' invincibilt" du joueur pendant une certaine durï¿½e
 		//( thread je suppose)...
 	}
 	public void usePower(){

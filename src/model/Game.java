@@ -79,7 +79,8 @@ public class Game {
 			hX=randomNum(1,size-2);
 			hY=randomNum(1,size-2);		
 		}
-		hero=new Hero(hX,hY,1);
+		hero=new Hero(hX,hY,1,this);
+		
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
 			int posX = randomNum(1, size - 2);
@@ -89,7 +90,10 @@ public class Game {
 				posX = randomNum(1,size-2);
 				posY = randomNum(1,size-2);
 			}
-			PNJs.add(new PNJ(posX,posY,1,1, hero));
+			Rat rat = new Rat(posX,posY,1,1, this);
+			PNJs.add(rat);
+			Thread t1 = new Thread(rat);
+			t1.start();
 		}
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){

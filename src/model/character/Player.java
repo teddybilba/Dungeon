@@ -1,6 +1,10 @@
 package model.character;
 
+import model.Game;
+import java.util.ArrayList;
+
 public class Player {
+	protected Game game;
 	private int posX;
 	private int posY;
 	private int vit;
@@ -9,9 +13,11 @@ public class Player {
 	private int maxDamage;
 	private int attackRange;
 	private int attackDamage;
+	private ArrayList<String> listPossibleMoves = new ArrayList<String>();
 	
 	
-	public Player(int posX, int posY, int attackRange){
+	public Player(int posX, int posY, int attackRange, Game game){
+		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
 		vit = 1;
@@ -115,6 +121,23 @@ public class Player {
 		if(attackDamage > 0 && attackDamage < 10){
 			this.attackDamage = attackDamage;
 		}
+	}
+	
+	public ArrayList<String> getListPossibleMoves(){
+		listPossibleMoves.clear();
+		if(! game.Collision(posX-1, posY)){
+			listPossibleMoves.add("W");
+		}
+		if(! game.Collision(posX+1, posY)){
+			listPossibleMoves.add("E");
+		}
+		if(! game.Collision(posX, posY+1)){
+			listPossibleMoves.add("N");
+		}
+		if(! game.Collision(posX, posY-1)){
+			listPossibleMoves.add("S");
+		}
+		return listPossibleMoves;
 	}
 	
 	/* #### Methods #### */

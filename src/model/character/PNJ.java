@@ -1,14 +1,13 @@
 package model.character;
 import model.item.*;
+import model.Game;
 
 public class PNJ extends Player{
 	private int visionRange;
-	private Player hero;
 	
-	public PNJ(int posX, int posY, int visionRange, int attackRange, Player hero){
-		super(posX, posY, attackRange);
+	public PNJ(int posX, int posY, int visionRange, int attackRange, Game game){
+		super(posX, posY, attackRange, game);
 		this.visionRange = visionRange;
-		this.hero = hero;
 	}
 	
 	public int getVisionRange(){

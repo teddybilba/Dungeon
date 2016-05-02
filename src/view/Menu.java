@@ -21,8 +21,6 @@ import model.Game;
 import view.Window;
 
 public class Menu extends JFrame {
-
-	private static Game game;
 	
 	private static final long serialVersionUID = 1L;
 	private int gameSize;
@@ -126,17 +124,9 @@ public class Menu extends JFrame {
 
 	}
 	
-	public static Game getGame(){
-		return game;
-	}
-	private void setGame(Game game){
-		Menu.game = game;
-	} 
-	
 	private void lancerJeu() {
 		Window window = new Window();
 		Game game = new Game(window, gameSize);
-		this.setGame(game);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 		

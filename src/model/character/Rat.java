@@ -1,13 +1,14 @@
 package model.character;
 
 import model.Game;
+import java.util.ArrayList;
 
 public class Rat extends PNJ implements Runnable{
 	
 	private int type;
 	
-	public Rat(int posX, int posY, int visionRange, int attackRange, Player hero){
-		super(posX, posY, visionRange, attackRange, hero);
+	public Rat(int posX, int posY, int visionRange, int attackRange, Game game){
+		super(posX, posY, visionRange, attackRange, game);
 		if(randomNum(1,10) == 1){
 			type = 0;
 			}
@@ -35,19 +36,17 @@ public class Rat extends PNJ implements Runnable{
 		
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
 				if(Math.abs(differenceX) <= Math.abs(differenceY)){
-					if(! Game.Collide(newPosX, posY)){				// TODO verifier collision
-						this.setPosX(newPosX);
-						break;											// TODO needed?
-					}else if(! Game.Collide(posX, newPosY)){
+					if(! game.Collision(newPosX, posY)){				
+						this.setPosX(newPosX);										
+					}else if(! game.Collision(posX, newPosY)){
 						this.setPosY(newPosY);
 					}else{
 						this.changeType();
 						}
 				}else{
-					if(! Game.Collision(PosX, newPosY)){				// TODO verifier collision
-						this.setPosY(newPosY);
-						break;											// TODO needed?
-					}else if(! Game.Collision(newPosX, PosY)){
+					if(! game.Collision(posX, newPosY)){				
+						this.setPosY(newPosY);										
+					}else if(! game.Collision(newPosX, posY)){
 						this.setPosX(newPosX);
 					}else{
 						this.changeType();
@@ -70,19 +69,17 @@ public class Rat extends PNJ implements Runnable{
 		
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
 				if(Math.abs(differenceX) <= Math.abs(differenceY)){
-					if(! Game.Collision(newPosX, posY)){				// TODO verifier collision
-						this.setPosX(newPosX);
-						break;											// TODO needed?
-					}else if(! Game.Collision(posX, newPosY)){
+					if(! game.Collision(newPosX, posY)){				
+						this.setPosX(newPosX);											
+					}else if(! game.Collision(posX, newPosY)){
 						this.setPosY(newPosY);
 					}else{
 						this.changeType();
 						}
 				}else{
-					if(! Game.Collision(PosX, newPosY)){				// TODO verifier collision
-						this.setPosY(newPosY);
-						break;											// TODO needed?
-					}else if(! Game.Collision(newPosX, PosY)){
+					if(! game.Collision(posX, newPosY)){				
+						this.setPosY(newPosY);											
+					}else if(! game.Collision(newPosX, posY)){
 						this.setPosX(newPosX);
 					}else{
 						this.changeType();
@@ -112,7 +109,15 @@ public class Rat extends PNJ implements Runnable{
 	}
 	*/
 	public void randomMove(Player target){
-		
+		ArrayList<String> listPossibleMoves = this.getListPossibleMoves();
+		if(listPossibleMoves.size() != 0){
+			int randomNum = randomNum(0, listPossibleMoves.size());
+			String direction = listPossibleMoves.get(randomNum);
+			if(direction.equals("E")){this.setPosX(this.getPosX()+1);}
+			if(direction.equals("W")){this.setPosX(this.getPosX()-1);}
+			if(direction.equals("N")){this.setPosY(this.getPosY()+1);}
+			if(direction.equals("S")){this.setPosY(this.getPosY()-1);}
+		}else{this.changeType();}
 	}
 	
 	public void kamikaze(Player target){
@@ -135,12 +140,16 @@ public class Rat extends PNJ implements Runnable{
 	}
 
 	public void run(){
-		if(type == 0){
-			kamikaze(game.getHero());
-		}else{
-			flee(Game.getHero());
+		try{
+			while(true){
+				Thread.sleep(50);
+				if(type == 0){
+					kamikaze(game.getHero());
+				}else{
+					flee(game.getHero());
+				}
 		}
-	} 
-
+	}catch(Exception e){System.out.println("Problem with thread rat !");} 
+	}
 
 }
