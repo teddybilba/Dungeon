@@ -113,9 +113,8 @@ public class Game {
 			potions.add(new Potion(pX,pY));
 		}
 		
+		window.settings(hero);
 		window.draw(this.getMap());
-		window.uploadCoins(this.getCoinsNumber());
-		window.uploadLife(this.getHeroLife());
 	}
 		
 	//  collision avec un mur?:
@@ -182,8 +181,8 @@ public class Game {
 			hero.move(-1, 0);
 			takeCoin();
 			teleportation();
+			window.settings(hero);
 			window.draw(this.getMap());
-			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public void movePlayerRight(){
@@ -191,8 +190,8 @@ public class Game {
 			hero.move(1,0);
 			takeCoin();
 			teleportation();
+			window.settings(hero);
 			window.draw(this.getMap());
-			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public void movePlayerDown(){
@@ -200,8 +199,9 @@ public class Game {
 			hero.move(0,1);
 			takeCoin();
 			teleportation();
+			window.settings(hero);
 			window.draw(this.getMap());
-			window.uploadCoins(this.getCoinsNumber());
+			
 		}
 	}
 	public void movePlayerUp(){
@@ -209,8 +209,8 @@ public class Game {
 			hero.move(0,-1);
 			takeCoin();
 			teleportation();
+			window.settings(hero);
 			window.draw(this.getMap());
-			window.uploadCoins(this.getCoinsNumber());
 		}
 	}
 	public int randomTeleTile(){
@@ -250,8 +250,8 @@ public class Game {
 				System.out.println("Well Done!!!"); 		
 			}
 		}
+		window.settings(hero);
 		window.draw(this.getMap());
-		window.uploadLife(this.getHeroLife());
 		
 	}
 	public void dropItem(PNJ pnj){
@@ -271,7 +271,7 @@ public class Game {
 			if(coinsOnFloor.get(i).getPosX()==x && coinsOnFloor.get(i).getPosY()==y){
 				hero.grabCoin();
 				coinsOnFloor.remove(i);
-				window.uploadPowerNum(getPowerNum());
+				window.settings(hero);
 			}
 		}
 		
@@ -279,20 +279,20 @@ public class Game {
 	public void takePotion (){
 		int x= hero.getPosX();
 		int y= hero.getPosY();
-		int max=getMaxPotion();
+		int max=hero.getMaxPotion();
 		for( int i=0;i< potions.size(); i++){
-			if(potions.get(i).getPosX()==x && potions.get(i).getPosY()==y&& getPotionNumber()<max){
+			if(potions.get(i).getPosX()==x && potions.get(i).getPosY()==y&& hero.getPotionNumInventory()<max){
 				hero.grabPotion(potions.get(i));
 				potions.remove(i);
-				window.uploadPotion(getPotionNumber());
+				window.settings(hero);
+				
 			}
 		}
 	}
 	public void drinkPotion(){
-		if (getPotionNumber()>0){
+		if (hero.getPotionNumInventory()>0){
 			hero.drinkPotion();
-			window.uploadLife(getHeroLife());
-			window.uploadPotion(getPotionNumber());
+			window.settings(hero);
 			playerDeath();
 		}
 	}
@@ -343,22 +343,7 @@ public class Game {
 		System.out.println(map);
 		return map;
 	}
-	// Donne les nombre utiles (objets, vies..) du heros
-	public int getCoinsNumber(){
-		return this.hero.getCoinsNumber();
-	}
-	public int getHeroLife(){
-		return this.hero.getLife();
-	}
-	public int getPotionNumber(){
-		return this.hero.getPotionNumInventory();
-	}
-	public int getMaxPotion(){
-		return hero.getMaxPotion();
-	}
-	public int getPowerNum(){
-		return hero.getSpecialPowerNum();
-	}
+	
 
 
 

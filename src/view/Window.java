@@ -37,6 +37,12 @@ private JFrame window;
 	   
 	    
 	}
+	public void settings(Hero hero){
+		this.health.setCoinsNumber(hero.getCoinsNumber());
+		this.health.setLife(hero.getLife());
+		this.inventory.setPotionNumber(hero.getPotionNumInventory());
+		this.inventory.setPowerNum(hero.getSpecialPowerNum());
+	}
 	public HeroHealth getHealth(){
 		return this.health;
 	}
@@ -47,19 +53,7 @@ private JFrame window;
 	public void draw(int[][] mapMatrix){
 		map.setMapMatrix(mapMatrix);
 	}
-	//Mise a jour des objets et vies dans la sante et l inventaire
-	public void uploadCoins(int coinsNumber){
-		health.setCoinsNumber(coinsNumber);
-	}
-	public void uploadLife(int life){
-		health.setLife(life);
-	}
-	public void uploadPotion(int pNum){
-		inventory.setPotionNumber(pNum);
-	}
-	public void uploadPowerNum(int num){
-		inventory.setPowerNum(num);
-	}
+	
 	public void gameOver(){
 		if (health.getHeroLife()==0){
 			window.dispose();
