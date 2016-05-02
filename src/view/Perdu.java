@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +16,11 @@ import javax.swing.JPanel;
 
 import controller.KeyBoard;
 import model.Game;
+import view.Menu;
 
 
 public class Perdu extends JFrame {
-	
+	private static final long serialVersionUID = 1L;
 	private JButton restart = new JButton ("Try Again!");
 	private JButton exit = new JButton ("Exit");
 	private JLabel image = new JLabel();
@@ -76,7 +78,7 @@ public class Perdu extends JFrame {
 	public void restartGame(){
 		
 		Window window = new Window();
-		Game game = new Game(window);
+		Game game = new Game(window,30);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 			
