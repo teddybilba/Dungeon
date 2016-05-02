@@ -88,7 +88,7 @@ public class Menu extends JFrame {
 		small.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize=20;
+				gameSize = 30;
 			}
 
 		});
@@ -100,7 +100,18 @@ public class Menu extends JFrame {
 		medium.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize=50;
+				gameSize = 40;
+			}
+
+		});
+		large.setBounds(500, 200, 150, 50);
+		large.setFont(police);
+		large.setForeground(Color.BLACK);
+		large.setBackground(Color.WHITE);
+		large.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize = 50;
 			}
 
 		});
@@ -109,6 +120,7 @@ public class Menu extends JFrame {
 		pan.add(exit);
 		pan.add(small);
 		pan.add(medium);
+		pan.add(large);
 		pan.add(image);
 		
 
@@ -123,7 +135,7 @@ public class Menu extends JFrame {
 	
 	private void lancerJeu() {
 		Window window = new Window();
-		Game game = new Game(window);
+		Game game = new Game(window, gameSize);
 		this.setGame(game);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);

@@ -18,7 +18,7 @@ public class Game {
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
 	private Perdu perdu;
-	private int size = 20;
+	private int size;
 	private int teleNum=5;
 	private int PNJNumber=5;
 	private int coinNumber=6;
@@ -49,8 +49,9 @@ public class Game {
 	//* FONCTIONS RANDOM*//
 	
 		
-	public Game(Window window){
+	public Game(Window window, int size){
 		this.window = window;
+		this.size = size;
 		// Map building 
 		for(int i = 0; i < size; i++){
 			walls.add(new Wall(i,0));
