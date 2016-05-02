@@ -24,8 +24,8 @@ public class Perdu extends JFrame {
 	private JButton restart = new JButton ("Try Again!");
 	private JButton exit = new JButton ("Exit");
 	private JLabel image = new JLabel();
-	private JFrame perdu;
-	public Perdu(){
+	private JFrame perdu;//TODO placer des boutons de choix de taille à nouveau pour relancer une nouvelle partie
+	public Perdu(){		//plutot creer une classe mère menu et deux classes filles avec comme difference un bouton( start ou tryagain)
 		super("DONJON");
 		perdu=new JFrame();
 		this.setResizable(false);
