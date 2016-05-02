@@ -25,8 +25,12 @@ public class Menu extends JFrame {
 	private static Game game;
 	
 	private static final long serialVersionUID = 1L;
+	private int gameSize;
 	private JButton start = new JButton ("Start Game");
 	private JButton exit = new JButton ("Exit");
+	private JButton small = new JButton ("Small");
+	private JButton medium = new JButton ("Medium");
+	private JButton large = new JButton ("Large");
 	private JLabel image = new JLabel();
 	private JFrame menu;
 	
@@ -38,7 +42,7 @@ public class Menu extends JFrame {
 		this.setResizable(false);
 		menu = new JFrame();
 		menu.setTitle("DONJON");
-		menu.setSize(1024,681);
+		menu.setSize(1050,700);
 		menu.setResizable(false);
 		menu.setLocationRelativeTo(null);
 		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,9 +54,9 @@ public class Menu extends JFrame {
 		ImageIcon iMenu = new ImageIcon("images/donjon.png");
 
 		image = new JLabel(iMenu);
-		image.setBounds(0, 0,1024,681);
+		image.setBounds(0, 0,1050,700);
 
-		start.setBounds((1024 - 300)/2, 750/2, 300, 50);
+		start.setBounds((1050 - 300)/2, 750/2, 300, 50);
 		Font police = new Font("Arial", Font.BOLD, 30);
 		start.setFont(police);
 		start.setForeground(Color.WHITE);
@@ -65,7 +69,7 @@ public class Menu extends JFrame {
 			}	
 		});
 
-		exit.setBounds((1024-200)/2, 850/2, 200, 50);
+		exit.setBounds((1050-200)/2, 850/2, 200, 50);
 		exit.setFont(police);
 		exit.setForeground(Color.WHITE);
 		exit.setBackground(Color.BLACK);
@@ -76,10 +80,37 @@ public class Menu extends JFrame {
 			}
 
 		});
+		
+		small.setBounds(200, 200, 150, 50);
+		small.setFont(police);
+		small.setForeground(Color.BLACK);
+		small.setBackground(Color.WHITE);
+		small.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize=20;
+			}
+
+		});
+		
+		medium.setBounds(350, 200, 150, 50);
+		medium.setFont(police);
+		medium.setForeground(Color.BLACK);
+		medium.setBackground(Color.WHITE);
+		medium.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize=50;
+			}
+
+		});
 		pan.setBackground(Color.BLACK);
 		pan.add(start);
 		pan.add(exit);
+		pan.add(small);
+		pan.add(medium);
 		pan.add(image);
+		
 
 	}
 	

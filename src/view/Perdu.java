@@ -28,7 +28,7 @@ public class Perdu extends JFrame {
 		perdu=new JFrame();
 		this.setResizable(false);
 		perdu.setTitle("DONJON:GAME OVER");
-		perdu.setSize(1024,681);
+		perdu.setSize(1050,700);
 		perdu.setResizable(false);
 		perdu.setLocationRelativeTo(null);
 		perdu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,10 +40,10 @@ public class Perdu extends JFrame {
 		ImageIcon iPerdu = new ImageIcon("images/donjon.png");
 
 		image = new JLabel(iPerdu);
-		image.setBounds(0, 0,1024,681);
+		image.setBounds(0, 0,1050,700);
 		
 		
-		restart.setBounds((1024 - 300)/2, 750/2, 300, 50);
+		restart.setBounds((1050 - 300)/2, 750/2, 300, 50);
 		Font police = new Font("Arial", Font.BOLD, 30);
 		restart.setFont(police);
 		restart.setForeground(Color.WHITE);
@@ -55,7 +55,7 @@ public class Perdu extends JFrame {
 				perdu.dispose();
 			}	
 		});
-		exit.setBounds((1024-200)/2, 850/2, 200, 50);
+		exit.setBounds((1050-200)/2, 850/2, 200, 50);
 		
 		exit.setFont(police);
 		exit.setForeground(Color.WHITE);
