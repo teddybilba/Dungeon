@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import view.Perdu;
 import view.Window;
 import model.character.*;
 import model.dalle.*;
@@ -16,6 +17,7 @@ public class Game {
 	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private Window window;
+	private Perdu perdu;
 	private int size = 20;
 	private int teleNum=5;
 	private int PNJNumber=5;
@@ -68,7 +70,7 @@ public class Game {
 			int tY = randomNum(1, size - 2);
 			teleportationTiles.add(new Tile(tX,tY));
 		}
-		//hero= new Hero(10,10,1);
+	
 		// Creating hero
 		int hX=randomNum(1,size-2);
 		int hY=randomNum(1,size-2);
@@ -233,11 +235,12 @@ public class Game {
 		hero.attack(PNJs.get(targetIndex), 5);
 		System.out.println("Attack !");
 	}
-	public void PlayerDeath (){ // Diparition du joueur ou des ennemis car morts
+	public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
 		
 		if(hero.getLife()==0){
 			System.out.println("Game Over!!!"); 		//TODO Game Over
-			window.draw(this.getMap());
+			window.gameOver();
+			perdu=new Perdu();
 		}
 		
 		for (int i=0; i<PNJs.size();i++){
@@ -290,6 +293,7 @@ public class Game {
 			hero.drinkPotion();
 			window.uploadLife(getHeroLife());
 			window.uploadPotion(getPotionNumber());
+			playerDeath();
 		}
 	}
 		

@@ -5,6 +5,8 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.character.Hero;
+
 
 
 
@@ -18,7 +20,7 @@ public class HeroHealth extends JPanel{
 	public HeroHealth(){
 		this.setBackground(Color.WHITE);
 		this.heroCoins=0;
-		this.heroLife=3;
+		this.heroLife=1;
 		labelComponent();
 		this.add(label1);
 		this.add(label2);
@@ -26,6 +28,10 @@ public class HeroHealth extends JPanel{
 		
 		
 	}
+	public int getHeroLife(){
+		return this.heroLife;
+	}
+	
 	
 	
 	public void setCoinsNumber(int coinsNumber){

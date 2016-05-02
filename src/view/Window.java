@@ -7,6 +7,7 @@ import javax.swing.JSplitPane;
 
 import view.Inventory; 
 import view.HeroHealth;
+import model.character.Hero;
 
 
 public class Window {
@@ -14,8 +15,9 @@ private JSplitPane split1, split2;
 private Map map = new Map();// cette ligne pose problème pour les labels!!
 private Inventory inventory= new Inventory();
 private HeroHealth health= new HeroHealth();	
+private JFrame window;
 	public Window(){	    
-	    JFrame window = new JFrame("Game");
+	    window = new JFrame("Game");
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.setBounds(0, 0, 1500, 1020);
 	    window.getContentPane().setBackground(Color.gray);
@@ -34,7 +36,13 @@ private HeroHealth health= new HeroHealth();
 	    window.setResizable(true);
 	   
 	    
-	}	
+	}
+	public HeroHealth getHealth(){
+		return this.health;
+	}
+	public Inventory getInventory(){
+		return this.inventory;
+	}
 	//Mise à jour de la Map
 	public void draw(int[][] mapMatrix){
 		map.setMapMatrix(mapMatrix);
@@ -51,6 +59,12 @@ private HeroHealth health= new HeroHealth();
 	}
 	public void uploadPowerNum(int num){
 		inventory.setPowerNum(num);
+	}
+	public void gameOver(){
+		if (health.getHeroLife()==0){
+			window.dispose();
+		}
+
 	}
 	
 	public void setKeyListener(KeyListener keyboard){

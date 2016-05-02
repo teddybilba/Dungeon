@@ -15,7 +15,7 @@ public class Player {
 		this.posX = posX;
 		this.posY = posY;
 		vit = 1;
-		life = 3;
+		life = 1;
 		damage = 0;
 		maxDamage = 10;
 		this.attackRange= attackRange;
