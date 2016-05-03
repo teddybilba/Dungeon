@@ -331,51 +331,51 @@ public class Game {
 // donne des images a la map	
 	public int[][] getMap(){
 		int[][] map = new int[this.size][this.size];
-		int xc=hero.getPosX();
-		int yc= hero.getPosY();
+		//int xc=hero.getPosX();
+		//int yc= hero.getPosY();
 		for (Tile tile: tiles){
 			int x= tile.getPosX();
 			int y= tile.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=0;
-			}
+			
 		}
 
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=1;
-			}
+			
 		}
 		for(Tile teleTile: teleportationTiles){
 			int x = teleTile.getPosX();
 			int y = teleTile.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=6;
-			}
+			
 		}
 		
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=4;
-			}
+			
 		}
 		for(Potion potion: potions){
 			int x = potion.getPosX();
 			int y = potion.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=5;
-			}
+			
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
-			if(Math.abs(x-xc)<=mapRange && Math.abs(y-yc)<=mapRange){
+			
 				map[x][y]=3;
-			}
+			
 		}
 		
 			int x = hero.getPosX();
