@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,16 +14,21 @@ import javax.swing.JPanel;
 
 import controller.KeyBoard;
 import model.Game;
-import view.Menu;
+
+
 
 
 public class Perdu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton restart = new JButton ("Try Again!");
 	private JButton exit = new JButton ("Exit");
+	private JButton small = new JButton ("Small");
+	private JButton medium = new JButton ("Medium");
+	private JButton large = new JButton ("Large");
+	private int gameSize;
 	private JLabel image = new JLabel();
 	private JFrame perdu;//TODO placer des boutons de choix de taille à nouveau pour relancer une nouvelle partie
-	public Perdu(){		//plutot creer une classe mère menu et deux classes filles avec comme difference un bouton( start ou tryagain)
+	public Perdu(){		// DONE
 		super("DONJON");
 		perdu=new JFrame();
 		this.setResizable(false);
@@ -69,6 +72,40 @@ public class Perdu extends JFrame {
 			}
 
 		});
+		small.setBounds(200, 200, 150, 50);
+		small.setFont(police);
+		small.setForeground(Color.BLACK);
+		small.setBackground(Color.WHITE);
+		small.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize = 30;
+			}
+
+		});
+		
+		medium.setBounds(350, 200, 150, 50);
+		medium.setFont(police);
+		medium.setForeground(Color.BLACK);
+		medium.setBackground(Color.WHITE);
+		medium.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize = 40;
+			}
+
+		});
+		large.setBounds(500, 200, 150, 50);
+		large.setFont(police);
+		large.setForeground(Color.BLACK);
+		large.setBackground(Color.WHITE);
+		large.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameSize = 50;
+			}
+
+		});
 		pan.setBackground(Color.BLACK);
 		pan.add(restart);
 		pan.add(exit);
@@ -78,7 +115,7 @@ public class Perdu extends JFrame {
 	public void restartGame(){
 		
 		Window window = new Window();
-		Game game = new Game(window,30);
+		Game game = new Game(window,gameSize);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 			

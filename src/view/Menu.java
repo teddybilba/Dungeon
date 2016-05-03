@@ -23,7 +23,7 @@ import view.Window;
 public class Menu extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private int gameSize;
+	private int gameSize=0;
 	private JButton start = new JButton ("Start Game");
 	private JButton exit = new JButton ("Exit");
 	private JButton small = new JButton ("Small");
@@ -62,9 +62,12 @@ public class Menu extends JFrame {
 		start.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {	
-				lancerJeu();
+				try{lancerJeu();
+				}
+				catch (sizeException ex){}
+				
 				menu.dispose();
-			}	
+			}
 		});
 
 		exit.setBounds((1050-200)/2, 850/2, 200, 50);
@@ -124,12 +127,16 @@ public class Menu extends JFrame {
 
 	}
 	
-	private void lancerJeu() {
-		Window window = new Window();
-		Game game = new Game(window, gameSize);
-		KeyBoard keyboard = new KeyBoard(game);
-		window.setKeyListener(keyboard);
-		
+	private void lancerJeu() throws sizeException{
+		if(gameSize==0){
+			throw new sizeException();
+		}
+		else{
+			Window window = new Window();
+			Game game = new Game(window, gameSize);
+			KeyBoard keyboard = new KeyBoard(game);
+			window.setKeyListener(keyboard);
+		}
 	}
 
 }
