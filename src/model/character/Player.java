@@ -231,7 +231,7 @@ public class Player {
 		int posEnnemyX = getPosXInFace(this.getPosX());
 		int posEnnemyY = getPosYInFace(this.getPosY());
 		
-		target.setDamage(this.getAttackDamage());
+		setDamage(this.getAttackDamage());
 		
 	}
 	

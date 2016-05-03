@@ -13,7 +13,9 @@ public class Hero extends Player{
 	private ArrayList<Potion> potionsInventory=new ArrayList<Potion> ();
 	private int specialPowerNum;
 	private int maxPowerNum;
-	/*CONSTRUCTEUR*/
+	
+	
+	/* ### CONSTRUCTEUR ### */
 	public Hero(int posX,int posY, int attackRange, Game game){
 		super(posX, posY, attackRange, game);
 		this.coinsNumber=0;

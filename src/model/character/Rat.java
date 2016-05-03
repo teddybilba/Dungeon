@@ -131,7 +131,7 @@ public class Rat extends PNJ implements Runnable{
 		int differenceY = posY - targetPosY;
 		if(differenceX == 1 || differenceY == 1){
 			target.setDamage((this.getMaxDamage()-this.getDamage())*this.getLife());
-			this.die(this);
+			this.die();
 		}
 		else{this.approach(target);}
 	}

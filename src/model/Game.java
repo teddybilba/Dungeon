@@ -322,10 +322,7 @@ public class Game {
 	}
 	
 	public void heroAttacks(){
-		int x = hero.getPosX();
-		int y = hero.getPosY();
-		int targetIndex=listIndexPNJ(PNJs,x,y);
-		hero.attack(PNJs.get(targetIndex), 5);
+		hero.attack();
 		System.out.println("Attack !");
 	}
 	public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
@@ -420,7 +417,6 @@ public class Game {
 				map[x-posX-mapRange][y-posX-mapRange]=0;
 			}
 		}
-
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
@@ -435,7 +431,6 @@ public class Game {
 				map[x-posX-mapRange][y-posY-mapRange]=6;
 			}
 		}
-		
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
@@ -466,6 +461,35 @@ public class Game {
 		System.out.println(map);
 		return map;
 	}
+	/*
+	public int[][] getMap(){
+		int[][] map = new int[size][size];
+		for (Tile tile: tiles){
+			map[tile.getPosX()][tile.getPosY()]=0;
+			}
+		
+		for(Wall wall: walls){
+			map[wall.getPosX()][wall.getPosY()]=1;
+			}
+		for(Tile teleTile: teleportationTiles){
+			map[teleTile.getPosX()][teleTile.getPosY()]=6;
+			}
+
+		for(Coin coin: coinsOnFloor){
+			map[coin.getPosX()][coin.getPosY()] = 4;
+			}
+		for(Potion potion: potions){
+				map[potion.getPosX()][potion.getPosY()]=5;
+				}
+		for(PNJ pnj: PNJs){
+				map[pnj.getPosX()][pnj.getPosY()]=3;
+			}
+		
+		map[hero.getPosX()][hero.getPosY()] = 2;
+		
+		System.out.println(map);
+		return map;
+	}*/
 	
 
 
