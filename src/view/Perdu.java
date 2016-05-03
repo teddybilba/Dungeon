@@ -16,9 +16,8 @@ import controller.KeyBoard;
 import model.Game;
 
 
-
-
 public class Perdu extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 	private JButton restart = new JButton ("Try Again!");
 	private JButton exit = new JButton ("Exit");
@@ -27,11 +26,16 @@ public class Perdu extends JFrame {
 	private JButton large = new JButton ("Large");
 	private int gameSize=30;
 	private JLabel image = new JLabel();
-	private JFrame perdu;//TODO placer des boutons de choix de taille à nouveau pour relancer une nouvelle partie
-	public Perdu(){		// DONE
+	private JFrame perdu;//TODO placer des boutons de choix de taille ï¿½ nouveau pour relancer une nouvelle partie
+	
+	
+	/* ### CONSTRUCTEUR ### */
+	
+	public Perdu(){		
 		super("DONJON");
-		perdu=new JFrame();
+		perdu = new JFrame();
 		this.setResizable(false);
+		
 		perdu.setTitle("DONJON:GAME OVER");
 		perdu.setSize(1050,700);
 		perdu.setResizable(false);
@@ -115,6 +119,8 @@ public class Perdu extends JFrame {
 		pan.add(image);
 
 	}
+	
+	
 	public void restartGame(){
 		Window window = new Window();
 		Game game = new Game(window,gameSize);

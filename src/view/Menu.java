@@ -33,7 +33,7 @@ public class Menu extends JFrame {
 	private JFrame menu;
 	
 	
-
+	/* ### CONSTRUCTEUR ### */
 	public Menu () { 
 		
 		super("DONJON");

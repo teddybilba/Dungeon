@@ -4,10 +4,12 @@ import model.Game;
 import java.util.ArrayList;
 
 public class Player {
+	
 	protected Game game;
 	private int posX;
 	private int posY;
 	private int vit;
+	private String direction;
 	private int life;
 	private int damage;
 	private int maxDamage;
@@ -16,10 +18,12 @@ public class Player {
 	private ArrayList<String> listPossibleMoves = new ArrayList<String>();
 	
 	
+	/* ### CONSTRUCTEUR ### */
 	public Player(int posX, int posY, int attackRange, Game game){
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
+		this.direction = "S";
 		vit = 1;
 		life = 1;
 		damage = 0;
@@ -28,23 +32,21 @@ public class Player {
 		attackDamage = 1;
 	}
 	
-	/* ##### Getters & Setters ##### */
+	/* @@@ GETTERS & SETTERS @@@ */
 	public int getPosX(){
 		return posX;
 	}
-	
 	public void setPosX(int posX){
 		this.posX = posX;
 	}
-	
-	/*public void setPosX(int X)*/ //TODO  Needed? 
-		
+			
 	public int getPosY(){
 		return posY;
 	}
 	public void setPosY(int posY){
 		this.posY = posY;
 	}
+	
 	/* Vitesse player */
 	public int getVit(){
 		return vit;
@@ -63,11 +65,6 @@ public class Player {
 		if(life >= 0 && life < 10){
 			this.life = life;
 		}
-	}
-	
-	public void die(Player target){
-		target.setLife(0);
-		// TODO Game Over
 	}
 	
 	/* Damage */
@@ -105,6 +102,7 @@ public class Player {
 			this.maxDamage = maxDamage;
 		}
 	}
+	
 	/*Attack Range*/
 	public int getAttackRange(){
 		return attackRange;
@@ -114,6 +112,7 @@ public class Player {
 			this.attackRange = range;
 		}
 	}
+	
 	public int getAttackDamage(){
 		return attackDamage;
 	}
@@ -123,6 +122,7 @@ public class Player {
 		}
 	}
 	
+	/* Moves and direction */
 	public ArrayList<String> getListPossibleMoves(){
 		listPossibleMoves.clear();
 		if(! game.Collision(posX-1, posY)){
@@ -140,12 +140,46 @@ public class Player {
 		return listPossibleMoves;
 	}
 	
-	/* #### Methods #### */
+	public String getDirection(){
+		return direction;
+	}
+	public void setDirection(String direction){
+		if(direction.equals("N") || direction.equals("S") || direction.equals("E") || direction.equals("W")){
+			this.direction = direction;
+		}else{System.out.println("Mauvais setDirection de " + this);}
+	}
+	
+	/* Position just in face of a given position determined by the direction of the player */
+	public int getPosXInFace(int posX){
+		int returnedPosition = posX;
+		if(this.getDirection().equals("E")){
+			returnedPosition = posX + 1;
+		}
+		else if(this.getDirection().equals("W")){
+			returnedPosition = posX - 1;
+		}
+		return returnedPosition;
+	}
+	
+	public int getPosYInFace(int posY){
+		int returnedPosition = posY;
+		if(this.getDirection().equals("N")){
+			returnedPosition = posY + 1;
+		}
+		else if(this.getDirection().equals("S")){
+			returnedPosition = posY - 1;
+		}
+		return returnedPosition;
+	}
+	
+	
+	/* °°°° Methods °°° */
 	
 	public void move(int X, int Y){
 		setPosX(getPosX() + X);
 		setPosY(getPosY() + Y);
 	}
+	
 	public void winLife(){
 		setLife(this.life + 1);
 	}
@@ -155,8 +189,15 @@ public class Player {
 		}
 		else{
 			System.out.println("You have lost all your lives. "+" GAME OVER! ");
+			this.die();
 			//TODO End game
 		}
+	}
+	
+	public void die(){
+		setLife(0);
+		
+		// TODO Game Over pour le personnage et eliminer les ennemis.
 	}
 	
 	/* public void MoreDamage(int injury){
@@ -170,6 +211,7 @@ public class Player {
 		}
 	} */
 	
+/*	
 	public boolean attackIsPossible( Player target){
 		// permet de voir si la port�e de l' attaquant permet de toucher la cible
 		boolean res= false;
@@ -183,13 +225,13 @@ public class Player {
 			res=true;
 		}
 		return res;
-	}
+	}*/
 	
-	public void attack( Player target, int damage){
-		if(attackIsPossible( target) == true){
-			target.setDamage(damage);
-			   
-		}
+	public void attack(){
+		int posEnnemyX = getPosXInFace(this.getPosX());
+		int posEnnemyY = getPosYInFace(this.getPosY());
+		
+		target.setDamage(this.getAttackDamage());
 		
 	}
 	

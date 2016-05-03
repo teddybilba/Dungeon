@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 
 public class Map extends JPanel {
-	/*ATTRIBUTS*/
+	
 	private int[][] mapMatrix;
 	private BufferedImage wallImage;
 	private BufferedImage coinImage;
@@ -26,31 +26,32 @@ public class Map extends JPanel {
 	private BufferedImage teleTileImage;
 	
 	
-	/*CONSTRUCTEUR*/
+	/* ### CONSTRUCTEUR ### */
 	public Map(){
 		
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		try {
-			wallImage =ImageIO.read(new File("images/wall.png"));
-			gokuImage =ImageIO.read(new File("images/goku.png"));
-			coinImage =ImageIO.read(new File("images/coin.png"));
-			tileImage =ImageIO.read(new File("images/tile.png"));
-			ratImage  =ImageIO.read(new File("images/rat.png"));
-			potionImage =ImageIO.read(new File("images/potion.png"));
-			teleTileImage =ImageIO.read(new File("images/teletile.png"));
+			wallImage = ImageIO.read(new File("images/wall.png"));
+			gokuImage = ImageIO.read(new File("images/goku.png"));
+			coinImage = ImageIO.read(new File("images/coin.png"));
+			tileImage = ImageIO.read(new File("images/tile.png"));
+			ratImage  = ImageIO.read(new File("images/rat.png"));
+			potionImage = ImageIO.read(new File("images/potion.png"));
+			teleTileImage = ImageIO.read(new File("images/teletile.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+			System.out.println("Erreur import images dans Map.java !");
+		}	
 	}
 	
 	
+	/* @@@ GETTERS & SETTERS @@@ */
+	public void setMapMatrix(int[][] mapMatrix){
+		this.mapMatrix = mapMatrix;
+		this.repaint();
+	}
 	
-		
-		
 	
 	
 	public void paint(Graphics g) { 
@@ -142,9 +143,6 @@ public class Map extends JPanel {
 		
 	}
 	
-	public void setMapMatrix(int[][] mapMatrix){
-		this.mapMatrix = mapMatrix;
-		this.repaint();
-	}
+	
 
 }

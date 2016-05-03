@@ -7,6 +7,7 @@ public class Rat extends PNJ implements Runnable{
 	
 	private int type;
 	
+	/* ### CONSTRUCTEUR ### */
 	public Rat(int posX, int posY, int visionRange, int attackRange, Game game){
 		super(posX, posY, visionRange, attackRange, game);
 		if(randomNum(1,10) == 1){
@@ -16,6 +17,7 @@ public class Rat extends PNJ implements Runnable{
 		} 
 	}
 	
+	/* @@@ GETTERS & SETTERS @@@ */
 	public int getType(){
 		return type;
 	}

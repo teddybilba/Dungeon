@@ -8,6 +8,7 @@ public class Block {
 	private boolean presence;				// Is there someone on the block?
 	private boolean presenceAllowed;		// Is the presence allowed on the block for the players?
 	
+	/* ### CONSTRUCTEUR ### */
 	public Block(int posX, int posY, boolean presenceAllowed){
 		this.posX = posX;
 		this.posY = posY;
@@ -15,7 +16,7 @@ public class Block {
 		this.presenceAllowed = presenceAllowed;
 	}
 
-	/* #### Getters & Setters #### */
+	/* @@@ GETTERS & SETTERS @@@ */
 	/* Getters */
 	public int getPosX(){
 		return posX;

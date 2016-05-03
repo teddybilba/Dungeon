@@ -2,7 +2,7 @@ package model.dalle;
 
 public class Wall extends Block {
 
-	//constructeur:
+	/* ### CONSTRUCTEUR ### */
 	public Wall(int posX, int posY){
 		super(posX, posY, false);
 	}

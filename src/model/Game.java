@@ -9,14 +9,16 @@ import model.dalle.*;
 import model.item.*;
 
 public class Game {
-	private ArrayList<Wall> walls = new ArrayList<Wall>();// Liste des murs
-	private ArrayList<Tile> tiles= new ArrayList<Tile>();// liste des cases (normales ici)
-	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();// TODO teleportation du hero
+	
+	private ArrayList<Wall> walls = new ArrayList<Wall>();
+	private ArrayList<Tile> tiles= new ArrayList<Tile>();
+	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private ArrayList<Potion> potions =new ArrayList<Potion>();
 	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private ArrayList<Thread> listThreads = new ArrayList<Thread>();
+	
 	private boolean pause;
 	private Window window;
 	private Perdu perdu;
@@ -28,42 +30,10 @@ public class Game {
 	private int potionNumber;
 	private int blockNum;
 	//* !!!1!!!on voit 19 cases dans la fenetre: il faut donc afficher 9 cases de part et d' autre du h�ros.*//
-	//*GETTERS*//
-	public Hero getHero(){
-		return hero;
-	}
 	
-	public ArrayList<Wall> getWalls(){
-		return walls;
-	}
-	public ArrayList<Tile> getTiles(){
-		return tiles;
-	}
-	public ArrayList<Coin> getCoins(){
-		return coinsOnFloor;
-	}
 	
-	public ArrayList<PNJ> getPNJs(){
-		return PNJs;
-	}
-	public ArrayList<Potion> getPotions(){
-		return potions;
-	}
-	public ArrayList<Thread> getListThreads(){
-		return listThreads;
-	}
-	public boolean isOnPause(){
-		return pause;
-	}
-	public void pauseGame(){
-		this.pause = true;
-	}
-	public void resumeGame(){
-		this.pause = false;
-	}
 	
-	//* FONCTIONS RANDOM *//
-	
+	/* ### CONSTRUCTEUR ### */
 		
 	public Game(Window window, int size){
 		this.window = window;
@@ -154,7 +124,42 @@ public class Game {
 		
 		window.settings(hero);
 		window.draw(this.getMap());
+}
+	
+	//*GETTERS*//
+	public Hero getHero(){
+		return hero;
 	}
+	
+	public ArrayList<Wall> getWalls(){
+		return walls;
+	}
+	public ArrayList<Tile> getTiles(){
+		return tiles;
+	}
+	public ArrayList<Coin> getCoins(){
+		return coinsOnFloor;
+	}
+	
+	public ArrayList<PNJ> getPNJs(){
+		return PNJs;
+	}
+	public ArrayList<Potion> getPotions(){
+		return potions;
+	}
+	public ArrayList<Thread> getListThreads(){
+		return listThreads;
+	}
+	public boolean isOnPause(){
+		return pause;
+	}
+	public void pauseGame(){
+		this.pause = true;
+	}
+	public void resumeGame(){
+		this.pause = false;
+	}
+	
 	private void modifyNumbers(int size){
 		if(size==30){
 			this.teleNum=5;
@@ -300,6 +305,7 @@ public class Game {
 			window.draw(this.getMap());
 		}
 	}
+	
 	public int randomTeleTile(){
 		int index =randomNum(0,teleNum-1);
 		return index;
@@ -316,8 +322,8 @@ public class Game {
 	}
 	
 	public void heroAttacks(){
-		int x=hero.getPosX();
-		int y= hero.getPosY();
+		int x = hero.getPosX();
+		int y = hero.getPosY();
 		int targetIndex=listIndexPNJ(PNJs,x,y);
 		hero.attack(PNJs.get(targetIndex), 5);
 		System.out.println("Attack !");
