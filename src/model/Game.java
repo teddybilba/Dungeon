@@ -16,16 +16,18 @@ public class Game {
 	private ArrayList<Potion> potions =new ArrayList<Potion>();
 	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
+	private ArrayList<Thread> listThreads = new ArrayList<Thread>();
+	private boolean pause;
 	private Window window;
 	private Perdu perdu;
 	private int size;
-	private int mapRange=9;/*1*/
+	private int mapRange; /*1*/
 	private int teleNum;
 	private int PNJNumber;
 	private int coinNumber;
 	private int potionNumber;
 	private int blockNum;
-	//* !!!1!!!on voit 19 cases dans la fenetre: il faut donc afficher 9 cases de part et d' autre du héros.*//
+	//* !!!1!!!on voit 19 cases dans la fenetre: il faut donc afficher 9 cases de part et d' autre du hï¿½ros.*//
 	//*GETTERS*//
 	public Hero getHero(){
 		return hero;
@@ -47,6 +49,18 @@ public class Game {
 	public ArrayList<Potion> getPotions(){
 		return potions;
 	}
+	public ArrayList<Thread> getListThreads(){
+		return listThreads;
+	}
+	public boolean isOnPause(){
+		return pause;
+	}
+	public void pauseGame(){
+		this.pause = true;
+	}
+	public void resumeGame(){
+		this.pause = false;
+	}
 	
 	//* FONCTIONS RANDOM *//
 	
@@ -54,6 +68,8 @@ public class Game {
 	public Game(Window window, int size){
 		this.window = window;
 		this.size = size;
+		this.pause = false;
+		this.mapRange = 9;
 		int totalSize=size+2*this.mapRange;
 		// Map building
 		modifyNumbers(size);
@@ -110,8 +126,8 @@ public class Game {
 			}
 			Rat rat = new Rat(posX,posY,1,1, this);
 			PNJs.add(rat);
-			Thread t1 = new Thread(rat);
-			t1.start();
+			Thread thread = new Thread(rat);
+			listThreads.add(thread);
 		}
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){
@@ -367,55 +383,72 @@ public class Game {
 			playerDeath();
 		}
 	}
-		
+	
+	public void startThreads(){
+		for(Thread thread : listThreads){
+			thread.start();
+		}
+	}
+
+	public void pause(){
+		for(Thread thread : listThreads){
+			thread.yield();
+		}
+	}
+	
+	public void resume(){
+		for(Thread thread : listThreads){
+			thread.start();
+		}
+	}
 
 // donne des images a la map	
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.mapRange][1+2*this.mapRange];
-		int xc=hero.getPosX();
-		int yc= hero.getPosY();
+		int posX = hero.getPosX();
+		int posY = hero.getPosY();
 		for (Tile tile: tiles){
 			int x= tile.getPosX();
 			int y= tile.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc-mapRange][y-xc-mapRange]=0;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX-mapRange][y-posX-mapRange]=0;
 			}
 		}
 
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc-mapRange][y-yc-mapRange]=1;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX-mapRange][y-posY-mapRange]=1;
 			}
 		}
 		for(Tile teleTile: teleportationTiles){
 			int x = teleTile.getPosX();
 			int y = teleTile.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc-mapRange][y-yc-mapRange]=6;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX-mapRange][y-posY-mapRange]=6;
 			}
 		}
 		
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc-mapRange][y-yc-mapRange]=4;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX-mapRange][y-posY-mapRange]=4;
 			}
 		}
 		for(Potion potion: potions){
 			int x = potion.getPosX();
 			int y = potion.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc-mapRange][y-yc-mapRange]=5;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX-mapRange][y-posY-mapRange]=5;
 			}
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
-			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
-				map[x-xc+mapRange][y-yc+mapRange]=3;
+			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
+				map[x-posX+mapRange][y-posY+mapRange]=3;
 			}
 		}
 		

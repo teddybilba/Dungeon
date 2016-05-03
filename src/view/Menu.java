@@ -130,7 +130,7 @@ public class Menu extends JFrame {
 		Game game = new Game(window, gameSize);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
-		
+		game.startThreads();
 	}
 
 }

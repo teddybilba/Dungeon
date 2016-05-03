@@ -148,6 +148,10 @@ public class Rat extends PNJ implements Runnable{
 				}else{
 					flee(game.getHero());
 				}
+				while (game.isOnPause()){
+					Thread.sleep(1000);
+					System.out.println("Je suis en pause !");
+				}
 		}
 	}catch(Exception e){System.out.println("Problem with thread rat !");} 
 	}
