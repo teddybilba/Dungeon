@@ -19,13 +19,13 @@ public class Game {
 	private Window window;
 	private Perdu perdu;
 	private int size;
-	private int mapRange=8;
+	private int mapRange=9;/*1*/
 	private int teleNum;
 	private int PNJNumber;
 	private int coinNumber;
 	private int potionNumber;
 	private int blockNum;
-	
+	//* !!!1!!!on voit 19 cases dans la fenetre: il faut donc afficher 9 cases de part et d' autre du héros.*//
 	//*GETTERS*//
 	public Hero getHero(){
 		return hero;
@@ -54,56 +54,59 @@ public class Game {
 	public Game(Window window, int size){
 		this.window = window;
 		this.size = size;
+		int totalSize=size+2*this.mapRange;
 		// Map building
 		modifyNumbers(size);
-		for(int i = 0; i < size; i++){
-			walls.add(new Wall(i,0));
-			walls.add(new Wall(0,i));
-			walls.add(new Wall(i, size-1));
-			walls.add(new Wall(size-1, i));// les murs
+		for (int j=0;j<mapRange;j++){  //il faut ajouter des murs plus "epais" pour eviter que la map ignore les objets qu'elle doit afficher
+			for(int i = j; i < totalSize-j; i++){
+				walls.add(new Wall(i,j));
+				walls.add(new Wall(j,i));
+				walls.add(new Wall(i, totalSize-1-j));
+				walls.add(new Wall(totalSize-1-j, i));// les murs
+			}
 		}
-		for(int i = 1; i < size-1; i++){
-			for(int j = 1; j < size-1; j++){
+		for(int i = mapRange; i < size+mapRange-1; i++){
+			for(int j = mapRange; j < size+mapRange-1; j++){
 				tiles.add(new Tile(i,j));// les cases
 			}
 		}
 		
 		for (int i=0; i<blockNum; i++){
-			int bX = randomNum(1, size - 2);
-			int bY = randomNum(1, size - 2);
+			int bX = randomNum(mapRange, size+mapRange-1); //avant il y avait (1,size-2)
+			int bY = randomNum(mapRange, size+mapRange -1);
 			walls.add(new Wall(bX,bY));
 		}
 	
 		
 		//creating teleportation tiles
 		for (int i=0; i<teleNum; i++){
-			int tX = randomNum(1, size - 2);
-			int tY = randomNum(1, size - 2);
+			int tX = randomNum(mapRange, size+mapRange-1);
+			int tY = randomNum(mapRange, size+mapRange-1);
 			while(collisionWall(tX,tY)==true){
-				tX = randomNum(1, size - 2);
-				tY = randomNum(1, size - 2);
+				tX = randomNum(mapRange, size+mapRange-1);
+				tY = randomNum(mapRange, size+mapRange-1);
 			}
 			teleportationTiles.add(new Tile(tX,tY));
 		}
 	
 		// Creating hero
-		int hX=randomNum(1,size-2);
-		int hY=randomNum(1,size-2);
+		int hX=randomNum(mapRange, size+mapRange-1);
+		int hY=randomNum(mapRange, size+mapRange-1);
 		while (beOnTeleTile(hX,hY)==true || collisionWall(hX,hY)==true){
-			hX=randomNum(1,size-2);
-			hY=randomNum(1,size-2);		
+			hX=randomNum(mapRange, size+mapRange-1);
+			hY=randomNum(mapRange, size+mapRange-1);		
 		}
 		hero=new Hero(hX,hY,1,this);
 		//hero=new Hero(size/2,size/2,1,this);
 		
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
-			int posX = randomNum(1, size - 2);
-			int posY = randomNum(1, size - 2);
+			int posX = randomNum(mapRange, size+mapRange-1);
+			int posY = randomNum(mapRange, size+mapRange-1);
 			
 			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true){
-				posX = randomNum(1,size-2);
-				posY = randomNum(1,size-2);
+				posX = randomNum(mapRange, size+mapRange-1);// avant (1,size-2)
+				posY = randomNum(mapRange, size+mapRange-1);
 			}
 			Rat rat = new Rat(posX,posY,1,1, this);
 			PNJs.add(rat);
@@ -112,23 +115,23 @@ public class Game {
 		}
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){
-			int cX = randomNum(1, size - 2);
-			int cY = randomNum(1, size - 2);
+			int cX = randomNum(mapRange, size+mapRange-1);
+			int cY = randomNum(mapRange, size+mapRange-1);
 			
 			while(Collision(cX, cY)==true || beOnTeleTile(cX,cY)==true){
-				cX = randomNum(1,size-2);
-				cY = randomNum(1,size-2);
+				cX = randomNum(mapRange, size+mapRange-1);
+				cY = randomNum(mapRange, size+mapRange-1);
 			}
 			coinsOnFloor.add(new Coin(cX,cY));
 		}
 		//Creation des potions
 		for (int i=0; i<potionNumber; i++){
-			int pX = randomNum(1, size - 2);
-			int pY = randomNum(1, size - 2);
+			int pX = randomNum(mapRange, size+mapRange-1);
+			int pY = randomNum(mapRange, size+mapRange-1);
 			
 			while(Collision(pX, pY)==true && beOnTeleTile(pX,pY)==true){
-				pX = randomNum(1,size-2);
-				pY = randomNum(1,size-2);
+				pX = randomNum(mapRange, size+mapRange-1);
+				pY = randomNum(mapRange, size+mapRange-1);
 			}
 			potions.add(new Potion(pX,pY));
 		}
@@ -368,57 +371,56 @@ public class Game {
 
 // donne des images a la map	
 	public int[][] getMap(){
-		int[][] map = new int[this.size][this.size];
-		//int xc=hero.getPosX();
-		//int yc= hero.getPosY();
+		int[][] map = new int[1+2*this.mapRange][1+2*this.mapRange];
+		int xc=hero.getPosX();
+		int yc= hero.getPosY();
 		for (Tile tile: tiles){
 			int x= tile.getPosX();
 			int y= tile.getPosY();
-			
-				map[x][y]=0;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc-mapRange][y-xc-mapRange]=0;
+			}
 		}
 
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
-			
-				map[x][y]=1;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc-mapRange][y-yc-mapRange]=1;
+			}
 		}
 		for(Tile teleTile: teleportationTiles){
 			int x = teleTile.getPosX();
 			int y = teleTile.getPosY();
-			
-				map[x][y]=6;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc-mapRange][y-yc-mapRange]=6;
+			}
 		}
 		
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
-			
-				map[x][y]=4;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc-mapRange][y-yc-mapRange]=4;
+			}
 		}
 		for(Potion potion: potions){
 			int x = potion.getPosX();
 			int y = potion.getPosY();
-			
-				map[x][y]=5;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc-mapRange][y-yc-mapRange]=5;
+			}
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
-			
-				map[x][y]=3;
-			
+			if(Math.abs(x-xc)<=mapRange&& Math.abs(y-yc)<=mapRange){
+				map[x-xc+mapRange][y-yc+mapRange]=3;
+			}
 		}
 		
-			int x = hero.getPosX();
-			int y = hero.getPosY();
-			map[x][y] = 2;
+			
+			map[mapRange][mapRange] = 2;
 		
 		
 		
