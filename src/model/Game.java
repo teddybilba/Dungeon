@@ -19,10 +19,11 @@ public class Game {
 	private Window window;
 	private Perdu perdu;
 	private int size;
-	private int teleNum=5;
-	private int PNJNumber=5;
-	private int coinNumber=6;
-	private int potionNumber=8;
+	private int mapRange=10;
+	private int teleNum;
+	private int PNJNumber;
+	private int coinNumber;
+	private int potionNumber;
 	
 	//*GETTERS*//
 	public Hero getHero(){
@@ -46,13 +47,14 @@ public class Game {
 		return potions;
 	}
 	
-	//* FONCTIONS RANDOM*//
+	//* FONCTIONS RANDOM *//
 	
 		
 	public Game(Window window, int size){
 		this.window = window;
 		this.size = size;
-		// Map building 
+		// Map building
+		modifyNumbers(size);
 		for(int i = 0; i < size; i++){
 			walls.add(new Wall(i,0));
 			walls.add(new Wall(0,i));
@@ -80,6 +82,7 @@ public class Game {
 			hY=randomNum(1,size-2);		
 		}
 		hero=new Hero(hX,hY,1,this);
+		//hero=new Hero(size/2,size/2,1,this);
 		
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
@@ -120,6 +123,28 @@ public class Game {
 		
 		window.settings(hero);
 		window.draw(this.getMap());
+	}
+	private void modifyNumbers(int size){
+		if(size==30){
+			this.teleNum=5;
+			this.PNJNumber=10;
+			this.coinNumber=20;
+			this.potionNumber=8;
+			
+		}
+		else if (size==40){
+			this.teleNum=8;
+			this.PNJNumber=15;
+			this.coinNumber=30;
+			this.potionNumber=10;
+		}
+		else{
+			this.teleNum=10;
+			this.PNJNumber=20;
+			this.coinNumber=45;
+			this.potionNumber=12;
+		}
+		
 	}
 		
 	//  collision avec un mur?:
@@ -339,9 +364,9 @@ public class Game {
 			map[x][y] = 3;
 		}
 		
-			int x = hero.getPosX();
-			int y = hero.getPosY();
-			map[x][y] = 2;
+			int centerX = hero.getPosX();
+			int centerY = hero.getPosY();
+			map[centerX][centerY] = 2;
 		
 		
 		

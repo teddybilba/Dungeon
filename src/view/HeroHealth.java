@@ -56,7 +56,7 @@ public class HeroHealth extends JPanel{
 		                                                        //set bounds inefficaces on dirait
 		label2 = new JLabel("text");
 		//label2 = new JLabel(iLife);
-		label2.setText("Nb Vies "+String.valueOf(heroLife));
+		label2.setText("Nb Vies: "+String.valueOf(heroLife));
 		label2.setBounds(1200, 200,10,10);
 	}
 	
