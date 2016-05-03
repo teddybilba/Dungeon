@@ -25,7 +25,7 @@ public class Perdu extends JFrame {
 	private JButton small = new JButton ("Small");
 	private JButton medium = new JButton ("Medium");
 	private JButton large = new JButton ("Large");
-	private int gameSize;
+	private int gameSize=0;
 	private JLabel image = new JLabel();
 	private JFrame perdu;//TODO placer des boutons de choix de taille à nouveau pour relancer une nouvelle partie
 	public Perdu(){		// DONE
@@ -56,7 +56,10 @@ public class Perdu extends JFrame {
 		restart.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {	
-				restartGame();
+				try{restartGame();
+				}
+				catch(sizeException ex){}
+				
 				perdu.dispose();
 			}	
 		});
@@ -112,12 +115,16 @@ public class Perdu extends JFrame {
 		pan.add(image);
 
 	}
-	public void restartGame(){
-		
-		Window window = new Window();
-		Game game = new Game(window,gameSize);
-		KeyBoard keyboard = new KeyBoard(game);
-		window.setKeyListener(keyboard);
+	public void restartGame() throws sizeException{
+		if (gameSize==0){
+			throw new sizeException();
+		}
+		else{
+			Window window = new Window();
+			Game game = new Game(window,gameSize);
+			KeyBoard keyboard = new KeyBoard(game);
+			window.setKeyListener(keyboard);
+		}
 			
 		
 	}
