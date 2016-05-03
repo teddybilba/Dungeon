@@ -24,6 +24,7 @@ public class Game {
 	private int PNJNumber;
 	private int coinNumber;
 	private int potionNumber;
+	private int blockNum;
 	
 	//*GETTERS*//
 	public Hero getHero(){
@@ -67,17 +68,28 @@ public class Game {
 			}
 		}
 		
+		for (int i=0; i<blockNum; i++){
+			int bX = randomNum(1, size - 2);
+			int bY = randomNum(1, size - 2);
+			walls.add(new Wall(bX,bY));
+		}
+	
+		
 		//creating teleportation tiles
 		for (int i=0; i<teleNum; i++){
 			int tX = randomNum(1, size - 2);
 			int tY = randomNum(1, size - 2);
+			while(collisionWall(tX,tY)==true){
+				tX = randomNum(1, size - 2);
+				tY = randomNum(1, size - 2);
+			}
 			teleportationTiles.add(new Tile(tX,tY));
 		}
 	
 		// Creating hero
 		int hX=randomNum(1,size-2);
 		int hY=randomNum(1,size-2);
-		while (beOnTeleTile(hX,hY)==true){
+		while (beOnTeleTile(hX,hY)==true || collisionWall(hX,hY)==true){
 			hX=randomNum(1,size-2);
 			hY=randomNum(1,size-2);		
 		}
@@ -89,7 +101,7 @@ public class Game {
 			int posX = randomNum(1, size - 2);
 			int posY = randomNum(1, size - 2);
 			
-			while(Collision(posX, posY)==true && beOnTeleTile(posX,posY)==true){
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true){
 				posX = randomNum(1,size-2);
 				posY = randomNum(1,size-2);
 			}
@@ -103,7 +115,7 @@ public class Game {
 			int cX = randomNum(1, size - 2);
 			int cY = randomNum(1, size - 2);
 			
-			while(Collision(cX, cY)==true && beOnTeleTile(cX,cY)==true){
+			while(Collision(cX, cY)==true || beOnTeleTile(cX,cY)==true){
 				cX = randomNum(1,size-2);
 				cY = randomNum(1,size-2);
 			}
@@ -130,6 +142,7 @@ public class Game {
 			this.PNJNumber=10;
 			this.coinNumber=20;
 			this.potionNumber=8;
+			this.blockNum=50;
 			
 		}
 		else if (size==40){
@@ -137,12 +150,15 @@ public class Game {
 			this.PNJNumber=15;
 			this.coinNumber=30;
 			this.potionNumber=10;
+			this.blockNum=100;
 		}
 		else{
 			this.teleNum=10;
 			this.PNJNumber=20;
 			this.coinNumber=45;
 			this.potionNumber=12;
+			this.blockNum=300;
+			
 		}
 		
 	}
@@ -150,6 +166,35 @@ public class Game {
 	//  collision avec un mur?:
 	public boolean Collision(int posX, int posY){
 		boolean res = false;
+		if (collisionWall(posX,posY)==true){
+			res=true;
+		}
+		/*for (Tile tile: tiles){					//TODO voir avec Coline (lignes inutiles?)
+			if(tile.getPresence()==true){           // servait � utiliser l' attribut pr�sence des dalles
+				res=true;                           // plut�t que de parcourir les listes de joueurs et d' ennemis
+			}
+		}*/
+		else if(collisionPNJ(posX, posY)==true){
+			res=true;
+		}
+		else if(collisionHero(posX,posY)==true){
+			res=true;
+		}
+		
+		return res;
+	}
+	/*Sous fonctions de Collision*/
+	public boolean beOnTeleTile(int x, int y){
+		boolean res=false;
+		for (Tile tile: teleportationTiles){
+			if (tile.getPosX()==x && tile.getPosY()==y){
+				res=true;
+			}
+		}
+		return res;
+	}
+	public boolean collisionWall(int posX, int posY){
+		boolean res=false;
 		for (Wall wall: walls){						//TODO Juste voir si presenceAllowed sur la case en question.
 			int WallPosX = wall.getPosX();
 			int WallPosY = wall.getPosY();
@@ -157,11 +202,10 @@ public class Game {
 				res = true;
 			}
 		}
-		/*for (Tile tile: tiles){					//TODO voir avec Coline (lignes inutiles?)
-			if(tile.getPresence()==true){           // servait � utiliser l' attribut pr�sence des dalles
-				res=true;                           // plut�t que de parcourir les listes de joueurs et d' ennemis
-			}
-		}*/
+		return res;
+	}
+	public boolean collisionPNJ(int posX, int posY){
+		boolean res=false;
 		for (PNJ pnj: PNJs){
 			int pnjPosX = pnj.getPosX();
 			int pnjPosY = pnj.getPosY();
@@ -169,20 +213,14 @@ public class Game {
 				res = true;
 			}
 		}
+		return res;
+	}
+	public boolean collisionHero (int posX, int posY){
+		boolean res = false;
 		int heroPosX = hero.getPosX();
 		int heroPosY = hero.getPosY();
 		if(heroPosX == posX && heroPosY == posY ){
 			res = true;
-		}
-		
-		return res;
-	}
-	public boolean beOnTeleTile(int x, int y){
-		boolean res=false;
-		for (Tile tile: teleportationTiles){
-			if (tile.getPosX()==x && tile.getPosY()==y){
-				res=true;
-			}
 		}
 		return res;
 	}

@@ -35,7 +35,7 @@ public class Inventory extends JPanel {
 		label1 = new JLabel("text");
 		label1 = new JLabel(iPotion);
 		label1.setText("Nb Potions: "+String.valueOf(potionNumber));
-		label1.setBounds(1050, 550,10,10);
+		label1.setBounds(1050, 450,10,10);
 		
 		label2 = new JLabel("text");
 		label2 = new JLabel(iPower);
