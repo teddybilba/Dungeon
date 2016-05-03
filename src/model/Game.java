@@ -1,15 +1,24 @@
 package model;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import view.Perdu;
 import view.Window;
 import model.character.*;
 import model.dalle.*;
 import model.item.*;
 
-public class Game {
-	
+
+public class Game implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Tile> tiles= new ArrayList<Tile>();
 	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();
@@ -492,6 +501,34 @@ public class Game {
 	}*/
 	
 
-
+	public Game load(String filename){
+		FileInputStream file;
+		ObjectInputStream i;
+		try{
+			file = new FileInputStream(filename);
+			i = new ObjectInputStream(file);
+			Game game = (Game) i.readObject();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return game;
+	}
+	
+	public void save(String filename, Game game){
+		FileOutputStream file;
+		ObjectOutputStream o;
+		try{
+			file = new FileOutputStream(filename);
+			o = new ObjectOutputStream(file);
+			o.writeObject(game);
+			o.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 
 }

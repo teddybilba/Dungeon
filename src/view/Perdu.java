@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ import controller.KeyBoard;
 import model.Game;
 
 
-public class Perdu extends JFrame {
+public class Perdu extends JFrame implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private JButton restart = new JButton ("Try Again!");

@@ -1,6 +1,7 @@
 package view;
 import java.awt.Color;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -10,16 +11,17 @@ import view.HeroHealth;
 import model.character.Hero;
 
 
-public class Window {
+public class Window implements Serializable{
 	
-private JSplitPane split1, split2;
-private Map map = new Map();// cette ligne pose probl�me pour les labels!!
-private Inventory inventory= new Inventory();
-private HeroHealth health= new HeroHealth();	
-private JFrame window;
+	private static final long serialVersionUID = 1L;
+	private JSplitPane split1, split2;
+	private Map map = new Map();// cette ligne pose probl�me pour les labels!!
+	private Inventory inventory= new Inventory();
+	private HeroHealth health= new HeroHealth();	
+	private JFrame window;
 
 
-/* ### CONSTRUCTEUR ### */
+	/* ### CONSTRUCTEUR ### */
 
 	public Window(){	    
 	    window = new JFrame("Game");

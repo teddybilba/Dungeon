@@ -1,13 +1,15 @@
 package view;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Inventory extends JPanel {
+public class Inventory extends JPanel implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int potionNumber;
 	private int powerNum;
 	

@@ -1,8 +1,10 @@
 package model.dalle;
 
-public class Block {
+import java.io.Serializable;
 
+public class Block implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private int posX;
 	private int posY;
 	private boolean presence;				// Is there someone on the block?

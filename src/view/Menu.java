@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +21,7 @@ import controller.KeyBoard;
 import model.Game;
 import view.Window;
 
-public class Menu extends JFrame {
+public class Menu extends JFrame implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private int gameSize=30;

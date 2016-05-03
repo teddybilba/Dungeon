@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -8,8 +9,9 @@ import javax.swing.JPanel;
 import model.character.Hero;
 
 
-public class HeroHealth extends JPanel{
-	
+public class HeroHealth extends JPanel implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int heroLife;
 	private int heroCoins;
 	

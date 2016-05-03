@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
@@ -14,8 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Map extends JPanel {
-	
+public class Map extends JPanel implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int[][] mapMatrix;
 	private BufferedImage wallImage;
 	private BufferedImage coinImage;

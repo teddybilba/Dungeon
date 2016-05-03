@@ -2,9 +2,11 @@ package model.character;
 
 import model.Game;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	protected Game game;
 	private int posX;
 	private int posY;
