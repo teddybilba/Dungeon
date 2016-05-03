@@ -19,7 +19,7 @@ public class Game {
 	private Window window;
 	private Perdu perdu;
 	private int size;
-	private int mapRange=10;
+	private int mapRange=8;
 	private int teleNum;
 	private int PNJNumber;
 	private int coinNumber;

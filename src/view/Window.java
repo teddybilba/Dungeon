@@ -19,7 +19,7 @@ private JFrame window;
 	public Window(){	    
 	    window = new JFrame("Game");
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setBounds(0, 0, 1500, 1020);
+	    window.setBounds(0, 0, 1500, 998);
 	    window.getContentPane().setBackground(Color.gray);
 	    
 	    split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, health,inventory);
@@ -28,7 +28,7 @@ private JFrame window;
 	    
 	    split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,map, split1);
 	    //On place le deuxième séparateur
-	    split2.setDividerLocation(1000);
+	    split2.setDividerLocation(950);
 	    
 	    window.getContentPane().add(split2,BorderLayout.CENTER);
 	    
