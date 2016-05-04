@@ -396,6 +396,10 @@ public class Game implements Serializable{
 			playerDeath();
 		}
 	}
+	public void usePower(){
+		hero.usePower();
+		window.settings(hero);
+	}
 	
 	public void startThreads(){
 		for(Thread thread : listThreads){

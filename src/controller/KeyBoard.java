@@ -46,7 +46,7 @@ public class KeyBoard implements KeyListener{
 					break;
 				case KeyEvent.VK_S:
 					System.out.println("specialPower used");
-					game.getHero().usePower();;
+					game.usePower();;
 					break;
 					
 					
