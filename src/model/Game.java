@@ -217,7 +217,7 @@ public class Game implements Serializable{
 		return res;
 	}
 	/*Sous fonctions de Collision*/
-	public boolean beOnTeleTile(int x, int y){
+	private boolean beOnTeleTile(int x, int y){
 		boolean res=false;
 		for (Tile tile: teleportationTiles){
 			if (tile.getPosX()==x && tile.getPosY()==y){
@@ -226,7 +226,7 @@ public class Game implements Serializable{
 		}
 		return res;
 	}
-	public boolean collisionWall(int posX, int posY){
+	private boolean collisionWall(int posX, int posY){
 		boolean res=false;
 		for (Wall wall: walls){						//TODO Juste voir si presenceAllowed sur la case en question.
 			int WallPosX = wall.getPosX();
@@ -237,7 +237,7 @@ public class Game implements Serializable{
 		}
 		return res;
 	}
-	public boolean collisionPNJ(int posX, int posY){
+	private boolean collisionPNJ(int posX, int posY){
 		boolean res=false;
 		for (PNJ pnj: PNJs){
 			int pnjPosX = pnj.getPosX();
@@ -248,7 +248,7 @@ public class Game implements Serializable{
 		}
 		return res;
 	}
-	public boolean collisionHero (int posX, int posY){
+	private boolean collisionHero (int posX, int posY){
 		boolean res = false;
 		int heroPosX = hero.getPosX();
 		int heroPosY = hero.getPosY();
@@ -266,7 +266,7 @@ public class Game implements Serializable{
 	
 	
 	//revoie l' indice d' un ennemi dans la liste et sachant sa position
-	public int listIndexPNJ(ArrayList<PNJ> list,int x,int y){
+	private int listIndexPNJ(ArrayList<PNJ> list,int x,int y){
 		int range= hero.getAttackRange();
 		int res=0;
 		for(int i=0; i<list.size();i++){
@@ -315,11 +315,11 @@ public class Game implements Serializable{
 		}
 	}
 	
-	public int randomTeleTile(){
+	private int randomTeleTile(){
 		int index =randomNum(0,teleNum-1);
 		return index;
 	}
-	public void teleportation(){
+	private void teleportation(){
 		int x=hero.getPosX();
 		int y= hero.getPosY();
 		if(beOnTeleTile(x,y)==true){
@@ -332,6 +332,7 @@ public class Game implements Serializable{
 	
 	public void heroAttacks(){
 		hero.attack();
+		window.settings(hero);
 		System.out.println("Attack !");
 	}
 	public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
@@ -353,7 +354,7 @@ public class Game implements Serializable{
 		window.draw(this.getMap());
 		
 	}
-	public void dropItem(PNJ pnj){
+	private void dropItem(PNJ pnj){
 		//remplacement par un objet pi�ce ou potion
 		int i= pnj.dropPNJ();
 		if (i==1){
@@ -363,7 +364,7 @@ public class Game implements Serializable{
 			potions.add(new Potion(pnj.getPosX(),pnj.getPosY()));
 		}
 	}
-	public void takeCoin(){
+	private void takeCoin(){
 		int x= hero.getPosX();
 		int y= hero.getPosY();
 		for( int i=0;i< coinsOnFloor.size(); i++){

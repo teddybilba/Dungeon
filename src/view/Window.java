@@ -56,6 +56,7 @@ public class Window implements Serializable{
 	public void settings(Hero hero){
 		this.health.setCoinsNumber(hero.getCoinsNumber());
 		this.health.setLife(hero.getLife());
+		this.health.setDamage(hero.getDamage());
 		this.inventory.setPotionNumber(hero.getPotionNumInventory());
 		this.inventory.setPowerNum(hero.getSpecialPowerNum());
 	}

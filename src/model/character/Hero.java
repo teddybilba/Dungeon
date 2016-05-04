@@ -73,12 +73,14 @@ public class Hero extends Player{
 		return res;
 	}
 	public void specialPower(){
-		// TODO implementer l' invincibilt" du joueur pendant une certaine dur�e
-		//( thread je suppose)...
+		//met le compteur des dommages a zero;
+		int damage=getDamage();
+		setDamage(-damage);
 	}
 	public void usePower(){
 		if (powerPossible()==true){
 			specialPower();
+			specialPowerNum-=1;
 		}
 	}
 	//MANUPULATION DES POTIONS
@@ -87,7 +89,7 @@ public class Hero extends Player{
 		
 		
 	}
-	public int choseRandomPotion(){
+	private int choseRandomPotion(){
 		int index =randomNum(0,getPotionNumInventory()-1);
 		return index;
 	}

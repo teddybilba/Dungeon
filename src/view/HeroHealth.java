@@ -14,18 +14,22 @@ public class HeroHealth extends JPanel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int heroLife;
 	private int heroCoins;
+	private int heroDamage;
 	
 	JLabel label1 = new JLabel();
 	JLabel label2 = new JLabel();
+	JLabel label3 = new JLabel();
 	
 	/* ### CONSTRUCTEUR ### */
 	public HeroHealth(){
 		this.setBackground(Color.WHITE);
 		this.heroCoins=0;
 		this.heroLife=1;
+		this.heroDamage=0;
 		labelComponent();
 		this.add(label1);
-		this.add(label2);	
+		this.add(label2);
+		this.add(label3);
 	}
 	
 	
@@ -44,6 +48,10 @@ public class HeroHealth extends JPanel implements Serializable{
 		label2.setText("Nb vies: "+String.valueOf(heroLife));
 		//System.out.println(String.valueOf(heroLife));
 	}
+	public void setDamage(int damage){
+		this.heroDamage=damage;
+		label3.setText("Nb vies: "+String.valueOf(heroDamage));
+	}
 	
 	public void labelComponent(){
 		ImageIcon iCoin = new ImageIcon ("images/coin.png");
@@ -58,6 +66,11 @@ public class HeroHealth extends JPanel implements Serializable{
 		//label2 = new JLabel(iLife);
 		label2.setText("Nb Vies: "+String.valueOf(heroLife));
 		label2.setBounds(1200, 200,10,10);
+		
+		label3=new JLabel("text");
+		label3.setText("Niveau dommage: "+String.valueOf(heroDamage));
+		label3.setBounds(1200, 200,10,10);
+		
 	}
 	
 }
