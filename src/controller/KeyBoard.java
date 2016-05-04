@@ -48,7 +48,14 @@ public class KeyBoard implements KeyListener{
 					System.out.println("specialPower used");
 					game.usePower();;
 					break;
-					
+				case KeyEvent.VK_ESCAPE:
+					System.out.println("Pause game !");
+					game.pauseGame();
+					break;
+				case KeyEvent.VK_R:
+					System.out.print("Resume game !");
+					game.resumeGame();
+					break;
 					
 			}
 		}

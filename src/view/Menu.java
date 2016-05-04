@@ -53,7 +53,7 @@ public class Menu extends JFrame implements Serializable{
 		ImageIcon iMenu = new ImageIcon("images/donjon.png");
 
 		image = new JLabel(iMenu);
-		image.setBounds(0, 0,1050,700);
+		image.setBounds(0, 0, 1050, 700);
 
 		start.setBounds((1050 - 300)/2, 750/2, 300, 50);
 		Font police = new Font("Arial", Font.BOLD, 30);

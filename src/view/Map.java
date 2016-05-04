@@ -36,7 +36,7 @@ public class Map extends JPanel implements Serializable{
 		this.requestFocusInWindow();
 		try {
 			wallImage = ImageIO.read(new File("images/wall.png"));
-			gokuImage = ImageIO.read(new File("images/goku.png"));
+			gokuImage = ImageIO.read(new File("images/goku/gokuS.png"));
 			coinImage = ImageIO.read(new File("images/coin.png"));
 			tileImage = ImageIO.read(new File("images/tile.png"));
 			ratImage  = ImageIO.read(new File("images/rat.png"));
