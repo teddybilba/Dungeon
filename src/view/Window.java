@@ -67,9 +67,8 @@ public class Window implements Serializable{
 	}
 	
 	public void gameOver(){
-		if (health.getHeroLife()==0){
-			window.dispose();
-		}
+		window.dispose();
+		
 	}
 	
 	public void setKeyListener(KeyListener keyboard){
