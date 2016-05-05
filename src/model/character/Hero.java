@@ -6,7 +6,7 @@ import model.item.Potion;
 import outils.Fonctions;
 
 
-public class Hero extends Player{
+public final class Hero extends Player{
 
 	private static final long serialVersionUID = 1L;
 	private int coinsNumber;

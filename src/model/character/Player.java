@@ -4,7 +4,7 @@ import model.Game;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Player implements Serializable{
+public abstract class Player implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	protected Game game;
@@ -152,7 +152,7 @@ public class Player implements Serializable{
 	}
 	
 	/* Moves and direction */
-	public ArrayList<String> getListPossibleMoves(){
+	protected ArrayList<String> getListPossibleMoves(){
 		listPossibleMoves.clear();						// new list each time the function is called
 		if(! game.Collision(posX-1, posY)){
 			listPossibleMoves.add("W");					// N,S,E,W directions
@@ -169,10 +169,10 @@ public class Player implements Serializable{
 		return listPossibleMoves;
 	}
 	
-	public String getDirection(){
+	private String getDirection(){
 		return direction;
 	}
-	public void setDirection(String direction){
+	private void setDirection(String direction){
 		if(direction.equals("N") || direction.equals("S") || direction.equals("E") || direction.equals("W")){
 			this.direction = direction;
 		}else{System.out.println("Mauvais setDirection de " + this + "direction demandee : " + direction);}
@@ -223,12 +223,10 @@ public class Player implements Serializable{
 		}
 	}
 	
-	public void die(){
-		setLife(0);
+	abstract public void die();
 		
 		// TODO Game Over pour le personnage et eliminer les ennemis.
 		// TODO abstract class? 
-	}
 	
 	/* public void MoreDamage(int injury){
 		int level= getDamage();

@@ -7,15 +7,17 @@ public class Block implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int posX;
 	private int posY;
-	private boolean presence;				// Is there someone on the block?
-	private boolean presenceAllowed;		// Is the presence allowed on the block for the players?
+	private int type;							// Type : (0, wall); (1, tile); (2, teleportation); (3, enhancer)
+	private boolean presence;					// Is there someone on the block?
+	private boolean presenceAllowed = true;		// Is the presence allowed on the block for the players?
 	
 	/* ### CONSTRUCTEUR ### */
-	public Block(int posX, int posY, boolean presenceAllowed){
+	public Block(int posX, int posY, int type){
 		this.posX = posX;
 		this.posY = posY;
 		this.presence = false;
-		this.presenceAllowed = presenceAllowed;
+		this.type = type;
+		if(type == 1){presenceAllowed = false;}
 	}
 
 	/* @@@ GETTERS & SETTERS @@@ */
@@ -49,7 +51,5 @@ public class Block implements Serializable{
 	public void setPresence(boolean presence){
 		this.presence = presence;
 	}
-	public void setPresenceAllowed(boolean presenceAllowed){
-		this.presenceAllowed = presenceAllowed;
-	}
+	
 }

@@ -2,7 +2,7 @@ package model.character;
 
 import model.Game;
 
-public class Saibaman extends PNJ implements Runnable{
+public final class Saibaman extends PNJ implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -12,7 +12,7 @@ public class Saibaman extends PNJ implements Runnable{
 		super(posX, posY, 1, game, 3);				// attackRange = 1 ; visionRange = 3;
 	}
 	
-	public void kamikaze(Player target){
+	private void kamikaze(Player target){
 		int targetPosX = target.getPosX();
 		int targetPosY = target.getPosY();
 		int posX = this.getPosX();

@@ -37,7 +37,7 @@ public abstract class PNJ extends Player{
 		}
 	}
 	
-	public void dropItem(){
+	private void dropItem(){
 		int randomNum = Fonctions.randomNum(1,2);
 		if(randomNum == 1){
 			Coin coin = new Coin(this.getPosX(), this.getPosY());
@@ -56,7 +56,7 @@ public abstract class PNJ extends Player{
 	
 	/* §§§ MOVEMENT §§§ */
 	
-	public void flee(Player target){
+	protected void flee(Player target){
 		int targetPosX = target.getPosX();
 		int targetPosY = target.getPosY();
 		int posX = this.getPosX();
@@ -89,7 +89,7 @@ public abstract class PNJ extends Player{
 		}
 	}
 
-	public void approach(Player target){
+	protected void approach(Player target){
 		int targetPosX = target.getPosX();
 		int targetPosY = target.getPosY();
 		int posX = this.getPosX();
@@ -122,7 +122,7 @@ public abstract class PNJ extends Player{
 			}	
 		}
 	
-	public void randomMove(Player target){
+	protected void randomMove(Player target){
 		ArrayList<String> listPossibleMoves = this.getListPossibleMoves();
 		if(listPossibleMoves.size() != 0){
 			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size());
