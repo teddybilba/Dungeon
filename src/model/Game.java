@@ -100,7 +100,7 @@ public class Game implements Serializable{
 				dX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				dY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
-			teleportationTiles.add(new Tile(dX,dY));
+			damTiles.add(new DamageTile(dX,dY));
 		}
 		
 	

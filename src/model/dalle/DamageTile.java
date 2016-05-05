@@ -5,7 +5,7 @@ public class DamageTile extends Tile {
 	private int damageVal;
 	public DamageTile(int posX, int posY){
 		super(posX, posY);
-		this.damageVal=3;
+		this.damageVal=4;
 	}
 	public void hurt(Player player){
 		int x=this.getPosX();
