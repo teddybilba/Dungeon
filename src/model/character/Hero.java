@@ -18,7 +18,7 @@ public final class Hero extends Player{
 	
 	
 	/* ### CONSTRUCTEUR ### */
-	public Hero(int posX,int posY, int attackRange, Game game, int life, int attackDamage, int maxDamage){
+	public Hero(int posX, int posY, int attackRange, Game game, int life, int attackDamage, int maxDamage){
 		super(posX, posY, attackRange, game, life, attackDamage, maxDamage);
 		
 		this.coinsNumber = 0;
@@ -101,4 +101,7 @@ public final class Hero extends Player{
 				}
 			}	
 		}
+	public void die(){
+		System.out.println("Player died! Game over !");
+	}
 }

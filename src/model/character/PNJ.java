@@ -37,7 +37,7 @@ public abstract class PNJ extends Player{
 		}
 	}
 	
-	private void dropItem(){
+	public void dropItem(){
 		int randomNum = Fonctions.randomNum(1,2);
 		if(randomNum == 1){
 			Coin coin = new Coin(this.getPosX(), this.getPosY());

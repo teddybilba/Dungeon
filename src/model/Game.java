@@ -98,7 +98,7 @@ public class Game implements Serializable{
 			hX=randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			hY=randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
-		hero=new Hero(hX,hY,1,this);
+		hero = new Hero(hX, hY , 1, this, 3, 2, 20);
 		//hero=new Hero(size/2,size/2,1,this);
 		
 		// Creating PNJ's
@@ -110,7 +110,7 @@ public class Game implements Serializable{
 				posX = randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
 				posY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
-			Rat rat = new Rat(posX,posY,1,1, this);
+			Rat rat = new Rat(posX,posY, this);
 			PNJs.add(rat);
 			Thread thread = new Thread(rat);
 			listThreads.add(thread);
@@ -470,14 +470,9 @@ public class Game implements Serializable{
 	}
 	private void dropItem(PNJ pnj){
 		//remplacement par un objet pi�ce ou potion
-		int i= pnj.dropPNJ();
-		if (i==1){
-			coinsOnFloor.add(new Coin(pnj.getPosX(),pnj.getPosY()));
-		}
-		else{
-			potions.add(new Potion(pnj.getPosX(),pnj.getPosY()));
-		}
+		pnj.dropItem();
 	}
+
 	private void takeCoin(){
 		int x= hero.getPosX();
 		int y= hero.getPosY();
@@ -511,7 +506,7 @@ public class Game implements Serializable{
 		}
 	}
 	public void usePower(){
-		hero.usePower();
+		hero.reduceDamagePower();
 		window.settings(hero);
 	}
 	
@@ -523,6 +518,56 @@ public class Game implements Serializable{
 
 
 // donne des images a la map	
+	public int[][] getMap(){
+		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
+		int posX = hero.getPosX();
+		int posY = hero.getPosY();
+		for (Tile tile: tiles){
+			int x = tile.getPosX();
+			int y = tile.getPosY();
+			map[x][y]=0;
+			
+		}
+		for(Wall wall: walls){
+			int x = wall.getPosX();
+			int y = wall.getPosY();
+			map[x][y]=1;
+			
+		}
+		for(Tile teleTile: teleportationTiles){
+			int x = teleTile.getPosX();
+			int y = teleTile.getPosY();
+			map[x][y]=6;
+			
+		}
+		for(Coin coin: coinsOnFloor){
+			int x = coin.getPosX();
+			int y = coin.getPosY();
+			map[x][y]=4;
+			
+		}
+		for(Potion potion: potions){
+			int x = potion.getPosX();
+			int y = potion.getPosY();
+			map[x][y]=5;
+			
+		}
+		for(PNJ pnj: PNJs){
+			int x = pnj.getPosX();
+			int y = pnj.getPosY();
+			map[x][y]=3;
+			
+		}
+		
+			
+		map[hero.getPosX()][hero.getPosY()] = 2;
+		
+		
+		
+		System.out.println(map);
+		return map;
+	}
+/*	
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
 		int posX = hero.getPosX();
@@ -578,7 +623,7 @@ public class Game implements Serializable{
 		System.out.println(map);
 		return map;
 	}
-	/*
+	
 	public int[][] getMap(){
 		int[][] map = new int[size][size];
 		for (Tile tile: tiles){
@@ -606,7 +651,7 @@ public class Game implements Serializable{
 		
 		System.out.println(map);
 		return map;
-	}*/
+	}
 	
 
 	public Game load(String filename){
@@ -639,5 +684,5 @@ public class Game implements Serializable{
 			e.printStackTrace();
 		}
 	}
-
+*/
 }
