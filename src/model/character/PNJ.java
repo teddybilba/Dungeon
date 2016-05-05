@@ -63,7 +63,7 @@ public abstract class PNJ extends Player{
 		int posY = this.getPosY();
 		int differenceX = posX - targetPosX;
 		int differenceY = posY - targetPosY;
-		int newPosX = posX + (Integer.signum(differenceX));
+		int newPosX = posX + (Integer.signum(differenceX));				// Just use the sign of the difference to determine which way to go
 		int newPosY = posY + (Integer.signum(differenceY));
 	
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
@@ -96,7 +96,7 @@ public abstract class PNJ extends Player{
 		int posY = this.getPosY();
 		int differenceX = posX - targetPosX;
 		int differenceY = posY - targetPosY;
-		int newPosX = posX - (Integer.signum(differenceX));
+		int newPosX = posX - (Integer.signum(differenceX));				
 		int newPosY = posY - (Integer.signum(differenceY));
 	
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
@@ -125,7 +125,7 @@ public abstract class PNJ extends Player{
 	protected void randomMove(Player target){
 		ArrayList<String> listPossibleMoves = this.getListPossibleMoves();
 		if(listPossibleMoves.size() != 0){
-			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size());
+			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size() -1);
 			String direction = listPossibleMoves.get(randomNum);
 			if(direction.equals("E")){this.setPosX(this.getPosX()+1);}
 			if(direction.equals("W")){this.setPosX(this.getPosX()-1);}
@@ -134,9 +134,20 @@ public abstract class PNJ extends Player{
 		}else{this.moveBlocked();}
 	}
 	
-	abstract public void moveBlocked();
 	
-	abstract public void behaviour();
+	abstract public void moveBlocked();				// Each type of pnj behaves differently if blocked
+	
+	abstract public void behaviour();				// Abstract method, implemented differently for each type of pnj
+	
+	public void attack(){
+		Hero hero = game.getHero();
+		if(Math.abs(hero.getPosX() - this.getPosX()) == 1 || Math.abs(hero.getPosY() - this.getPosY()) == 1){
+			hero.setDamage(this.getAttackDamage());
+			System.out.println("I, " + this + "inflict : " +getAttackDamage());
+		}
+		
+	}
+	
 	
 	public void run(){
 		try{
@@ -144,10 +155,10 @@ public abstract class PNJ extends Player{
 				Thread.sleep(1000);
 				behaviour();
 				while (game.isOnPause()){
-					Thread.sleep(100);
-					System.out.println("Je suis en pause !");
+					Thread.sleep(500);
 				}
 				}
-			}catch(Exception e){System.out.println("Problem with thread !");} 
+			}catch(Exception e){System.out.println("Problem with thread !");
+			e.printStackTrace();} 
 		}
 }

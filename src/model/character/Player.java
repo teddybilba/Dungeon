@@ -11,7 +11,7 @@ public abstract class Player implements Serializable{
 	private int posX;
 	private int posY;
 	private int vit = 1;
-	private String direction;
+	//private String direction;
 	private int life;
 	private int damage = 0;
 	private int maxDamage;
@@ -25,18 +25,18 @@ public abstract class Player implements Serializable{
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
-		this.direction = "S";
+		//this.direction = "S";
 		life = 1;
 		maxDamage = 10;
 		this.attackRange= attackRange;
-		attackDamage = 2;
+		attackDamage = 3;
 	}
 	// constructeur surcharge	
 	public Player(int posX, int posY, int attackRange, Game game, int life, int attackDamage){
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
-		this.direction = "S";
+		//this.direction = "S";
 		this.life = life;
 		maxDamage = 10;
 		this.attackRange= attackRange;
@@ -47,7 +47,7 @@ public abstract class Player implements Serializable{
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
-		this.direction = "S";
+		//this.direction = "S";
 		this.life = life;
 		this.maxDamage = maxDamage;
 		this.attackRange= attackRange;
@@ -116,7 +116,6 @@ public abstract class Player implements Serializable{
 			if(totalDamage > maxDamage){
 				loseLife();							// too much total damage (previous + new damage) , hence player loses life
 				this.damage = 0;					// and damage set to 0
-				System.out.println("lose a life");
 			}else{									// if totalDamage <= maxDamage, just inflict damage to player
 				this.damage = totalDamage;
 			}
@@ -168,7 +167,7 @@ public abstract class Player implements Serializable{
 		}
 		return listPossibleMoves;
 	}
-	
+/*	
 	private String getDirection(){
 		return direction;
 	}
@@ -178,7 +177,7 @@ public abstract class Player implements Serializable{
 		}else{System.out.println("Mauvais setDirection de " + this + "direction demandee : " + direction);}
 	}
 	
-	/* Position just in face of a given position determined by the direction of the player */
+	/* Position just in face of a given position determined by the direction of the player /
 	public int getPosXInFace(){
 		int returnedPosition = posX;
 		if(this.getDirection().equals("E")){
@@ -200,7 +199,7 @@ public abstract class Player implements Serializable{
 		}
 		return returnedPosition;
 	}
-	
+	*/
 	
 	/* °°°° Methods °°° */
 	

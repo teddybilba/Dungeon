@@ -136,10 +136,10 @@ public class Map extends JPanel implements Serializable{
 						catch (Exception e) {e.printStackTrace();}
 					}
 					
-					System.out.print(color);
-					System.out.print(" ");
+					//System.out.print(color);
+					//System.out.print(" ");
 				}
-				System.out.println("");
+				//System.out.println("");
 			}
 		}
 		

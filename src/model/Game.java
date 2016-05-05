@@ -101,10 +101,6 @@ public class Game implements Serializable{
 				dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			damTiles.add(new DamageTile(dX, dY));
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 		}
 		
 		// Creating hero
@@ -114,7 +110,7 @@ public class Game implements Serializable{
 			hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
-		hero = new Hero(hX, hY , 3, this, 3, 2, 20);		//attackRange = 3; life = 3; attackDamage = 2; maxDamage = 20;
+		hero = new Hero(hX, hY , 3, this, 3, 5, 40);		//attackRange = 3; life = 3; attackDamage = 2; maxDamage = 40;
 		
 		
 		// Creating rats
@@ -224,35 +220,36 @@ public class Game implements Serializable{
 		this.pause = false;
 	}
 	
+	
 	// Determine the number of each elements based on the size of the map.
 	private void modifyNumbers(int size){
-		if(size == 30){
-			this.teleNum = 5;
-			this.ratNumber = 10;
-			this.saibamanNumber = 10;
-			this.coinNumber = 20;
-			this.potionNumber = 8;
-			this.blockNum = 70;
-			this.damNum = 10;
+		if(size == 50){
+			this.teleNum = 15;
+			this.ratNumber = 30;
+			this.saibamanNumber = 30;
+			this.coinNumber = 50;
+			this.potionNumber = 14;
+			this.blockNum = 300;
+			this.damNum = 16;
 			
 		}
-		else if (size == 50){
-			this.teleNum = 8;
-			this.ratNumber = 15;
-			this.saibamanNumber = 15;
-			this.coinNumber = 30;
-			this.potionNumber = 10;
-			this.blockNum = 120;
-			this.damNum = 16;
+		else if (size == 70){
+			this.teleNum = 20;
+			this.ratNumber = 40;
+			this.saibamanNumber = 40;
+			this.coinNumber = 70;
+			this.potionNumber = 25;
+			this.blockNum = 500;
+			this.damNum = 30;
 		}
 		else{
-			this.teleNum = 15;
-			this.ratNumber = 20;
-			this.saibamanNumber = 20;
-			this.coinNumber = 45;
-			this.potionNumber = 15;
-			this.blockNum = 300;
-			this.damNum = 25;
+			this.teleNum = 40;
+			this.ratNumber = 70;
+			this.saibamanNumber = 70;
+			this.coinNumber = 120;
+			this.potionNumber = 40;
+			this.blockNum = 1000;
+			this.damNum = 50;
 			
 		}
 		
@@ -296,7 +293,7 @@ public class Game implements Serializable{
 	
 	private boolean collisionWall(int posX, int posY){
 		boolean res = false;
-		for (Block wall: walls){						//TODO Juste voir si presenceAllowed sur la case en question.
+		for (Block wall: walls){						
 			if(wall.getPosX() == posX && wall.getPosY() == posY ){
 				res = true;
 			}
@@ -340,7 +337,7 @@ public class Game implements Serializable{
 			takeCoin();
 			teleportation();
 			hurt();
-			playerDeath();
+			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -351,7 +348,7 @@ public class Game implements Serializable{
 			takeCoin();
 			teleportation();
 			hurt();
-			playerDeath();
+			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -362,7 +359,7 @@ public class Game implements Serializable{
 			takeCoin();
 			teleportation();
 			hurt();
-			playerDeath();
+			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 			
@@ -374,7 +371,7 @@ public class Game implements Serializable{
 			takeCoin();
 			teleportation();
 			hurt();
-			playerDeath();
+			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -394,7 +391,7 @@ public class Game implements Serializable{
 	private void hurt(){
 		for(DamageTile dTile: damTiles){
 			dTile.hurt(hero);
-			playerDeath();
+			//playerDeath();
 		}
 	}
 	
@@ -403,12 +400,12 @@ public class Game implements Serializable{
 		window.settings(hero);
 		System.out.println("Attack !");
 	}
-	public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
+	/*public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
 		
 		if(hero.getLife()==0){
-			System.out.println("Game Over!!!"); 		//TODO Game Over
+			System.out.println("Game Over!!!"); 	
 			window.gameOver();
-			perdu=new Perdu();
+			perdu = new Perdu();
 		}
 		
 		for (int i=0; i<PNJs.size();i++){
@@ -421,7 +418,7 @@ public class Game implements Serializable{
 		window.settings(hero);
 		window.draw(this.getMap());
 		
-	}
+	}*/
 	
 	public void gameOver(){
 		window.gameOver();

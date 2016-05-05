@@ -59,12 +59,12 @@ public class KeyBoard implements KeyListener{
 						System.out.println("Pause game !");
 						game.pauseGame();
 						break;
-					case KeyEvent.VK_R:
+						}
+			}
+			if(key == KeyEvent.VK_R){
 						System.out.print("Resume game !");
 						game.resumeGame();
-						break;
-						}
-				}
+			}
 			}
 
 		@Override

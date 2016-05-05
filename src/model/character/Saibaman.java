@@ -19,8 +19,12 @@ public final class Saibaman extends PNJ implements Runnable{
 		int posY = this.getPosY();
 		int differenceX = posX - targetPosX;
 		int differenceY = posY - targetPosY;
-		if(differenceX == 1 || differenceY == 1){
-			target.setDamage((this.getMaxDamage()-this.getDamage())*this.getLife());
+		
+		if(Math.abs(differenceX) == 1 || Math.abs(differenceY) == 1){
+			System.out.println(differenceX);
+			System.out.println(differenceX + "   " + differenceY + "");
+			int totalDamage = (this.getAttackDamage()+2)*this.getLife();
+			target.setDamage(totalDamage);
 			this.die();
 		}
 		else{this.approach(target);}

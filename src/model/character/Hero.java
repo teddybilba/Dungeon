@@ -85,22 +85,25 @@ public final class Hero extends Player{
 	}
 	
 	public void gainLife(){
-		if(specialPowerNum >= 3){
-			this.specialPowerNum -= 3;
+		if(specialPowerNum >= 2){
+			this.specialPowerNum -= 2;
 			winLife();
 		}
 	}
 	
 	public void attackArea(){
-		ArrayList<PNJ> listCloseEnemies = new ArrayList<PNJ>();
-		for(PNJ pnj : game.getPNJs()){
-			if(Math.abs(pnj.getPosX() - this.getPosX()) <= this.getAttackRange() || Math.abs(pnj.getPosY() - this.getPosY()) <= this.getAttackRange()){
-				listCloseEnemies.add(pnj);
+		if(specialPowerNum >= 3){
+			ArrayList<PNJ> listCloseEnemies = new ArrayList<PNJ>();
+			for(PNJ pnj : game.getPNJs()){
+				if(Math.abs(pnj.getPosX() - this.getPosX()) <= this.getAttackRange() || Math.abs(pnj.getPosY() - this.getPosY()) <= this.getAttackRange()){
+					listCloseEnemies.add(pnj);
+				}
+				for(PNJ enemies : listCloseEnemies){
+					enemies.setDamage(this.getAttackDamage());
+					}
+				}
+			specialPowerNum -= 3;
 			}
-		for(PNJ enemies : listCloseEnemies){
-			enemies.setDamage(this.getAttackDamage());
-			}
-		}
 		}
 	
 
