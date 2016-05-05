@@ -10,10 +10,10 @@ public class Player implements Serializable{
 	protected Game game;
 	private int posX;
 	private int posY;
-	private int vit;
+	private int vit = 1;
 	private String direction;
 	private int life;
-	private int damage;
+	private int damage = 0;
 	private int maxDamage;
 	private int attackRange;
 	private int attackDamage;
@@ -26,27 +26,63 @@ public class Player implements Serializable{
 		this.posX = posX;
 		this.posY = posY;
 		this.direction = "S";
-		vit = 1;
 		life = 1;
-		damage = 0;
 		maxDamage = 10;
 		this.attackRange= attackRange;
 		attackDamage = 1;
 	}
+	// constructeur surcharge
+	public Player(int posX, int posY, int attackRange, Game game, int life){
+		this.game = game;
+		this.posX = posX;
+		this.posY = posY;
+		this.direction = "S";
+		this.life = life;
+		maxDamage = 10;
+		this.attackRange= attackRange;
+		attackDamage = 1;
+	}
+	
+	public Player(int posX, int posY, int attackRange, Game game, int life, int attackDamage){
+		this.game = game;
+		this.posX = posX;
+		this.posY = posY;
+		this.direction = "S";
+		this.life = life;
+		maxDamage = 10;
+		this.attackRange= attackRange;
+		this.attackDamage = attackDamage;
+	}
+	
+	public Player(int posX, int posY, int attackRange, Game game, int life, int attackDamage, int maxDamage){
+		this.game = game;
+		this.posX = posX;
+		this.posY = posY;
+		this.direction = "S";
+		this.life = life;
+		this.maxDamage = maxDamage;
+		this.attackRange= attackRange;
+		this.attackDamage = attackDamage;
+	}
+	
 	
 	/* @@@ GETTERS & SETTERS @@@ */
 	public int getPosX(){
 		return posX;
 	}
 	public void setPosX(int posX){
-		this.posX = posX;
+		if(game.getMapRange() <= posX && posX < game.getMapRange() + game.getSize()){	// pas de position en dehors du plateau
+			this.posX = posX;
+		}else{System.out.println("setPosX out of range :" + this);}
 	}
 			
 	public int getPosY(){
 		return posY;
 	}
 	public void setPosY(int posY){
-		this.posY = posY;
+		if(game.getMapRange() <= posY && posY < game.getMapRange() + game.getSize()){
+			this.posY = posY;
+		}else{System.out.println("setPosY out of range :" + this);}
 	}
 	
 	/* Vitesse player */
@@ -54,16 +90,16 @@ public class Player implements Serializable{
 		return vit;
 	}
 	public void setVit(int vit){
-		if(vit > 0 && vit < 3){
+		if(vit > 0 && vit <= 3){					// there is an arbitrary maximum speed
 			this.vit = vit;
-		}
+		}else{System.out.println("Vitesse out of range (1,3) : " + vit);}
 	}
 	
 	/* Life */
 	public int getLife(){
 		return life;
 	}
-	public void setLife(int life){
+	public void setLife(int life){					// there is an arbitrary maximum life number
 		if(life >= 0 && life < 10){
 			this.life = life;
 		}
@@ -78,20 +114,22 @@ public class Player implements Serializable{
 			loseLife();								//too much damage, hence player loses life & new damage set to 0
 			this.damage = 0;
 		}
-		else if(damage < 0){						//reducing the damage (potions,etc)
+		else if(damage < 0){						//reducing the damage (potions, special power)
 			if(this.damage < -damage){				// damage must be >= 0
 				this.damage = 0;
 			}
 			else{
 				this.damage += damage;
-				System.out.println("damage effective");
 				}
 			}
 		else{										// if damage not out of bound, adds damage
-			this.damage += damage;
-			if(damage > maxDamage){
-				loseLife();							// too much damage, hence player loses life
+			int totalDamage = this.damage + damage;
+			if(totalDamage > maxDamage){
+				loseLife();							// too much total damage (previous + new damage) , hence player loses life
+				this.damage = 0;					// and damage set to 0
 				System.out.println("lose a life");
+			}else{									// if totalDamage <= maxDamage, just inflict damage to player
+				this.damage = totalDamage;
 			}
 		}
 	}
@@ -100,7 +138,7 @@ public class Player implements Serializable{
 		return maxDamage;
 	}
 	public void setMaxDamage(int maxDamage){
-		if(maxDamage > 0){
+		if(maxDamage > 0 && maxDamage <= 20){		// arbitrary maximum damage
 			this.maxDamage = maxDamage;
 		}
 	}
@@ -109,9 +147,9 @@ public class Player implements Serializable{
 	public int getAttackRange(){
 		return attackRange;
 	}
-	public void setAttackRange(int range){
-		if(range > 0){
-			this.attackRange = range;
+	public void setAttackRange(int attackRange){
+		if(attackRange > 0 && attackRange < 5){		// arbitrary max attackRange
+			this.attackRange = attackRange;
 		}
 	}
 	
@@ -119,16 +157,16 @@ public class Player implements Serializable{
 		return attackDamage;
 	}
 	public void setAttackDamage(int attackDamage){
-		if(attackDamage > 0 && attackDamage < 10){
+		if(attackDamage > 0 && attackDamage <= 10){		// arbitrary maxDamage (half of maxDamage)
 			this.attackDamage = attackDamage;
 		}
 	}
 	
 	/* Moves and direction */
 	public ArrayList<String> getListPossibleMoves(){
-		listPossibleMoves.clear();
+		listPossibleMoves.clear();						// new list each time the function is called
 		if(! game.Collision(posX-1, posY)){
-			listPossibleMoves.add("W");
+			listPossibleMoves.add("W");					// N,S,E,W directions
 		}
 		if(! game.Collision(posX+1, posY)){
 			listPossibleMoves.add("E");
@@ -148,11 +186,11 @@ public class Player implements Serializable{
 	public void setDirection(String direction){
 		if(direction.equals("N") || direction.equals("S") || direction.equals("E") || direction.equals("W")){
 			this.direction = direction;
-		}else{System.out.println("Mauvais setDirection de " + this);}
+		}else{System.out.println("Mauvais setDirection de " + this + "direction demandee : " + direction);}
 	}
 	
 	/* Position just in face of a given position determined by the direction of the player */
-	public int getPosXInFace(int posX){
+	public int getPosXInFace(){
 		int returnedPosition = posX;
 		if(this.getDirection().equals("E")){
 			returnedPosition = posX + 1;
@@ -163,7 +201,7 @@ public class Player implements Serializable{
 		return returnedPosition;
 	}
 	
-	public int getPosYInFace(int posY){
+	public int getPosYInFace(){
 		int returnedPosition = posY;
 		if(this.getDirection().equals("N")){
 			returnedPosition = posY + 1;
@@ -230,9 +268,9 @@ public class Player implements Serializable{
 	}*/
 	
 	public void attack(){
-		int posEnnemyX = getPosXInFace(this.getPosX());
-		int posEnnemyY = getPosYInFace(this.getPosY());
-		
+		int posEnemyX = getPosXInFace();
+		int posEnemyY = getPosYInFace();
+		//PNJ enemy = game.getPlayerUsingPosition()
 		setDamage(this.getAttackDamage());
 		
 	}

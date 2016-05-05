@@ -2,15 +2,15 @@ package model.character;
 
 import java.util.ArrayList;
 import model.Game;
-
 import model.item.Potion;
+import outils.Fonctions;
 
 
 public class Hero extends Player{
 	private int coinsNumber;
 	private int maxCoinsNumber;
 	private int maxPotion;
-	private ArrayList<Potion> potionsInventory=new ArrayList<Potion> ();
+	private ArrayList<Potion> potionsInventory = new ArrayList<Potion> ();
 	private int specialPowerNum;
 	private int maxPowerNum;
 	
@@ -18,91 +18,84 @@ public class Hero extends Player{
 	/* ### CONSTRUCTEUR ### */
 	public Hero(int posX,int posY, int attackRange, Game game){
 		super(posX, posY, attackRange, game);
-		this.coinsNumber=0;
-		this.maxCoinsNumber=20;
-		this.maxPotion=5;
-		this.specialPowerNum=0;
-		this.maxPowerNum=3;
+		this.coinsNumber = 0;
+		this.maxCoinsNumber = 30;
+		this.maxPotion = 5;
+		this.specialPowerNum = 0;
+		this.maxPowerNum = 3;
 		
 	}
-	//GETTERS
+	
+	/* @@@ GETTERS & SETTERS @@@ */
 	public int getCoinsNumber(){
-		return this.coinsNumber;
-	}
+		return coinsNumber;
+	}	
 	public int getMaxCoinsNumber(){
-		return this.maxCoinsNumber;
+		return maxCoinsNumber;
 	}
 	public int getPotionNumInventory(){
-		return this.potionsInventory.size();
+		return potionsInventory.size();
 	}
 	public int getMaxPotion(){
-		return this.maxPotion;
+		return maxPotion;
 	}
 	public int getSpecialPowerNum(){
-		return this.specialPowerNum;
+		return specialPowerNum;
 	}
-	//FCT RANDOM	
-	public int randomNum(int min, int max){
-		int nb = min + (int)(Math.random() * ((max - min) + 1));
-		return nb;
-	}
+
 	//MANIPULATION DES PIECES
+	private void addCoins(int coinsNumber){
+		int totalCoinsNumber = this.coinsNumber + coinsNumber;
+		if (totalCoinsNumber >= maxCoinsNumber){				// If hero grabs enough coins, he wins a life
+			this.coinsNumber = coinsNumber - maxCoinsNumber;
+			if(specialPowerNum < maxPowerNum){
+				specialPowerNum += 1;
+				}
+			else{
+				winLife();										// If max number of special power, hero wins life
+				this.specialPowerNum = 0;
+				}
+			}
+		else{
+			this.coinsNumber = totalCoinsNumber;
+			}
+		}
 	
 	public void grabCoin (){
-		//Si on a 50 pi�ces, on gagne un pouvoir bonus (3 max) si
-		//on en a deja 3 on gagne une vie.
-		this.coinsNumber+=1;
-		if (coinsNumber>=maxCoinsNumber){
-			this.coinsNumber-=maxCoinsNumber;
-			if (specialPowerNum==maxPowerNum){
-				winLife();
-			}
-			else{
-				this.specialPowerNum+=1;
-			}
+		addCoins(Fonctions.randomNum(1, 10));
 		}
-			
-				
-	}
+	
 	//POUVOIR SPECIAL( INVINCIBILITE)
 	public boolean powerPossible(){
-		boolean res= false;
-		if (specialPowerNum>0){
-			res=true;
+		boolean res = false;
+		if (specialPowerNum > 0){
+			res = true;
 		}
 		return res;
-	}
-	public void specialPower(){
-		//met le compteur des dommages a zero;
-		int damage=getDamage();
-		setDamage(-damage);
-	}
-	public void usePower(){
-		if (powerPossible()==true){
-			specialPower();
-			specialPowerNum-=1;
+	}	
+
+	public void reduceDamagePower(){
+		if (powerPossible() == true){
+			setDamage(-this.getDamage());
+			specialPowerNum -= 1;
 		}
 	}
+	
 	//MANUPULATION DES POTIONS
 	public void grabPotion(Potion potion){
-		potionsInventory.add(potion);
-		
-		
-	}
-	private int choseRandomPotion(){
-		int index =randomNum(0,getPotionNumInventory()-1);
-		return index;
-	}
+		potionsInventory.add(potion);		
+		}
+	
 	public void drinkPotion(){
-		int index= choseRandomPotion();
-		Potion potion=potionsInventory.get(index);
-		potionsInventory.remove(index);
-		if (potion.IsGood()==true){
-			winLife();
+		if (potionsInventory.size() >= 1){
+			Potion potion = potionsInventory.get(0);		// Hero drinks the potions in the same order he grabbed them
+			potionsInventory.remove(0);
+			if (potion.IsGood() == true){					// There are good and bad potions
+				winLife();
+				}
+			else{
+				loseLife();
+				}
+			}	
 		}
-		else{
-			loseLife();
-		}
-		
-	}
 }

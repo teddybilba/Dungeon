@@ -6,8 +6,20 @@ public class PNJ extends Player{
 	private int visionRange;
 	
 	/* ### CONSTRUCTEUR ### */
-	public PNJ(int posX, int posY, int visionRange, int attackRange, Game game){
+	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange){
 		super(posX, posY, attackRange, game);
+		this.visionRange = visionRange;
+	}
+	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange, int life){
+		super(posX, posY, attackRange, game, life);
+		this.visionRange = visionRange;
+	}
+	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange, int life, int attackDamage){
+		super(posX, posY, attackRange, game, life, attackDamage);
+		this.visionRange = visionRange;
+	}
+	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange, int life, int attackDamage, int maxDamage){
+		super(posX, posY, attackRange, game, life, attackDamage, maxDamage);
 		this.visionRange = visionRange;
 	}
 	

@@ -32,7 +32,7 @@ public class Game implements Serializable{
 	private Window window;
 	private Perdu perdu;
 	private int size;
-	private int mapRange = 9; /*1*/
+	protected final int MAP_RANGE = 9; /*1*/
 	private int teleNum;
 	private int PNJNumber;
 	private int coinNumber;
@@ -48,67 +48,67 @@ public class Game implements Serializable{
 		this.window = window;
 		this.size = size;
 		this.pause = false;
-		int totalSize = size + 2*mapRange;
+		int totalSize = size + 2*MAP_RANGE;
 		// Map building
 		modifyNumbers(size);
 		
 		// Wall building (9-blocks thick in order to avoid problem with getting a 19x19 frame when player adjacent to wall)
 		for(int i = 0; i<totalSize; i++){
-			if(i < mapRange || i >= mapRange + this.size){
-				for(int j = 0; j<mapRange; j++){
+			if(i < MAP_RANGE || i >= MAP_RANGE + this.size){
+				for(int j = 0; j<MAP_RANGE; j++){
 					walls.add(new Wall(i,j));
 					}
 				}
 			else{
-				for(int j = 0; j<mapRange; j++){
+				for(int j = 0; j<MAP_RANGE; j++){
 					walls.add(new Wall(i,j));
 					}
-				for(int j = mapRange + this.size; j < totalSize; j++){
+				for(int j = MAP_RANGE + this.size; j < totalSize; j++){
 					walls.add(new Wall(i,j));
 					}
 				}
 			}
 			
-		for(int i = mapRange; i < size + mapRange; i++){
+		for(int i = MAP_RANGE; i < size + MAP_RANGE; i++){
 				tiles.add(new Tile(i,i));// les cases
 				}
 		
 		for (int i=0; i<blockNum; i++){
-			int bX = randomNum(mapRange, size+mapRange-1); //avant il y avait (1,size-2)
-			int bY = randomNum(mapRange, size+mapRange-1);
+			int bX = randomNum(MAP_RANGE, size+MAP_RANGE-1); //avant il y avait (1,size-2)
+			int bY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			walls.add(new Wall(bX,bY));
 		}
 	
 		
 		//creating teleportation tiles
 		for (int i=0; i<teleNum; i++){
-			int tX = randomNum(mapRange, size+mapRange-1);
-			int tY = randomNum(mapRange, size+mapRange-1);
+			int tX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int tY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			while(collisionWall(tX,tY)==true){
-				tX = randomNum(mapRange, size+mapRange-1);
-				tY = randomNum(mapRange, size+mapRange-1);
+				tX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				tY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			teleportationTiles.add(new Tile(tX,tY));
 		}
 	
 		// Creating hero
-		int hX=randomNum(mapRange, size+mapRange-1);
-		int hY=randomNum(mapRange, size+mapRange-1);
+		int hX=randomNum(MAP_RANGE, size+MAP_RANGE-1);
+		int hY=randomNum(MAP_RANGE, size+MAP_RANGE-1);
 		while (beOnTeleTile(hX,hY)==true || collisionWall(hX,hY)==true){ 	//TODO enlever beOnTeleTile ?
-			hX=randomNum(mapRange, size+mapRange-1);
-			hY=randomNum(mapRange, size+mapRange-1);		
+			hX=randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			hY=randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
 		hero=new Hero(hX,hY,1,this);
 		//hero=new Hero(size/2,size/2,1,this);
 		
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
-			int posX = randomNum(mapRange, size+mapRange-1);
-			int posY = randomNum(mapRange, size+mapRange-1);
+			int posX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int posY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
 			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true){
-				posX = randomNum(mapRange, size+mapRange-1);// avant (1,size-2)
-				posY = randomNum(mapRange, size+mapRange-1);
+				posX = randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
+				posY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			Rat rat = new Rat(posX,posY,1,1, this);
 			PNJs.add(rat);
@@ -117,23 +117,23 @@ public class Game implements Serializable{
 		}
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){
-			int cX = randomNum(mapRange, size+mapRange-1);
-			int cY = randomNum(mapRange, size+mapRange-1);
+			int cX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int cY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
 			while(Collision(cX, cY)==true || beOnTeleTile(cX,cY)==true){
-				cX = randomNum(mapRange, size+mapRange-1);
-				cY = randomNum(mapRange, size+mapRange-1);
+				cX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				cY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			coinsOnFloor.add(new Coin(cX,cY));
 		}
 		//Creation des potions
 		for (int i=0; i<potionNumber; i++){
-			int pX = randomNum(mapRange, size+mapRange-1);
-			int pY = randomNum(mapRange, size+mapRange-1);
+			int pX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int pY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
 			while(Collision(pX, pY)==true && beOnTeleTile(pX,pY)==true){
-				pX = randomNum(mapRange, size+mapRange-1);
-				pY = randomNum(mapRange, size+mapRange-1);
+				pX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				pY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			potions.add(new Potion(pX,pY));
 		}
@@ -256,6 +256,12 @@ public class Game implements Serializable{
 	}
 	public ArrayList<Thread> getListThreads(){
 		return listThreads;
+	}
+	public int getSize(){
+		return size;
+	}
+	public int getMapRange(){
+		return MAP_RANGE;
 	}
 	public boolean isOnPause(){
 		return pause;
@@ -508,54 +514,54 @@ public class Game implements Serializable{
 
 // donne des images a la map	
 	public int[][] getMap(){
-		int[][] map = new int[1+2*this.mapRange][1+2*this.mapRange];
+		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
 		int posX = hero.getPosX();
 		int posY = hero.getPosY();
 		for (Tile tile: tiles){
 			int x = tile.getPosX();
 			int y = tile.getPosY();
-			if(Math.abs(x-posX) <= mapRange && Math.abs(y-posY) <= mapRange){
-				map[x-posX-mapRange][y-posX-mapRange]=0;
+			if(Math.abs(x-posX) <= MAP_RANGE && Math.abs(y-posY) <= MAP_RANGE){
+				map[x-posX-MAP_RANGE][y-posX-MAP_RANGE]=0;
 			}
 		}
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
-			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
-				map[x-posX-mapRange][y-posY-mapRange]=1;
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=1;
 			}
 		}
 		for(Tile teleTile: teleportationTiles){
 			int x = teleTile.getPosX();
 			int y = teleTile.getPosY();
-			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
-				map[x-posX-mapRange][y-posY-mapRange]=6;
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=6;
 			}
 		}
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
-			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
-				map[x-posX-mapRange][y-posY-mapRange]=4;
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=4;
 			}
 		}
 		for(Potion potion: potions){
 			int x = potion.getPosX();
 			int y = potion.getPosY();
-			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
-				map[x-posX-mapRange][y-posY-mapRange]=5;
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=5;
 			}
 		}
 		for(PNJ pnj: PNJs){
 			int x = pnj.getPosX();
 			int y = pnj.getPosY();
-			if(Math.abs(x-posX)<=mapRange&& Math.abs(y-posY)<=mapRange){
-				map[x-posX+mapRange][y-posY+mapRange]=3;
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=3;
 			}
 		}
 		
 			
-			map[mapRange][mapRange] = 2;
+			map[MAP_RANGE][MAP_RANGE] = 2;
 		
 		
 		
