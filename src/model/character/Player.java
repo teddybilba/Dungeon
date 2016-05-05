@@ -38,7 +38,7 @@ public abstract class Player implements Serializable{
 		this.posY = posY;
 		this.direction = "S";
 		this.life = life;
-		maxDamage = 0;
+		maxDamage = 10;
 		this.attackRange= attackRange;
 		this.attackDamage = attackDamage;
 	}
