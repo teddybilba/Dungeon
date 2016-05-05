@@ -7,18 +7,8 @@ public class DamageTile extends Block {
 	private int damageValue;
 	
 	public DamageTile(int posX, int posY){
-<<<<<<< HEAD
 		super(posX, posY, 3);
-		this.damageValue = 3;
-=======
-//<<<<<<< HEAD
-		super(posX, posY, 3);
-		this.damageValue = 3;
-//=======
-		/*super(posX, posY);
-		this.damageVal=4;*/
-//>>>>>>> origin/master
->>>>>>> origin/master
+		this.damageValue = 4;
 	}
 	public void hurt(Player player){
 		int x = this.getPosX();
