@@ -50,7 +50,7 @@ public class HeroHealth extends JPanel implements Serializable{
 	}
 	public void setDamage(int damage){
 		this.heroDamage=damage;
-		label3.setText("Nb vies: "+String.valueOf(heroDamage));
+		label3.setText("Niveau dommages: "+String.valueOf(heroDamage));
 	}
 	
 	public void labelComponent(){

@@ -22,6 +22,7 @@ public class Game implements Serializable{
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	private ArrayList<Tile> teleportationTiles = new ArrayList<Tile>();
+	private ArrayList<DamageTile> damTiles = new ArrayList<DamageTile>();
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private ArrayList<Potion> potions = new ArrayList<Potion>();
 	private Hero hero;
@@ -38,6 +39,7 @@ public class Game implements Serializable{
 	private int coinNumber;
 	private int potionNumber;
 	private int blockNum;
+	private int damNum;
 	//* !!!1!!!on voit 19 cases dans la fenetre: il faut donc afficher 9 cases de part et d' autre du h�ros.*//
 	
 	
@@ -90,23 +92,34 @@ public class Game implements Serializable{
 			}
 			teleportationTiles.add(new Tile(tX,tY));
 		}
+		//creation des dalles blessantes
+		for (int i=0; i<damNum; i++){
+			int dX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int dY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			while(collisionWall(dX,dY)==true || beOnTeleTile(dX,dY)== true ){
+				dX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				dY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			}
+			teleportationTiles.add(new Tile(dX,dY));
+		}
+		
 	
 		// Creating hero
 		int hX=randomNum(MAP_RANGE, size+MAP_RANGE-1);
 		int hY=randomNum(MAP_RANGE, size+MAP_RANGE-1);
-		while (beOnTeleTile(hX,hY)==true || collisionWall(hX,hY)==true){ 	//TODO enlever beOnTeleTile ?
+		while (beOnDamTile(hX,hY)==true || collisionWall(hX,hY)==true){ 	//TODO enlever beOnTeleTile ?
 			hX=randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			hY=randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
 		hero = new Hero(hX, hY , 1, this, 3, 2, 20);
-		//hero=new Hero(size/2,size/2,1,this);
+		
 		
 		// Creating PNJ's
 		for (int i=0; i<PNJNumber; i++){
 			int posX = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true){
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true){
 				posX = randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
 				posY = randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
@@ -141,97 +154,7 @@ public class Game implements Serializable{
 		window.settings(hero);
 		window.draw(this.getMap());
 }
-	/*
-	public Game(Window window, int size){
-		this.window = window;
-		this.size = size;
-		this.pause = false;
-		int totalSize = size + 2*mapRange;
-		// Map building
-		modifyNumbers(size);
-		for (int j=0;j<mapRange;j++){  //il faut ajouter des murs plus "epais" pour eviter que la map ignore les objets qu'elle doit afficher
-			for(int i = j; i < totalSize-j; i++){
-				walls.add(new Wall(i,j));
-				walls.add(new Wall(j,i));
-				walls.add(new Wall(i, totalSize-1-j));
-				walls.add(new Wall(totalSize-1-j, i));// les murs
-			}
-		}
-			
-		for(int i = mapRange; i < size+mapRange-1; i++){
-			for(int j = mapRange; j < size+mapRange-1; j++){
-				tiles.add(new Tile(i,j));// les cases
-			}
-		}
-		
-		for (int i=0; i<blockNum; i++){
-			int bX = randomNum(mapRange, size+mapRange-1); //avant il y avait (1,size-2)
-			int bY = randomNum(mapRange, size+mapRange -1);
-			walls.add(new Wall(bX,bY));
-		}
 	
-		
-		//creating teleportation tiles
-		for (int i=0; i<teleNum; i++){
-			int tX = randomNum(mapRange, size+mapRange-1);
-			int tY = randomNum(mapRange, size+mapRange-1);
-			while(collisionWall(tX,tY)==true){
-				tX = randomNum(mapRange, size+mapRange-1);
-				tY = randomNum(mapRange, size+mapRange-1);
-			}
-			teleportationTiles.add(new Tile(tX,tY));
-		}
-	
-		// Creating hero
-		int hX=randomNum(mapRange, size+mapRange-1);
-		int hY=randomNum(mapRange, size+mapRange-1);
-		while (beOnTeleTile(hX,hY)==true || collisionWall(hX,hY)==true){
-			hX=randomNum(mapRange, size+mapRange-1);
-			hY=randomNum(mapRange, size+mapRange-1);		
-		}
-		hero=new Hero(hX,hY,1,this);
-		//hero=new Hero(size/2,size/2,1,this);
-		
-		// Creating PNJ's
-		for (int i=0; i<PNJNumber; i++){
-			int posX = randomNum(mapRange, size+mapRange-1);
-			int posY = randomNum(mapRange, size+mapRange-1);
-			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true){
-				posX = randomNum(mapRange, size+mapRange-1);// avant (1,size-2)
-				posY = randomNum(mapRange, size+mapRange-1);
-			}
-			Rat rat = new Rat(posX,posY,1,1, this);
-			PNJs.add(rat);
-			Thread thread = new Thread(rat);
-			listThreads.add(thread);
-		}
-		// Creation des pieces
-		for (int i=0; i<coinNumber; i++){
-			int cX = randomNum(mapRange, size+mapRange-1);
-			int cY = randomNum(mapRange, size+mapRange-1);
-			
-			while(Collision(cX, cY)==true || beOnTeleTile(cX,cY)==true){
-				cX = randomNum(mapRange, size+mapRange-1);
-				cY = randomNum(mapRange, size+mapRange-1);
-			}
-			coinsOnFloor.add(new Coin(cX,cY));
-		}
-		//Creation des potions
-		for (int i=0; i<potionNumber; i++){
-			int pX = randomNum(mapRange, size+mapRange-1);
-			int pY = randomNum(mapRange, size+mapRange-1);
-			
-			while(Collision(pX, pY)==true && beOnTeleTile(pX,pY)==true){
-				pX = randomNum(mapRange, size+mapRange-1);
-				pY = randomNum(mapRange, size+mapRange-1);
-			}
-			potions.add(new Potion(pX,pY));
-		}
-		
-		window.settings(hero);
-		window.draw(this.getMap());
-}*/
 	
 	//*GETTERS*//
 	public Hero getHero(){
@@ -290,6 +213,7 @@ public class Game implements Serializable{
 			this.coinNumber = 20;
 			this.potionNumber = 8;
 			this.blockNum = 50;
+			this.damNum=10;
 			
 		}
 		else if (size==40){
@@ -298,6 +222,7 @@ public class Game implements Serializable{
 			this.coinNumber = 30;
 			this.potionNumber = 10;
 			this.blockNum = 100;
+			this.damNum=16;
 		}
 		else{
 			this.teleNum = 10;
@@ -305,6 +230,7 @@ public class Game implements Serializable{
 			this.coinNumber = 45;
 			this.potionNumber = 12;
 			this.blockNum = 300;
+			this.damNum=25;
 			
 		}
 		
@@ -340,6 +266,16 @@ public class Game implements Serializable{
 		}
 		return res;
 	}
+	private boolean beOnDamTile(int x, int y){
+		boolean res=false;
+		for (DamageTile dTile: damTiles){
+			if (dTile.getPosX()==x && dTile.getPosY()==y){
+				res=true;
+			}
+		}
+		return res;
+	}
+	
 	private boolean collisionWall(int posX, int posY){
 		boolean res=false;
 		for (Wall wall: walls){						//TODO Juste voir si presenceAllowed sur la case en question.
@@ -396,6 +332,7 @@ public class Game implements Serializable{
 			hero.move(-1, 0);
 			takeCoin();
 			teleportation();
+			hurt();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -405,6 +342,7 @@ public class Game implements Serializable{
 			hero.move(1,0);
 			takeCoin();
 			teleportation();
+			hurt();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -414,6 +352,7 @@ public class Game implements Serializable{
 			hero.move(0,1);
 			takeCoin();
 			teleportation();
+			hurt();
 			window.settings(hero);
 			window.draw(this.getMap());
 			
@@ -424,6 +363,7 @@ public class Game implements Serializable{
 			hero.move(0,-1);
 			takeCoin();
 			teleportation();
+			hurt();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -442,6 +382,11 @@ public class Game implements Serializable{
 			hero.setPosY(teleportationTiles.get(i).getPosY());
 		}
 		
+	}
+	private void hurt(){
+		for( DamageTile dTile: damTiles){
+			dTile.hurt(hero);
+		}
 	}
 	
 	public void heroAttacks(){
@@ -516,58 +461,7 @@ public class Game implements Serializable{
 		}
 	}
 
-/*
-// donne des images a la map	
-	public int[][] getMap(){
-		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
-		int posX = hero.getPosX();
-		int posY = hero.getPosY();
-		for (Tile tile: tiles){
-			int x = tile.getPosX();
-			int y = tile.getPosY();
-			map[x][y]=0;
-			
-		}
-		for(Wall wall: walls){
-			int x = wall.getPosX();
-			int y = wall.getPosY();
-			map[x][y]=1;
-			
-		}
-		for(Tile teleTile: teleportationTiles){
-			int x = teleTile.getPosX();
-			int y = teleTile.getPosY();
-			map[x][y]=6;
-			
-		}
-		for(Coin coin: coinsOnFloor){
-			int x = coin.getPosX();
-			int y = coin.getPosY();
-			map[x][y]=4;
-			
-		}
-		for(Potion potion: potions){
-			int x = potion.getPosX();
-			int y = potion.getPosY();
-			map[x][y]=5;
-			
-		}
-		for(PNJ pnj: PNJs){
-			int x = pnj.getPosX();
-			int y = pnj.getPosY();
-			map[x][y]=3;
-			
-		}
-		
-			
-		map[hero.getPosX()][hero.getPosY()] = 2;
-		
-		
-		
-		System.out.println(map);
-		return map;
-	}
-*/	
+
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
 		int posX = hero.getPosX();
@@ -591,6 +485,13 @@ public class Game implements Serializable{
 			int y = teleTile.getPosY();
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
 				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=6;
+			}
+		}
+		for(DamageTile dTile: damTiles){
+			int x = dTile.getPosX();
+			int y = dTile.getPosY();
+			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=7;
 			}
 		}
 		for(Coin coin: coinsOnFloor){
@@ -624,34 +525,6 @@ public class Game implements Serializable{
 		return map;
 	}
 /*	
-	public int[][] getMap(){
-		int[][] map = new int[size][size];
-		for (Tile tile: tiles){
-			map[tile.getPosX()][tile.getPosY()]=0;
-			}
-		
-		for(Wall wall: walls){
-			map[wall.getPosX()][wall.getPosY()]=1;
-			}
-		for(Tile teleTile: teleportationTiles){
-			map[teleTile.getPosX()][teleTile.getPosY()]=6;
-			}
-
-		for(Coin coin: coinsOnFloor){
-			map[coin.getPosX()][coin.getPosY()] = 4;
-			}
-		for(Potion potion: potions){
-				map[potion.getPosX()][potion.getPosY()]=5;
-				}
-		for(PNJ pnj: PNJs){
-				map[pnj.getPosX()][pnj.getPosY()]=3;
-			}
-		
-		map[hero.getPosX()][hero.getPosY()] = 2;
-		
-		System.out.println(map);
-		return map;
-	}
 	
 
 	public Game load(String filename){

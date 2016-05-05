@@ -27,6 +27,7 @@ public class Map extends JPanel implements Serializable{
 	private BufferedImage ratImage;
 	private BufferedImage potionImage;
 	private BufferedImage teleTileImage;
+	private BufferedImage damTileImage;
 	
 	
 	/* ### CONSTRUCTEUR ### */
@@ -42,6 +43,7 @@ public class Map extends JPanel implements Serializable{
 			ratImage  = ImageIO.read(new File("images/rat.png"));
 			potionImage = ImageIO.read(new File("images/potion.png"));
 			teleTileImage = ImageIO.read(new File("images/teletile.png"));
+			damTileImage = ImageIO.read(new File("images/damtile.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Erreur import images dans Map.java !");
@@ -125,6 +127,14 @@ public class Map extends JPanel implements Serializable{
 							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
 							
 							g.drawImage(teleTileImage, x*50, y*50, 48, 48,  null);
+						}
+						catch(Exception e){}
+					}
+					else if(color == 7){
+						try{
+							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
+							
+							g.drawImage(damTileImage, x*50, y*50, 48, 48,  null);
 						}
 						catch(Exception e){}
 					}
