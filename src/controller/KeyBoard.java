@@ -34,7 +34,7 @@ public class KeyBoard implements KeyListener{
 				case KeyEvent.VK_SPACE:
 					//System.out.println("Do something...");
 					game.heroAttacks();
-					game.playerDeath();
+					//game.playerDeath();
 					break;
 				case KeyEvent.VK_P:
 					//System.out.println("potion taken");
@@ -44,6 +44,8 @@ public class KeyBoard implements KeyListener{
 					System.out.println("potion drank");
 					game.drinkPotion();
 					break;
+				case KeyEvent.VK_J:
+					game.getHero().dropPotion();
 				case KeyEvent.VK_S:
 					System.out.println("specialPower used");
 					game.usePower();;

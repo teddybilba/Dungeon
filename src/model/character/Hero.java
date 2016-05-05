@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import model.Game;
 import model.item.Potion;
 import outils.Fonctions;
+import view.Perdu;
 
 
 public final class Hero extends Player{
@@ -68,7 +69,7 @@ public final class Hero extends Player{
 		addCoins(Fonctions.randomNum(1, 10));
 		}
 	
-	//POUVOIR SPECIAL( INVINCIBILITE)
+	//POUVOIR SPECIAL(reduit damages)
 	public boolean powerPossible(){
 		boolean res = false;
 		if (specialPowerNum > 0){
@@ -88,6 +89,9 @@ public final class Hero extends Player{
 	public void grabPotion(Potion potion){
 		potionsInventory.add(potion);		
 		}
+	public void dropPotion(){
+		potionsInventory.remove(0);
+	}
 	
 	public void drinkPotion(){
 		if (potionsInventory.size() >= 1){
@@ -101,7 +105,9 @@ public final class Hero extends Player{
 				}
 			}	
 		}
+	// Redefinition die()
 	public void die(){
 		System.out.println("Player died! Game over !");
-	}
+		game.gameOver();
+		}
 }

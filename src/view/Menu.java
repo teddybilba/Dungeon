@@ -24,7 +24,7 @@ import view.Window;
 public class Menu extends JFrame implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private int gameSize=30;
+	private int gameSize = 30;
 	private JButton start = new JButton ("Start Game");
 	private JButton exit = new JButton ("Exit");
 	private JButton small = new JButton ("Small");
@@ -99,7 +99,7 @@ public class Menu extends JFrame implements Serializable{
 		medium.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize = 40;
+				gameSize = 50;
 			}
 
 		});
@@ -110,7 +110,7 @@ public class Menu extends JFrame implements Serializable{
 		large.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize = 50;
+				gameSize = 80;
 			}
 
 		});

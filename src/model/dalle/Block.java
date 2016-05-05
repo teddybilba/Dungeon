@@ -7,19 +7,13 @@ public class Block implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int posX;
 	private int posY;
-	//private int type;							// Type : (0, wall); (1, tile); (2, teleportation); (3, enhancer)
-	private boolean presence;					// Is there someone on the block?
-	private boolean presenceAllowed;		// Is the presence allowed on the block for the players?
+	private int type;							// Type : (0, wall); (1, tile); (2, teleportation); (3, hurt, trap tile)
 	
 	/* ### CONSTRUCTEUR ### */
-	public Block(int posX, int posY, boolean presenceAllowed){
+	public Block(int posX, int posY, int type){
 		this.posX = posX;
 		this.posY = posY;
-		this.presence = false;
-		this.presenceAllowed = presenceAllowed;
-		/*this.type = type;
-		if(type == 1){presenceAllowed = false;}
-		*/
+		this.type = type;
 	}
 
 	/* @@@ GETTERS & SETTERS @@@ */
@@ -30,28 +24,23 @@ public class Block implements Serializable{
 	public  int getPosY(){
 		return posY;
 	}
-	public boolean getPresence(){
-		return presence;
+	public int getType(){
+		return type;
 	}
-	public boolean getPresenceAllowed(){
-		return presenceAllowed;
-	}
+
 	
 	/* Setters */
 	public void setPosX(int posX){	
-		if(posX >= 0){						//TODO add upper limit
+		if(posX >= 0){						
 			this.posX = posX;
 		}else{System.out.println("Block posX out of bound");}
 	}
 
 	public void setPosY(int posY){
-		if(posY >= 0){						//TODO add upper limit
+		if(posY >= 0){						
 			this.posY = posY;
 		}else{System.out.println("Block posY out of bound");}
 	}
 	
-	public void setPresence(boolean presence){
-		this.presence = presence;
-	}
 	
 }

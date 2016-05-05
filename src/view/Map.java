@@ -1,18 +1,12 @@
 package view;
 
 
-import java.awt.Color;
-import java.awt.Image;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -22,9 +16,14 @@ public class Map extends JPanel implements Serializable{
 	private int[][] mapMatrix;
 	private BufferedImage wallImage;
 	private BufferedImage coinImage;
-	private BufferedImage gokuImage;
+	/*private BufferedImage gokuN;
+	private BufferedImage gokuS;
+	private BufferedImage gokuE;
+	private BufferedImage gokuW;*/
+	private BufferedImage goku;
 	private BufferedImage tileImage;
 	private BufferedImage ratImage;
+	private BufferedImage saibamanImage;
 	private BufferedImage potionImage;
 	private BufferedImage teleTileImage;
 	private BufferedImage damTileImage;
@@ -37,17 +36,21 @@ public class Map extends JPanel implements Serializable{
 		this.requestFocusInWindow();
 		try {
 			wallImage = ImageIO.read(new File("images/wall.png"));
-			gokuImage = ImageIO.read(new File("images/goku/gokuS.png"));
+			/*gokuN = ImageIO.read(new File("images/goku/gokuN.png"));
+			gokuS = ImageIO.read(new File("images/goku/gokuS.png"));
+			gokuE = ImageIO.read(new File("images/goku/gokuE.png"));
+			gokuW = ImageIO.read(new File("images/goku/gokuW.png"));*/
+			goku = ImageIO.read(new File("images/goku/gokuS.png"));
 			coinImage = ImageIO.read(new File("images/coin.png"));
 			tileImage = ImageIO.read(new File("images/tile.png"));
 			ratImage  = ImageIO.read(new File("images/rat.png"));
+			saibamanImage = ImageIO.read(new File("images/saibaman.png"));
 			potionImage = ImageIO.read(new File("images/potion.png"));
 			teleTileImage = ImageIO.read(new File("images/teletile.png"));
 			damTileImage = ImageIO.read(new File("images/damtile.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Erreur import images dans Map.java !");
-		}	
+		}
 	}
 	
 	
@@ -56,11 +59,18 @@ public class Map extends JPanel implements Serializable{
 		this.mapMatrix = mapMatrix;
 		this.repaint();
 	}
+	/*public void setGokuImage(String direction){
+		if(direction.equals("N")){goku = gokuN;}
+		if(direction.equals("S")){goku = gokuS;}
+		if(direction.equals("W")){goku = gokuW;}
+		if(direction.equals("E")){goku = gokuE;}
+	}*/				//If there is time to put different images for different directions
 	
 	
 	
 	public void paint(Graphics g) { 
 		if(mapMatrix == null){
+			System.out.println("mapMatrix is null !");
 		}
 		else{
 			for(int i = 0; i<mapMatrix.length; i++){
@@ -68,83 +78,62 @@ public class Map extends JPanel implements Serializable{
 					int x = i;
 					int y = j;
 					int color = mapMatrix[i][j];
-					
-					if(color == 0){
-						
+																				// Could also use {switch and case}
+					if(color == 0){												// Picture drawn according to color
 						try {
 							g.drawImage(tileImage,  x*50, y*50, 48, 48,  null);
-					
 						} 
-						catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-						}
+						catch (Exception e) {e.printStackTrace();}
 					}
 					else if(color == 1){
 						try {
 								g.drawImage(wallImage, x*50,y*50, 48, 48,  null);
-							
 						} 
-						catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+						catch (Exception e) {e.printStackTrace();}
+					}
+					else if(color == 2){
+						try{							
+							g.drawImage(goku, x*50, y*50, 48, 48,  null);
 						}
+						catch(Exception e){e.printStackTrace();}
 					}
 					
 					else if(color == 3){
-						/*g.setColor(Color.RED);
-						g.fillRect(x*50, y*50, 48, 48); 
-
-						g.drawRect(x*50, y*50, 48, 48);*/
 						try {
 							g.drawImage(ratImage,  x*50, y*50, 48, 48,  null);
 						}
-						catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						catch (Exception e) {e.printStackTrace();}
 					}
 					
 					else if(color == 4){
 						try {
 							g.drawImage(coinImage,  x*50, y*50, 48, 48,  null);
 						}
-						catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						catch (Exception e) {e.printStackTrace();}
 					}
 					else if(color == 5){
-						try{
-							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							
+						try{							
 							g.drawImage(potionImage, x*50, y*50, 48, 48,  null);
 						}
-						catch(Exception e){}
+						catch(Exception e){e.printStackTrace();}
 					}
 					else if(color == 6){
-						try{
-							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							
+						try{							
 							g.drawImage(teleTileImage, x*50, y*50, 48, 48,  null);
 						}
-						catch(Exception e){}
+						catch(Exception e){e.printStackTrace();}
 					}
 					else if(color == 7){
-						try{
-							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							
+						try{							
 							g.drawImage(damTileImage, x*50, y*50, 48, 48,  null);
 						}
-						catch(Exception e){}
+						catch(Exception e){e.printStackTrace();}
 					}
-					else if(color == 2){
-						try{
-							//final BufferedImage image = ImageIO.read(new File("/Users/teddybilba/Documents/Teddy/ULB/BA2/Informatique/Donjon/Donjon/src/View/goku.png"));
-							
-							g.drawImage(gokuImage, x*50, y*50, 48, 48,  null);
+					else if(color == 8){
+						try {
+							g.drawImage(saibamanImage,  x*50, y*50, 48, 48,  null);
 						}
-						catch(Exception e){}
+						catch (Exception e) {e.printStackTrace();}
 					}
 					
 					System.out.print(color);
@@ -154,8 +143,6 @@ public class Map extends JPanel implements Serializable{
 			}
 		}
 		
-	}
-	
-	
+	}		
 
 }
