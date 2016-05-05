@@ -101,6 +101,10 @@ public class Game implements Serializable{
 				dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			damTiles.add(new DamageTile(dX, dY));
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 		}
 		
 		// Creating hero
