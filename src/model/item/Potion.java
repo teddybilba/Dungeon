@@ -1,15 +1,18 @@
 package model.item;
 
-import java.util.Random;
+import outils.Fonctions;
 
 public class Potion extends Item {
+
+	private static final long serialVersionUID = 1L;
 	private boolean goodPotion;
-	//permet de donner une valeur aléatoire à l' attribut goodPotion.
+	
+	//permet de donner une valeur aleatoire a l' attribut goodPotion.
 	
 	public Potion(int x, int y){
 		super(x,y);
-		int val= randomNum(1,5);
-		if (val==1){
+		int val = Fonctions.randomNum(1,10);		// arbitrary choice of 7/10 chances of good potion
+		if (val <= 7){
 			this.goodPotion = true;
 		}
 		else{
@@ -18,10 +21,6 @@ public class Potion extends Item {
 	}
 	public boolean IsGood(){
 		return this.goodPotion;
-	}
-	public int randomNum(int min, int max){
-		int nb = min + (int)(Math.random() * ((max - min) + 1));
-		return nb;
 	}
 
 }

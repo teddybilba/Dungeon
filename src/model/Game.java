@@ -100,11 +100,7 @@ public class Game implements Serializable{
 				dX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
-<<<<<<< HEAD
 			damTiles.add(new DamageTile(dX, dY));
-=======
-			damTiles.add(new DamageTile(dX,dY));
->>>>>>> origin/master
 		}
 		
 		// Creating hero
@@ -114,7 +110,7 @@ public class Game implements Serializable{
 			hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
-		hero = new Hero(hX, hY , 1, this, 3, 2, 20);		//attackRange = 1; life = 3; attackDamage = 2; maxDamage = 20;
+		hero = new Hero(hX, hY , 3, this, 3, 2, 20);		//attackRange = 3; life = 3; attackDamage = 2; maxDamage = 20;
 		
 		
 		// Creating rats
@@ -475,6 +471,14 @@ public class Game implements Serializable{
 		for(Thread thread : listThreads){
 			thread.start();
 		}
+	}
+	
+	public void pnjDie(PNJ pnj){
+		int indexPNJ = PNJs.indexOf(pnj);
+		Thread thread = listThreads.get(indexPNJ);
+		thread.interrupt();
+		listThreads.remove(thread);
+		PNJs.remove(pnj);	
 	}
 
 

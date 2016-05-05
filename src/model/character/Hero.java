@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import model.Game;
 import model.item.Potion;
 import outils.Fonctions;
-import view.Perdu;
 
 
 public final class Hero extends Player{
@@ -26,7 +25,7 @@ public final class Hero extends Player{
 		this.maxCoinsNumber = 30;
 		this.maxPotion = 5;
 		this.specialPowerNum = 0;
-		this.maxPowerNum = 3;
+		this.maxPowerNum = 5;
 		
 	}
 	
@@ -51,7 +50,7 @@ public final class Hero extends Player{
 	private void addCoins(int coinsNumber){
 		int totalCoinsNumber = this.coinsNumber + coinsNumber;
 		if (totalCoinsNumber >= maxCoinsNumber){				// If hero grabs enough coins, he wins a life
-			this.coinsNumber = coinsNumber - maxCoinsNumber;
+			this.coinsNumber = totalCoinsNumber - maxCoinsNumber;
 			if(specialPowerNum < maxPowerNum){
 				specialPowerNum += 1;
 				}
@@ -85,6 +84,27 @@ public final class Hero extends Player{
 		}
 	}
 	
+	public void gainLife(){
+		if(specialPowerNum >= 3){
+			this.specialPowerNum -= 3;
+			winLife();
+		}
+	}
+	
+	public void attackArea(){
+		ArrayList<PNJ> listCloseEnemies = new ArrayList<PNJ>();
+		for(PNJ pnj : game.getPNJs()){
+			if(Math.abs(pnj.getPosX() - this.getPosX()) <= this.getAttackRange() || Math.abs(pnj.getPosY() - this.getPosY()) <= this.getAttackRange()){
+				listCloseEnemies.add(pnj);
+			}
+		for(PNJ enemies : listCloseEnemies){
+			enemies.setDamage(this.getAttackDamage());
+			}
+		}
+		}
+	
+
+	
 	//MANUPULATION DES POTIONS
 	public void grabPotion(Potion potion){
 		potionsInventory.add(potion);		
@@ -105,6 +125,21 @@ public final class Hero extends Player{
 				}
 			}	
 		}
+	
+	/* """" REGULAR ATTACK """" */
+	public void attack(){
+		ArrayList<PNJ> listCloseEnemies = new ArrayList<PNJ>();
+		for(PNJ pnj : game.getPNJs()){
+			if(Math.abs(pnj.getPosX() - this.getPosX()) == 1 || Math.abs(pnj.getPosY() - this.getPosY()) == 1){
+				listCloseEnemies.add(pnj);
+			}
+		for(PNJ enemies : listCloseEnemies){
+			enemies.setDamage(this.getAttackDamage());
+		}
+		}
+				
+	}
+	
 	// Redefinition die()
 	public void die(){
 		System.out.println("Player died! Game over !");

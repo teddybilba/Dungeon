@@ -217,51 +217,10 @@ public abstract class Player implements Serializable{
 			setLife(this.life - 1);
 		}
 		else{
-			System.out.println("You have lost all your lives. "+" GAME OVER! ");
 			this.die();
-			//TODO End game
 		}
 	}
 	
 	abstract public void die();
-		
-		// TODO Game Over pour le personnage et eliminer les ennemis.
-		// TODO abstract class? 
-	
-	/* public void MoreDamage(int injury){
-		int level= getDamage();
-		if (level+injury >= this.maxDamage){		// UTILE ??? (j'ai defini la methode setDamage() )
-			LoseLife();
-			this.damage=0;
-		}
-		else{
-			this.damage= level+injury;
-		}
-	} */
-	
-/*	
-	public boolean attackIsPossible( Player target){
-		// permet de voir si la port�e de l' attaquant permet de toucher la cible
-		boolean res= false;
-		int xTar = target.getPosX();
-		int yTar = target.getPosY();
-		int xAtt = this.getPosX();
-		int yAtt = this.getPosY();
-		int range = this.getAttackRange();
-		
-		if(range <= Math.abs(xTar-xAtt) && range <= Math.abs(yTar-yAtt)){
-			res=true;
-		}
-		return res;
-	}*/
-	
-	public void attack(){
-		int posEnemyX = getPosXInFace();
-		int posEnemyY = getPosYInFace();
-		//PNJ enemy = game.getPlayerUsingPosition()
-		setDamage(this.getAttackDamage());
-		
-	}
-	
-	
+
 }

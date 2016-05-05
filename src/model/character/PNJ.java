@@ -51,7 +51,7 @@ public abstract class PNJ extends Player{
 	
 	public void die(){
 		dropItem();
-		game.deletePNJ(this);
+		game.pnjDie(this);
 	}
 	
 	/* §§§ MOVEMENT §§§ */
