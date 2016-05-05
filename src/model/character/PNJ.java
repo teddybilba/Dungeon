@@ -1,8 +1,14 @@
 package model.character;
 import model.item.*;
+import outils.Fonctions;
+
+import java.util.ArrayList;
+
 import model.Game;
 
-public class PNJ extends Player{
+public abstract class PNJ extends Player{
+
+	private static final long serialVersionUID = 1L;
 	private int visionRange;
 	
 	/* ### CONSTRUCTEUR ### */
@@ -10,10 +16,7 @@ public class PNJ extends Player{
 		super(posX, posY, attackRange, game);
 		this.visionRange = visionRange;
 	}
-	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange, int life){
-		super(posX, posY, attackRange, game, life);
-		this.visionRange = visionRange;
-	}
+
 	public PNJ(int posX, int posY, int attackRange, Game game, int visionRange, int life, int attackDamage){
 		super(posX, posY, attackRange, game, life, attackDamage);
 		this.visionRange = visionRange;
@@ -27,20 +30,124 @@ public class PNJ extends Player{
 	public int getVisionRange(){
 		return visionRange;
 	}
+	
 	public void setVisionRange(int visionRange){
 		if(visionRange > 0){
 			this.visionRange = visionRange;
 		}
 	}
 	
+	public void dropItem(){
+		int randomNum = Fonctions.randomNum(1,2);
+		if(randomNum == 1){
+			Coin coin = new Coin(this.getPosX(), this.getPosY());
+			game.addCoins(coin);
+		}
+		else{
+			Potion potion = new Potion(this.getPosX(), this.getPosY());
+			game.addPotion(potion);
+		}
+	}
 	
-	public int randomNum(int min, int max){
-		int nb = min + (int)(Math.random() * ((max - min) + 1));
-		return nb;
+	public void die(){
+		dropItem();
+		game.deletePNJ(this);
 	}
-	public int dropPNJ(){
-		// retourne un indice pour placer un objet aleatoire � sa place.
-		int i=randomNum(1,2);
-		return i;
+	
+	/* §§§ MOVEMENT §§§ */
+	
+	public void flee(Player target){
+		int targetPosX = target.getPosX();
+		int targetPosY = target.getPosY();
+		int posX = this.getPosX();
+		int posY = this.getPosY();
+		int differenceX = posX - targetPosX;
+		int differenceY = posY - targetPosY;
+		int newPosX = posX + (Integer.signum(differenceX));
+		int newPosY = posY + (Integer.signum(differenceY));
+	
+		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
+			if(Math.abs(differenceX) <= Math.abs(differenceY)){
+				if(! game.Collision(newPosX, posY)){				
+					this.setPosX(newPosX);										
+				}else if(! game.Collision(posX, newPosY)){
+					this.setPosY(newPosY);
+				}else{
+					this.moveBlocked();
+					}
+			}else{
+				if(! game.Collision(posX, newPosY)){				
+					this.setPosY(newPosY);										
+				}else if(! game.Collision(newPosX, posY)){
+					this.setPosX(newPosX);
+				}else{
+					this.moveBlocked();
+					}	
+				}
+		}else{
+			randomMove(this);																						// *** Just moves randomly because player not in view 
+		}
 	}
+
+	public void approach(Player target){
+		int targetPosX = target.getPosX();
+		int targetPosY = target.getPosY();
+		int posX = this.getPosX();
+		int posY = this.getPosY();
+		int differenceX = posX - targetPosX;
+		int differenceY = posY - targetPosY;
+		int newPosX = posX - (Integer.signum(differenceX));
+		int newPosY = posY - (Integer.signum(differenceY));
+	
+		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
+			if(Math.abs(differenceX) <= Math.abs(differenceY)){
+				if(! game.Collision(newPosX, posY)){				
+					this.setPosX(newPosX);											
+				}else if(! game.Collision(posX, newPosY)){
+					this.setPosY(newPosY);
+				}else{
+					this.moveBlocked();
+					}
+			}else{
+				if(! game.Collision(posX, newPosY)){				
+					this.setPosY(newPosY);											
+				}else if(! game.Collision(newPosX, posY)){
+					this.setPosX(newPosX);
+				}else{
+					this.moveBlocked();
+					}	
+				}
+		}else{
+			randomMove(this);																						// *** Just moves randomly because player not in view 
+			}	
+		}
+	
+	public void randomMove(Player target){
+		ArrayList<String> listPossibleMoves = this.getListPossibleMoves();
+		if(listPossibleMoves.size() != 0){
+			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size());
+			String direction = listPossibleMoves.get(randomNum);
+			if(direction.equals("E")){this.setPosX(this.getPosX()+1);}
+			if(direction.equals("W")){this.setPosX(this.getPosX()-1);}
+			if(direction.equals("N")){this.setPosY(this.getPosY()+1);}
+			if(direction.equals("S")){this.setPosY(this.getPosY()-1);}
+		}else{this.moveBlocked();}
+	}
+	
+	abstract public void moveBlocked();
+	
+	abstract public void behaviour();
+	
+	public void run(){
+		try{
+			while(true){
+				Thread.sleep(1000);
+				behaviour();
+				while (game.isOnPause()){
+					Thread.sleep(100);
+					System.out.println("Je suis en pause !");
+				}
+				}
+			}catch(Exception e){System.out.println("Problem with thread !");} 
+		}
 }

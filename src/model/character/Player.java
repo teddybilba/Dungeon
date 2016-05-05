@@ -29,27 +29,16 @@ public class Player implements Serializable{
 		life = 1;
 		maxDamage = 10;
 		this.attackRange= attackRange;
-		attackDamage = 1;
+		attackDamage = 2;
 	}
-	// constructeur surcharge
-	public Player(int posX, int posY, int attackRange, Game game, int life){
-		this.game = game;
-		this.posX = posX;
-		this.posY = posY;
-		this.direction = "S";
-		this.life = life;
-		maxDamage = 10;
-		this.attackRange= attackRange;
-		attackDamage = 1;
-	}
-	
+	// constructeur surcharge	
 	public Player(int posX, int posY, int attackRange, Game game, int life, int attackDamage){
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
 		this.direction = "S";
 		this.life = life;
-		maxDamage = 10;
+		maxDamage = 0;
 		this.attackRange= attackRange;
 		this.attackDamage = attackDamage;
 	}
@@ -238,6 +227,7 @@ public class Player implements Serializable{
 		setLife(0);
 		
 		// TODO Game Over pour le personnage et eliminer les ennemis.
+		// TODO abstract class? 
 	}
 	
 	/* public void MoreDamage(int injury){

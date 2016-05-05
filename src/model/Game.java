@@ -20,10 +20,10 @@ public class Game implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
-	private ArrayList<Tile> tiles= new ArrayList<Tile>();
-	private ArrayList<Tile> teleportationTiles= new ArrayList<Tile>();
+	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+	private ArrayList<Tile> teleportationTiles = new ArrayList<Tile>();
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
-	private ArrayList<Potion> potions =new ArrayList<Potion>();
+	private ArrayList<Potion> potions = new ArrayList<Potion>();
 	private Hero hero;
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private ArrayList<Thread> listThreads = new ArrayList<Thread>();
@@ -262,6 +262,16 @@ public class Game implements Serializable{
 	}
 	public int getMapRange(){
 		return MAP_RANGE;
+	}
+	
+	public void addPotion(Potion potion){
+		potions.add(potion);
+	}
+	public void addCoins(Coin coins){
+		coinsOnFloor.add(coins);
+	}
+	public void deletePNJ(PNJ pnj){
+		PNJs.remove(this);
 	}
 	public boolean isOnPause(){
 		return pause;

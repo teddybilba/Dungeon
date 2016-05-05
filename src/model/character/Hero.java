@@ -7,6 +7,8 @@ import outils.Fonctions;
 
 
 public class Hero extends Player{
+
+	private static final long serialVersionUID = 1L;
 	private int coinsNumber;
 	private int maxCoinsNumber;
 	private int maxPotion;
@@ -16,8 +18,9 @@ public class Hero extends Player{
 	
 	
 	/* ### CONSTRUCTEUR ### */
-	public Hero(int posX,int posY, int attackRange, Game game){
-		super(posX, posY, attackRange, game);
+	public Hero(int posX,int posY, int attackRange, Game game, int life, int attackDamage, int maxDamage){
+		super(posX, posY, attackRange, game, life, attackDamage, maxDamage);
+		
 		this.coinsNumber = 0;
 		this.maxCoinsNumber = 30;
 		this.maxPotion = 5;
