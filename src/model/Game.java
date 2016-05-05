@@ -516,7 +516,7 @@ public class Game implements Serializable{
 		}
 	}
 
-
+/*
 // donne des images a la map	
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
@@ -567,7 +567,7 @@ public class Game implements Serializable{
 		System.out.println(map);
 		return map;
 	}
-/*	
+*/	
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
 		int posX = hero.getPosX();
@@ -576,35 +576,35 @@ public class Game implements Serializable{
 			int x = tile.getPosX();
 			int y = tile.getPosY();
 			if(Math.abs(x-posX) <= MAP_RANGE && Math.abs(y-posY) <= MAP_RANGE){
-				map[x-posX-MAP_RANGE][y-posX-MAP_RANGE]=0;
+				map[x-posX+MAP_RANGE][y-posX+MAP_RANGE]=0;
 			}
 		}
 		for(Wall wall: walls){
 			int x = wall.getPosX();
 			int y = wall.getPosY();
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
-				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=1;
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=1;
 			}
 		}
 		for(Tile teleTile: teleportationTiles){
 			int x = teleTile.getPosX();
 			int y = teleTile.getPosY();
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
-				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=6;
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=6;
 			}
 		}
 		for(Coin coin: coinsOnFloor){
 			int x = coin.getPosX();
 			int y = coin.getPosY();
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
-				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=4;
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=4;
 			}
 		}
 		for(Potion potion: potions){
 			int x = potion.getPosX();
 			int y = potion.getPosY();
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
-				map[x-posX-MAP_RANGE][y-posY-MAP_RANGE]=5;
+				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE]=5;
 			}
 		}
 		for(PNJ pnj: PNJs){
@@ -623,7 +623,7 @@ public class Game implements Serializable{
 		System.out.println(map);
 		return map;
 	}
-	
+/*	
 	public int[][] getMap(){
 		int[][] map = new int[size][size];
 		for (Tile tile: tiles){
