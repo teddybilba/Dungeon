@@ -112,7 +112,7 @@ public class Game implements Serializable, Observer{
 			hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
-		hero = new Hero(hX, hY , 3, this, 3, 5, 40);		//attackRange = 3; life = 3; attackDamage = 2; maxDamage = 40;
+		hero = new Hero(hX, hY , 3, this, 100, 5, 50);		//attackRange = 3; life = 100; attackDamage = 2; maxDamage = 50;
 		//Thread threadHero = new Thread(hero);
 		//listThreads.add(threadHero);
 		
@@ -314,7 +314,7 @@ public class Game implements Serializable, Observer{
 		return res;
 	}
 	
-	private boolean collisionWall(int posX, int posY){
+	public boolean collisionWall(int posX, int posY){
 		boolean res = false;
 		for (Block wall: walls){						
 			if(wall.getPosX() == posX && wall.getPosY() == posY ){
@@ -444,8 +444,8 @@ public class Game implements Serializable, Observer{
 	}*/
 	
 	public void gameOver(){
-		listThreads.get(listThreads.indexOf(hero)).interrupt();
-		listThreads.remove(hero);
+		//listThreads.get(listThreads.indexOf(hero)).interrupt();
+		//listThreads.remove(hero);
 		window.gameOver();
 		perdu = new Perdu();
 		window.settings(hero);

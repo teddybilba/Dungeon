@@ -14,7 +14,8 @@ public class Freeza extends PNJ implements Runnable{
 		Hero hero = game.getHero();
 		if(Math.abs(hero.getPosX() - this.getPosX()) <= this.getAttackRange() || Math.abs(hero.getPosY() - this.getPosY()) <= this.getAttackRange()){
 			hero.setDamage(this.getAttackDamage());
-		}else{super.randomMove(hero);}
+		}
+		super.randomMove(hero);
 	}
 	
 	public void moveBlocked(){			// rests and gets energy back

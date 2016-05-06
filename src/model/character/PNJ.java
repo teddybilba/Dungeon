@@ -127,10 +127,10 @@ public abstract class PNJ extends Player{
 		if(listPossibleMoves.size() != 0){
 			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size() -1);
 			String direction = listPossibleMoves.get(randomNum);
-			if(direction.equals("E")){this.setPosX(this.getPosX()+1);}
-			if(direction.equals("W")){this.setPosX(this.getPosX()-1);}
-			if(direction.equals("N")){this.setPosY(this.getPosY()+1);}
-			if(direction.equals("S")){this.setPosY(this.getPosY()-1);}
+			if(direction.equals("E")){this.move(1, 0);}
+			if(direction.equals("W")){this.move(-1, 0);}
+			if(direction.equals("N")){this.move(0, 1);}
+			if(direction.equals("S")){this.move(0, -1);}
 		}else{this.moveBlocked();}
 	}
 	

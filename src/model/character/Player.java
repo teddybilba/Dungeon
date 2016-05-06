@@ -14,7 +14,7 @@ public abstract class Player implements Serializable, Subject{
 	private int posX;
 	private int posY;
 	private int vit = 1;
-	//private String direction;
+	private String direction;
 	private int life;
 	private int damage = 0;
 	private int maxDamage;
@@ -94,7 +94,7 @@ public abstract class Player implements Serializable, Subject{
 		return life;
 	}
 	public void setLife(int life){					// there is an arbitrary maximum life number
-		if(life >= 0 && life < 10){
+		if(life >= 0 && life <= 100){
 			this.life = life;
 		}
 	}
@@ -168,25 +168,25 @@ public abstract class Player implements Serializable, Subject{
 	/* Moves and direction */
 	protected ArrayList<String> getListPossibleMoves(){
 		listPossibleMoves.clear();						// new list each time the function is called
-		if(! game.Collision(posX-1, posY)){
+		if(! game.collisionWall(posX-1, posY)){
 			listPossibleMoves.add("W");					// N,S,E,W directions
 		}
-		if(! game.Collision(posX+1, posY)){
+		if(! game.collisionWall(posX+1, posY)){
 			listPossibleMoves.add("E");
 		}
-		if(! game.Collision(posX, posY+1)){
+		if(! game.collisionWall(posX, posY+1)){
 			listPossibleMoves.add("N");
 		}
-		if(! game.Collision(posX, posY-1)){
+		if(! game.collisionWall(posX, posY-1)){
 			listPossibleMoves.add("S");
 		}
 		return listPossibleMoves;
 	}
-/*	
-	private String getDirection(){
+
+	protected String getDirection(){
 		return direction;
 	}
-	private void setDirection(String direction){
+	protected void setDirection(String direction){
 		if(direction.equals("N") || direction.equals("S") || direction.equals("E") || direction.equals("W")){
 			this.direction = direction;
 		}else{System.out.println("Mauvais setDirection de " + this + "direction demandee : " + direction);}
@@ -221,11 +221,11 @@ public abstract class Player implements Serializable, Subject{
 	public void move(int X, int Y){
 		setPosX(getPosX() + X);
 		setPosY(getPosY() + Y);
-		try{
+		/*try{
 			this.wait(Math.round(500/this.getVit()));
 			}
 		catch(Exception e){e.printStackTrace();
-		System.out.println("ERROR WAITING TIME");}
+		System.out.println("ERROR WAITING TIME");}*/
 	}
 	
 	public void winLife(){
