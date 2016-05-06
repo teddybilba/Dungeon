@@ -1,10 +1,13 @@
 package model.character;
 
 import model.Game;
+import outils.Observer;
+import outils.Subject;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public abstract class Player implements Serializable{
+public abstract class Player implements Serializable, Subject{
 	
 	private static final long serialVersionUID = 1L;
 	protected Game game;
@@ -18,6 +21,7 @@ public abstract class Player implements Serializable{
 	private int attackRange;
 	private int attackDamage;
 	private ArrayList<String> listPossibleMoves = new ArrayList<String>();
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	
 	/* ### CONSTRUCTEUR ### */
@@ -30,6 +34,7 @@ public abstract class Player implements Serializable{
 		maxDamage = 10;
 		this.attackRange= attackRange;
 		attackDamage = 3;
+		
 	}
 	// constructeur surcharge	
 	public Player(int posX, int posY, int attackRange, Game game, int life, int attackDamage){
@@ -150,6 +155,16 @@ public abstract class Player implements Serializable{
 		}
 	}
 	
+	/* Observer & Subject */
+	public void attach(Observer o){
+		observers.add(o);
+	}
+	public void notifyObservers(){
+		for(Observer o : observers){
+			o.update();
+		}
+	}
+	
 	/* Moves and direction */
 	protected ArrayList<String> getListPossibleMoves(){
 		listPossibleMoves.clear();						// new list each time the function is called
@@ -206,6 +221,11 @@ public abstract class Player implements Serializable{
 	public void move(int X, int Y){
 		setPosX(getPosX() + X);
 		setPosY(getPosY() + Y);
+		try{
+			this.wait(Math.round(500/this.getVit()));
+			}
+		catch(Exception e){e.printStackTrace();
+		System.out.println("ERROR WAITING TIME");}
 	}
 	
 	public void winLife(){

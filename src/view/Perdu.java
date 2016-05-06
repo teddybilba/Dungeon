@@ -21,13 +21,14 @@ public class Perdu extends JFrame implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private JButton restart = new JButton ("Try Again!");
-	private JButton exit = new JButton ("Exit");
+	private JButton load = new JButton ("Load last saved game");
 	private JButton small = new JButton ("Small");
 	private JButton medium = new JButton ("Medium");
 	private JButton large = new JButton ("Large");
-	private int gameSize=30;
+	private int hey;
+	private int gameSize = 50;
 	private JLabel image = new JLabel();
-	private JFrame perdu;//TODO placer des boutons de choix de taille � nouveau pour relancer une nouvelle partie
+	private JFrame perdu; 
 	
 	
 	/* ### CONSTRUCTEUR ### */
@@ -65,15 +66,15 @@ public class Perdu extends JFrame implements Serializable{
 				perdu.dispose();
 			}	
 		});
-		exit.setBounds((1050-200)/2, 850/2, 200, 50);
+		load.setBounds((1050-200)/2, 850/2, 200, 50);
 		
-		exit.setFont(police);
-		exit.setForeground(Color.WHITE);
-		exit.setBackground(Color.BLACK);
-		exit.addActionListener(new ActionListener(){
+		load.setFont(police);
+		load.setForeground(Color.WHITE);
+		load.setBackground(Color.BLACK);
+		load.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				perdu.dispose();
+				//game.load();
 			}
 
 		});
@@ -113,7 +114,7 @@ public class Perdu extends JFrame implements Serializable{
 		});
 		pan.setBackground(Color.BLACK);
 		pan.add(restart);
-		pan.add(exit);
+		pan.add(load);
 		pan.add(small);
 		pan.add(medium);
 		pan.add(large);

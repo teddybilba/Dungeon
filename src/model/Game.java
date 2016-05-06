@@ -15,9 +15,10 @@ import model.character.*;
 import model.dalle.*;
 import model.item.*;
 import outils.Fonctions;
+import outils.Observer;
 
 
-public class Game implements Serializable{
+public class Game implements Serializable, Observer{
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Block> walls = new ArrayList<Block>();
@@ -38,6 +39,7 @@ public class Game implements Serializable{
 	private int teleNum;						
 	private int ratNumber;
 	private int saibamanNumber;
+	private int freezaNumber;
 	private int coinNumber;
 	private int potionNumber;
 	private int blockNum;
@@ -111,6 +113,8 @@ public class Game implements Serializable{
 			hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);		
 		}
 		hero = new Hero(hX, hY , 3, this, 3, 5, 40);		//attackRange = 3; life = 3; attackDamage = 2; maxDamage = 40;
+		//Thread threadHero = new Thread(hero);
+		//listThreads.add(threadHero);
 		
 		
 		// Creating rats
@@ -118,8 +122,8 @@ public class Game implements Serializable{
 			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true){
-				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY)){
+				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			Rat rat = new Rat(posX, posY, this);
@@ -132,6 +136,20 @@ public class Game implements Serializable{
 			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY)){
+				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			}
+			Freeza freeza = new Freeza(posX, posY, 3, this, 2, 6);		// attackRange = 3; life = 2; attackDamage = 6;
+			PNJs.add(freeza);
+			Thread thread = new Thread(freeza);
+			listThreads.add(thread);
+		}
+		// creating Freeza
+		for (int i=0; i<freezaNumber; i++){
+			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			
 			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true){
 				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
 				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
@@ -141,6 +159,8 @@ public class Game implements Serializable{
 			Thread thread = new Thread(saibaman);
 			listThreads.add(thread);
 		}
+		
+		
 		// Creation des pieces
 		for (int i=0; i<coinNumber; i++){
 			int cX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
@@ -219,14 +239,15 @@ public class Game implements Serializable{
 	public void resumeGame(){
 		this.pause = false;
 	}
-	
+
 	
 	// Determine the number of each elements based on the size of the map.
 	private void modifyNumbers(int size){
 		if(size == 50){
-			this.teleNum = 15;
-			this.ratNumber = 30;
-			this.saibamanNumber = 30;
+			this.teleNum = 10;
+			this.ratNumber = 20;
+			this.saibamanNumber = 20;
+			this.freezaNumber = 10;
 			this.coinNumber = 50;
 			this.potionNumber = 14;
 			this.blockNum = 300;
@@ -235,17 +256,19 @@ public class Game implements Serializable{
 		}
 		else if (size == 70){
 			this.teleNum = 20;
-			this.ratNumber = 40;
-			this.saibamanNumber = 40;
+			this.ratNumber = 30;
+			this.saibamanNumber = 30;
+			this.freezaNumber = 15;
 			this.coinNumber = 70;
 			this.potionNumber = 25;
 			this.blockNum = 500;
 			this.damNum = 30;
 		}
 		else{
-			this.teleNum = 40;
-			this.ratNumber = 70;
-			this.saibamanNumber = 70;
+			this.teleNum = 30;
+			this.ratNumber = 60;
+			this.saibamanNumber = 60;
+			this.freezaNumber = 25;
 			this.coinNumber = 120;
 			this.potionNumber = 40;
 			this.blockNum = 1000;
@@ -421,15 +444,17 @@ public class Game implements Serializable{
 	}*/
 	
 	public void gameOver(){
+		listThreads.get(listThreads.indexOf(hero)).interrupt();
+		listThreads.remove(hero);
 		window.gameOver();
 		perdu = new Perdu();
 		window.settings(hero);
 		window.draw(this.getMap());
 	}
-	private void dropItem(PNJ pnj){
+	/*private void dropItem(PNJ pnj){
 		//remplacement par un objet pi�ce ou potion
 		pnj.dropItem();
-	}
+	}*/
 
 	private void takeCoin(){
 		int x= hero.getPosX();
@@ -482,7 +507,11 @@ public class Game implements Serializable{
 		PNJs.remove(pnj);	
 	}
 
-
+	public void update(){
+		window.settings(hero);
+		window.draw(this.getMap());
+	}
+	
 	public int[][] getMap(){
 		int[][] map = new int[1+2*this.MAP_RANGE][1+2*this.MAP_RANGE];
 		int posX = hero.getPosX();
@@ -537,6 +566,7 @@ public class Game implements Serializable{
 			if(Math.abs(x-posX)<=MAP_RANGE&& Math.abs(y-posY)<=MAP_RANGE){
 				int color = 3;
 				if(pnj instanceof Saibaman){color = 8;}
+				else if(pnj instanceof Freeza){color = 9;}
 				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE] = color;
 			}
 		}

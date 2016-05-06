@@ -154,6 +154,7 @@ public abstract class PNJ extends Player{
 			while(true){
 				Thread.sleep(1000);
 				behaviour();
+				notifyObservers();
 				while (game.isOnPause()){
 					Thread.sleep(500);
 				}

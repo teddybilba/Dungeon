@@ -26,7 +26,7 @@ public class Menu extends JFrame implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int gameSize = 30;
 	private JButton start = new JButton ("Start Game");
-	private JButton exit = new JButton ("Exit");
+	private JButton load = new JButton ("Load Game");
 	private JButton small = new JButton ("Small");
 	private JButton medium = new JButton ("Medium");
 	private JButton large = new JButton ("Large");
@@ -68,11 +68,11 @@ public class Menu extends JFrame implements Serializable{
 			}
 		});
 
-		exit.setBounds((1050-200)/2, 850/2, 200, 50);
-		exit.setFont(police);
-		exit.setForeground(Color.WHITE);
-		exit.setBackground(Color.BLACK);
-		exit.addActionListener(new ActionListener(){
+		load.setBounds((1050-200)/2, 850/2, 200, 50);
+		load.setFont(police);
+		load.setForeground(Color.WHITE);
+		load.setBackground(Color.BLACK);
+		load.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				menu.dispose();
@@ -116,7 +116,7 @@ public class Menu extends JFrame implements Serializable{
 		});
 		pan.setBackground(Color.BLACK);
 		pan.add(start);
-		pan.add(exit);
+		pan.add(load);
 		pan.add(small);
 		pan.add(medium);
 		pan.add(large);
@@ -131,7 +131,7 @@ public class Menu extends JFrame implements Serializable{
 		Game game = new Game(window, gameSize);
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
-		game.startThreads();
+		game.startThreads();					// To begin all the threads
 	}
 
 }

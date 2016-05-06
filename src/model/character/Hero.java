@@ -6,7 +6,7 @@ import model.item.Potion;
 import outils.Fonctions;
 
 
-public final class Hero extends Player{
+public final class Hero extends Player {
 
 	private static final long serialVersionUID = 1L;
 	private int coinsNumber;
@@ -148,4 +148,5 @@ public final class Hero extends Player{
 		System.out.println("Player died! Game over !");
 		game.gameOver();
 		}
+	
 }

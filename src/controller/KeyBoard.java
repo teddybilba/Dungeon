@@ -46,7 +46,7 @@ public class KeyBoard implements KeyListener{
 						game.getHero().dropPotion();
 						
 				/*		Special Powers 		*/
-					case KeyEvent.VK_S:
+					case KeyEvent.VK_U:
 						game.usePower();;
 						break;
 					case KeyEvent.VK_V:
@@ -59,7 +59,11 @@ public class KeyBoard implements KeyListener{
 						System.out.println("Pause game !");
 						game.pauseGame();
 						break;
-						}
+					case KeyEvent.VK_S:
+						System.out.println("Save game !");
+						//game.save();
+				}
+				
 			}
 			if(key == KeyEvent.VK_R){
 						System.out.print("Resume game !");
