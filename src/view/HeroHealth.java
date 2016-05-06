@@ -24,7 +24,7 @@ public class HeroHealth extends JPanel implements Serializable{
 	public HeroHealth(){
 		this.setBackground(Color.WHITE);
 		this.heroCoins = 0;
-		this.heroLife = 100;
+		this.heroLife = 50;
 		this.heroDamage = 0;
 		this.heroMaxDamage = 50;
 		labelComponent();

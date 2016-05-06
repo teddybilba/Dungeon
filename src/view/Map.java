@@ -18,6 +18,7 @@ public class Map extends JPanel implements Serializable{
 	private BufferedImage coinImage;
 
 	private BufferedImage gokuImage;
+	private BufferedImage krilinImage;
 	private BufferedImage tileImage;
 	private BufferedImage ratImage;
 	private BufferedImage saibamanImage;
@@ -35,6 +36,7 @@ public class Map extends JPanel implements Serializable{
 		try {
 			wallImage = ImageIO.read(new File("images/wall.png"));
 			gokuImage = ImageIO.read(new File("images/goku.png"));
+			krilinImage = ImageIO.read(new File("images/krilin.png"));
 			coinImage = ImageIO.read(new File("images/coin.png"));
 			tileImage = ImageIO.read(new File("images/tile.png"));
 			ratImage  = ImageIO.read(new File("images/rat.png"));
@@ -126,6 +128,12 @@ public class Map extends JPanel implements Serializable{
 					else if(color == 9){
 						try {
 							g.drawImage(freezaImage,  x*50, y*50, 48, 48,  null);
+						}
+						catch (Exception e) {e.printStackTrace();}
+					}
+					else if(color == 10){
+						try {
+							g.drawImage(krilinImage,  x*50, y*50, 48, 48,  null);
 						}
 						catch (Exception e) {e.printStackTrace();}
 					}

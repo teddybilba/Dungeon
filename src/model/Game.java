@@ -28,6 +28,7 @@ public class Game implements Serializable, Observer{
 	private ArrayList<Coin> coinsOnFloor = new ArrayList<Coin>();
 	private ArrayList<Potion> potions = new ArrayList<Potion>();
 	private Hero hero;
+	private Krilin krilin; 
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
 	private ArrayList<Thread> listThreads = new ArrayList<Thread>();
 	
@@ -78,17 +79,35 @@ public class Game implements Serializable, Observer{
 		for(int i = MAP_RANGE; i < size + MAP_RANGE; i++){
 				tiles.add(new Block(i, i, 1));// les cases
 				}
-		
-		for (int i=0; i < blockNum; i++){ 		// create random walls on the map to block the players
-			walls.add(new Block(Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1), Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1), 0));
-		}
 	
+		// Creating hero & krilin
+				int hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-2);
+				int hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-2);
+				
+				hero = new Hero(hX, hY , 3, this, 50, 5, 50);		//attackRange = 3; life = 50; attackDamage = 2; maxDamage = 50;
+				//Thread threadHero = new Thread(hero);
+				//listThreads.add(threadHero);
+
+				krilin = new Krilin (hX + 1, hY + 1, this, 50); 				//maxDamage = 50
+				Thread threadKrilin = new Thread(krilin);
+				listThreads.add(threadKrilin);
 		
+		// create random walls on the map to block the players		
+		for (int i=0; i < blockNum; i++){ 	
+			int bX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			int bY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			while(collisionHero(bX, bY) == true || collisionKrilin(bX,bY) == true){
+				bX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+				bY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
+			}
+			walls.add(new Block(bX, bY, 0));
+			}
+				
 		//creating teleportation tiles
 		for (int i=0; i<teleNum; i++){
 			int tX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int tY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
-			while(collisionWall(tX, tY) == true){
+			while(collisionWall(tX, tY) == true || collisionHero(tX, tY) == true || collisionKrilin(tX,tY) == true){
 				tX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				tY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
@@ -98,23 +117,13 @@ public class Game implements Serializable, Observer{
 		for (int i=0; i<damNum; i++){
 			int dX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
-			while(collisionWall(dX,dY) == true || beOnTeleTile(dX,dY) == true ){
+			while(collisionWall(dX,dY) == true || beOnTeleTile(dX,dY) == true || collisionHero(dX, dY) == true || collisionKrilin(dX,dY) == true){
 				dX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
 			damTiles.add(new DamageTile(dX, dY));
 		}
 		
-		// Creating hero
-		int hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
-		int hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
-		while (beOnDamTile(hX,hY) == true || collisionWall(hX,hY) == true){ 
-			hX=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
-			hY=Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);		
-		}
-		hero = new Hero(hX, hY , 3, this, 100, 5, 50);		//attackRange = 3; life = 100; attackDamage = 2; maxDamage = 50;
-		//Thread threadHero = new Thread(hero);
-		//listThreads.add(threadHero);
 		
 		
 		// Creating rats
@@ -122,7 +131,7 @@ public class Game implements Serializable, Observer{
 			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY)){
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY) || collisionHero(posX, posY) == true || collisionKrilin(posX,posY) == true){
 				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
@@ -136,13 +145,13 @@ public class Game implements Serializable, Observer{
 			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY)){
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionPNJ(posX, posY) || collisionHero(posX, posY) == true || collisionKrilin(posX,posY) == true){
 				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
-			Freeza freeza = new Freeza(posX, posY, 3, this, 2, 6);		// attackRange = 3; life = 2; attackDamage = 6;
-			PNJs.add(freeza);
-			Thread thread = new Thread(freeza);
+			Saibaman saibaman = new Saibaman(posX, posY, this);
+			PNJs.add(saibaman);
+			Thread thread = new Thread(saibaman);
 			listThreads.add(thread);
 		}
 		// creating Freeza
@@ -150,13 +159,14 @@ public class Game implements Serializable, Observer{
 			int posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true){
+			while(Collision(posX, posY)==true || beOnTeleTile(posX,posY)==true || beOnDamTile(posX, posY)== true || collisionHero(posX, posY) == true || collisionKrilin(posX,posY) == true){
 				posX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);// avant (1,size-2)
 				posY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
-			Saibaman saibaman = new Saibaman(posX, posY, this);
-			PNJs.add(saibaman);
-			Thread thread = new Thread(saibaman);
+			Freeza freeza = new Freeza(posX, posY, 3, this, 2, 6);		// attackRange = 3; life = 2; attackDamage = 6;
+			PNJs.add(freeza);
+			Thread thread = new Thread(freeza);
+		
 			listThreads.add(thread);
 		}
 		
@@ -166,7 +176,7 @@ public class Game implements Serializable, Observer{
 			int cX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int cY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(cX, cY)==true || beOnTeleTile(cX,cY)==true){
+			while(collisionWall(cX, cY)==true || beOnTeleTile(cX,cY)==true){
 				cX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				cY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
@@ -177,7 +187,7 @@ public class Game implements Serializable, Observer{
 			int pX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int pY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			
-			while(Collision(pX, pY)==true && beOnTeleTile(pX,pY)==true){
+			while(collisionWall(pX, pY)==true || beOnTeleTile(pX,pY)==true){
 				pX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 				pY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			}
@@ -250,7 +260,7 @@ public class Game implements Serializable, Observer{
 			this.freezaNumber = 10;
 			this.coinNumber = 50;
 			this.potionNumber = 14;
-			this.blockNum = 300;
+			this.blockNum = 100;
 			this.damNum = 16;
 			
 		}
@@ -261,7 +271,7 @@ public class Game implements Serializable, Observer{
 			this.freezaNumber = 15;
 			this.coinNumber = 70;
 			this.potionNumber = 25;
-			this.blockNum = 500;
+			this.blockNum = 300;
 			this.damNum = 30;
 		}
 		else{
@@ -271,7 +281,7 @@ public class Game implements Serializable, Observer{
 			this.freezaNumber = 25;
 			this.coinNumber = 120;
 			this.potionNumber = 40;
-			this.blockNum = 1000;
+			this.blockNum = 500;
 			this.damNum = 50;
 			
 		}
@@ -289,6 +299,9 @@ public class Game implements Serializable, Observer{
 			res = true;
 		}
 		else if(collisionHero(posX,posY)==true){	
+			res = true;
+		}
+		else if(collisionKrilin(posX,posY)==true){	
 			res = true;
 		}
 		return res;
@@ -335,6 +348,13 @@ public class Game implements Serializable, Observer{
 	private boolean collisionHero (int posX, int posY){
 		boolean res = false;
 		if(hero.getPosX() == posX && hero.getPosY() == posY ){
+			res = true;
+		}
+		return res;
+	}
+	private boolean collisionKrilin (int posX, int posY){
+		boolean res = false;
+		if(krilin.getPosX() == posX && krilin.getPosY() == posY ){
 			res = true;
 		}
 		return res;
@@ -569,6 +589,12 @@ public class Game implements Serializable, Observer{
 				else if(pnj instanceof Freeza){color = 9;}
 				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE] = color;
 			}
+		}
+		
+		int krilinX = krilin.getPosX();
+		int krilinY = krilin.getPosY();
+		if(Math.abs(krilinX-posX) <= MAP_RANGE && Math.abs(krilinY-posY) <= MAP_RANGE){
+			map[krilinX-posX+MAP_RANGE][krilinY-posY+MAP_RANGE] = 10;
 		}
 		
 		map[MAP_RANGE][MAP_RANGE] = 2;				// Hero is in the center of the map

@@ -100,7 +100,7 @@ public abstract class PNJ extends Player{
 		int newPosY = posY - (Integer.signum(differenceY));
 	
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
-			if(Math.abs(differenceX) <= Math.abs(differenceY)){
+			if(Math.abs(differenceX) >= Math.abs(differenceY)){
 				if(! game.Collision(newPosX, posY)){				
 					this.setPosX(newPosX);											
 				}else if(! game.Collision(posX, newPosY)){
