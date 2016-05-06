@@ -493,6 +493,9 @@ public class Game implements Serializable, Observer{
 		listThreads.remove(thread);
 		PNJs.remove(pnj);	
 	}
+	public void krilinDie(){
+		krilin = null;
+	}
 
 	public void update(){
 		window.settings(hero);
@@ -557,12 +560,13 @@ public class Game implements Serializable, Observer{
 				map[x-posX+MAP_RANGE][y-posY+MAP_RANGE] = color;
 			}
 		}
-		
-		int krilinX = krilin.getPosX();
-		int krilinY = krilin.getPosY();
-		if(Math.abs(krilinX-posX) <= MAP_RANGE && Math.abs(krilinY-posY) <= MAP_RANGE){
-			map[krilinX-posX+MAP_RANGE][krilinY-posY+MAP_RANGE] = 10;
-		}
+		if(krilin != null){
+			int krilinX = krilin.getPosX();
+			int krilinY = krilin.getPosY();
+			if(Math.abs(krilinX-posX) <= MAP_RANGE && Math.abs(krilinY-posY) <= MAP_RANGE){
+				map[krilinX-posX+MAP_RANGE][krilinY-posY+MAP_RANGE] = 10;
+				}
+			}
 		
 		map[MAP_RANGE][MAP_RANGE] = 2;				// Hero is in the center of the map
 

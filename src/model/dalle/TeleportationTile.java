@@ -14,13 +14,10 @@ public class TeleportationTile extends Block{
 	}
 
 	public void teleportation(Player player){
-		int x = player.getPosX();
-		int y = player.getPosY();
-		if(game.beOnTeleTile(x,y) == true){
-			TeleportationTile teleTile = game.randomTeleTile(this);
-			player.setPosX(teleTile.getPosX());
-			player.setPosY(teleTile.getPosY());
+		TeleportationTile teleTile = game.randomTeleTile(this);
+		player.setPosX(teleTile.getPosX());
+		player.setPosY(teleTile.getPosY());
 		}
 		
-	}
+	
 }

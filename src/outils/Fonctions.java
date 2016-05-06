@@ -1,6 +1,6 @@
 package outils;
 
-public class Fonctions {
+public abstract class Fonctions {
 	
 	/* Returns random number between two given extrema */
 	public static int randomNum(int min, int max){

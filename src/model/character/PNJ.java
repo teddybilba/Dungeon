@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import model.Game;
 
-public abstract class PNJ extends Player{
+public abstract class PNJ extends Player implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 	private int visionRange;
@@ -85,7 +85,7 @@ public abstract class PNJ extends Player{
 					}	
 				}
 		}else{
-			randomMove(this);																						// *** Just moves randomly because player not in view 
+			randomMove();																						// *** Just moves randomly because player not in view 
 		}
 	}
 
@@ -118,11 +118,11 @@ public abstract class PNJ extends Player{
 					}	
 				}
 		}else{
-			randomMove(this);																						// *** Just moves randomly because player not in view 
+			randomMove();																						// *** Just moves randomly because player not in view 
 			}	
 		}
 	
-	protected void randomMove(Player target){
+	protected void randomMove(){
 		ArrayList<String> listPossibleMoves = this.getListPossibleMoves();
 		if(listPossibleMoves.size() != 0){
 			int randomNum = Fonctions.randomNum(0, listPossibleMoves.size() -1);

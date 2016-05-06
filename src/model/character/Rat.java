@@ -3,7 +3,7 @@ package model.character;
 import model.Game;
 import outils.Fonctions;
 
-public final class Rat extends PNJ implements Runnable{
+public final class Rat extends PNJ {
 	
 	private static final long serialVersionUID = 1L;
 

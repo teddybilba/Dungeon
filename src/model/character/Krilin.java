@@ -4,7 +4,7 @@ package model.character;
 import model.Game;
 //import outils.Fonctions;
 
-public class Krilin extends PNJ implements Runnable{
+public class Krilin extends PNJ{
 	
 
 	private static final long serialVersionUID = 1L;
@@ -57,18 +57,18 @@ public class Krilin extends PNJ implements Runnable{
 		int newPosY = posY - (Integer.signum(differenceY));
 																	
 		if(Math.abs(differenceX) >= Math.abs(differenceY)){
-			if(! game.collisionWall(newPosX, posY)){				
-				this.setPosX(newPosX);											
+			if(! game.collisionWall(newPosX, posY)){
+				move(-Integer.signum(differenceX), 0);
 			}else if(! game.collisionWall(posX, newPosY)){
-				this.setPosY(newPosY);
+				move(0, -Integer.signum(differenceY));
 			}else{
 				moveBlocked();
 				}
 		}else{
 			if(! game.collisionWall(posX, newPosY)){				
-				this.setPosY(newPosY);											
+				move(0, -Integer.signum(differenceY));
 			}else if(! game.collisionWall(newPosX, posY)){
-				this.setPosX(newPosX);
+				move(-Integer.signum(differenceX), 0);
 			}else{
 				moveBlocked();
 				}	

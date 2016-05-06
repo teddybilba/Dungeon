@@ -83,7 +83,7 @@ public abstract class Player implements Serializable, Subject{
 	public int getVit(){
 		return vit;
 	}
-	public void setVit(int vit){
+	private void setVit(int vit){
 		if(vit > 0 && vit <= 3){					// there is an arbitrary maximum speed
 			this.vit = vit;
 		}else{System.out.println("Vitesse out of range (1,3) : " + vit);}
@@ -93,7 +93,7 @@ public abstract class Player implements Serializable, Subject{
 	public int getLife(){
 		return life;
 	}
-	public void setLife(int life){					// there is an arbitrary maximum life number
+	private void setLife(int life){					// there is an arbitrary maximum life number
 		if(life >= 0 && life <= 100){
 			this.life = life;
 		}
@@ -105,7 +105,7 @@ public abstract class Player implements Serializable, Subject{
 	}
 	public void setDamage(int damage){
 		if(damage > 0 && damage > maxDamage){
-			loseLife();								//too much damage, hence player loses life & new damage set to 0
+			looseLife();								//too much damage, hence player loses life & new damage set to 0
 			this.damage = 0;
 		}
 		else if(damage < 0){						//reducing the damage (potions, special power)
@@ -119,7 +119,7 @@ public abstract class Player implements Serializable, Subject{
 		else{										// if damage not out of bound, adds damage
 			int totalDamage = this.damage + damage;
 			if(totalDamage > maxDamage){
-				loseLife();							// too much total damage (previous + new damage) , hence player loses life
+				looseLife();							// too much total damage (previous + new damage) , hence player loses life
 				this.damage = 0;					// and damage set to 0
 			}else{									// if totalDamage <= maxDamage, just inflict damage to player
 				this.damage = totalDamage;
@@ -231,7 +231,7 @@ public abstract class Player implements Serializable, Subject{
 	public void winLife(){
 		setLife(this.life + 1);
 	}
-	public void loseLife(){
+	public void looseLife(){
 		if(this.life > 0){
 			setLife(this.life - 1);
 		}

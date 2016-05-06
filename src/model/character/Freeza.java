@@ -2,7 +2,7 @@ package model.character;
 
 import model.Game;
 
-public class Freeza extends PNJ implements Runnable{
+public class Freeza extends PNJ{
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,7 +15,7 @@ public class Freeza extends PNJ implements Runnable{
 		if(Math.abs(hero.getPosX() - this.getPosX()) <= this.getAttackRange() || Math.abs(hero.getPosY() - this.getPosY()) <= this.getAttackRange()){
 			hero.setDamage(this.getAttackDamage());
 		}
-		super.randomMove(hero);
+		super.randomMove();
 	}
 	
 	public void moveBlocked(){			// rests and gets energy back

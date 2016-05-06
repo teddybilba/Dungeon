@@ -124,7 +124,7 @@ public final class Hero extends Player {
 				winLife();
 				}
 			else{
-				loseLife();
+				looseLife();
 				}
 			}	
 		}

@@ -12,7 +12,7 @@
   </class>  
   <interface id="2" language="java" name="outils.Subject" project="Dungeon" file="/Dungeon/src/outils/Subject.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="201" y="335"/>    
+    <position height="-1" width="-1" x="169" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </interface>  
   <class id="3" language="java" name="model.dalle.TeleportationTile" project="Dungeon" 
     file="/Dungeon/src/model/dalle/TeleportationTile.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="191" x="645" y="2354"/>    
+    <position height="-1" width="-1" x="694" y="2414"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="model.dalle.DamageTile" project="Dungeon" 
     file="/Dungeon/src/model/dalle/DamageTile.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="149" x="456" y="2354"/>    
+    <position height="-1" width="-1" x="476" y="2419"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="model.dalle.Block" project="Dungeon" file="/Dungeon/src/model/dalle/Block.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="149" x="496" y="1835"/>    
+    <position height="-1" width="-1" x="594" y="2149"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="model.item.Potion" project="Dungeon" file="/Dungeon/src/model/item/Potion.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="149" x="224" y="2354"/>    
+    <position height="-1" width="-1" x="176" y="2390"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="model.character.Hero" project="Dungeon" 
     file="/Dungeon/src/model/character/Hero.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="479" width="190" x="224" y="1835"/>    
+    <position height="-1" width="-1" x="169" y="1484"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="model.item.Coin" project="Dungeon" file="/Dungeon/src/model/item/Coin.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="149" x="35" y="1835"/>    
+    <position height="-1" width="-1" x="98" y="2153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <interface id="14" language="java" name="outils.Observer" project="Dungeon" file="/Dungeon/src/outils/Observer.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="114" x="748" y="1835"/>    
+    <position height="-1" width="-1" x="1188" y="1416"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -138,7 +138,7 @@
   </class>  
   <class id="16" language="java" name="model.character.PNJ" project="Dungeon" 
     file="/Dungeon/src/model/character/PNJ.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="353" width="202" x="902" y="1835"/>    
+    <position height="-1" width="-1" x="1272" y="1866"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
