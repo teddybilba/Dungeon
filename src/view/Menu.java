@@ -24,7 +24,7 @@ import view.Window;
 public class Menu extends JFrame implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private int gameSize = 30;
+	private int gameSize = 50;
 	private JButton start = new JButton ("Start Game");
 	private JButton load = new JButton ("Load Game");
 	private JButton small = new JButton ("Small");
