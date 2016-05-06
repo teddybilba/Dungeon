@@ -17,7 +17,7 @@ public class TeleportationTile extends Block{
 		int x = player.getPosX();
 		int y = player.getPosY();
 		if(game.beOnTeleTile(x,y) == true){
-			TeleportationTile teleTile = game.randomTeleTile();
+			TeleportationTile teleTile = game.randomTeleTile(this);
 			player.setPosX(teleTile.getPosX());
 			player.setPosY(teleTile.getPosY());
 		}

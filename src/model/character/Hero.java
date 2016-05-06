@@ -99,7 +99,7 @@ public final class Hero extends Player {
 					listCloseEnemies.add(pnj);
 				}
 				for(PNJ enemies : listCloseEnemies){
-					enemies.setDamage(this.getAttackDamage());
+					enemies.setDamage(this.getAttackDamage()*2);
 					}
 				}
 			specialPowerNum -= 3;

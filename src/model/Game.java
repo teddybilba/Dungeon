@@ -30,7 +30,7 @@ public class Game implements Serializable, Observer{
 	private Hero hero;
 	private Krilin krilin; 
 	private ArrayList<PNJ> PNJs = new ArrayList<PNJ>();
-	private ArrayList<Thread> listThreads = new ArrayList<Thread>();
+	private transient ArrayList<Thread> listThreads = new ArrayList<Thread>();
 	
 	private boolean pause;
 	private Window window;
@@ -420,8 +420,11 @@ public class Game implements Serializable, Observer{
 		}
 	}
 	
-	public TeleportationTile randomTeleTile(){
+	public TeleportationTile randomTeleTile(TeleportationTile tile){
 		int index = Fonctions.randomNum(0,teleNum-1);
+		while(teleportationTiles.get(index).equals(tile)){
+			index = Fonctions.randomNum(0,teleNum-1);
+			}
 		return teleportationTiles.get(index);
 	}
 	private void teleportation(){
@@ -602,17 +605,14 @@ public class Game implements Serializable, Observer{
 		//System.out.println(map);
 		return map;
 	}
-/*	
-	
 
 	public Game load(String filename){
 		FileInputStream file;
 		ObjectInputStream i;
-		Game game;
 		try{
 			file = new FileInputStream(filename);
 			i = new ObjectInputStream(file);
-			game = (Game) i.readObject();
+			Game game = (Game) i.readObject();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (FileNotFoundException e1) {
@@ -623,17 +623,18 @@ public class Game implements Serializable, Observer{
 		return game;
 	}
 	
-	public void save(String filename, Game game){
+	public void save(String filename){
+		this.pauseGame();
 		FileOutputStream file;
 		ObjectOutputStream o;
 		try{
 			file = new FileOutputStream(filename);
 			o = new ObjectOutputStream(file);
-			o.writeObject(game);
+			o.writeObject(this);
 			o.close();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
-*/
+
 }
