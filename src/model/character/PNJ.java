@@ -69,17 +69,17 @@ public abstract class PNJ extends Player{
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ flees, if not in view just moves randomly ***
 			if(Math.abs(differenceX) <= Math.abs(differenceY)){
 				if(! game.Collision(newPosX, posY)){				
-					this.setPosX(newPosX);										
+					this.move(Integer.signum(differenceX),0);										
 				}else if(! game.Collision(posX, newPosY)){
-					this.setPosY(newPosY);
+					this.move(0, Integer.signum(differenceY));
 				}else{
 					this.moveBlocked();
 					}
 			}else{
 				if(! game.Collision(posX, newPosY)){				
-					this.setPosY(newPosY);										
+					this.move(0, Integer.signum(differenceY));									
 				}else if(! game.Collision(newPosX, posY)){
-					this.setPosX(newPosX);
+					this.move(Integer.signum(differenceX),0);
 				}else{
 					this.moveBlocked();
 					}	
@@ -102,17 +102,17 @@ public abstract class PNJ extends Player{
 		if(Math.abs(differenceX) <= this.getVisionRange() && Math.abs(differenceY) <= this.getVisionRange()){  			// If player in visionRange PNJ approaches, if not in view just moves randomly ***
 			if(Math.abs(differenceX) >= Math.abs(differenceY)){
 				if(! game.Collision(newPosX, posY)){				
-					this.setPosX(newPosX);											
+					this.move(-Integer.signum(differenceX),0);											
 				}else if(! game.Collision(posX, newPosY)){
-					this.setPosY(newPosY);
+					this.move(0, -Integer.signum(differenceY));
 				}else{
 					this.moveBlocked();
 					}
 			}else{
 				if(! game.Collision(posX, newPosY)){				
-					this.setPosY(newPosY);											
+					this.move(0, -Integer.signum(differenceY));											
 				}else if(! game.Collision(newPosX, posY)){
-					this.setPosX(newPosX);
+					this.move(-Integer.signum(differenceX),0);
 				}else{
 					this.moveBlocked();
 					}	
@@ -143,7 +143,6 @@ public abstract class PNJ extends Player{
 		Hero hero = game.getHero();
 		if(Math.abs(hero.getPosX() - this.getPosX()) == 1 || Math.abs(hero.getPosY() - this.getPosY()) == 1){
 			hero.setDamage(this.getAttackDamage());
-			System.out.println("I, " + this + "inflict : " +getAttackDamage());
 		}
 		
 	}
@@ -152,14 +151,13 @@ public abstract class PNJ extends Player{
 	public void run(){
 		try{
 			while(true){
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				behaviour();
 				notifyObservers();
 				while (game.isOnPause()){
-					Thread.sleep(500);
+					Thread.sleep(200);
 				}
 				}
-			}catch(Exception e){System.out.println("Problem with thread !");
-			e.printStackTrace();} 
+			}catch(Exception e){} 
 		}
 }

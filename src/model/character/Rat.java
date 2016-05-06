@@ -18,7 +18,6 @@ public final class Rat extends PNJ implements Runnable{
 		flee(game.getHero());
 	}
 	public void moveBlocked(){
-		System.out.println("I, rat, cannot move !" + this);
 		super.attack(); 				// If rat cannot move, it will attack
 	}
 

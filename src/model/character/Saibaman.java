@@ -13,28 +13,21 @@ public final class Saibaman extends PNJ implements Runnable{
 	}
 	
 	private void kamikaze(Player target){
-		int targetPosX = target.getPosX();
-		int targetPosY = target.getPosY();
-		int posX = this.getPosX();
-		int posY = this.getPosY();
-		int differenceX = posX - targetPosX;
-		int differenceY = posY - targetPosY;
+		int differenceX = this.getPosX() - target.getPosX();
+		int differenceY = this.getPosY() - target.getPosY();
 		
 		if(Math.abs(differenceX) == 1 || Math.abs(differenceY) == 1){
-			System.out.println(differenceX);
-			System.out.println(differenceX + "   " + differenceY + "");
-			int totalDamage = (this.getAttackDamage()+2)*this.getLife();
-			target.setDamage(totalDamage);
+			target.setDamage(this.getAttackDamage()*this.getLife());			// the more lives, the more the damage
 			this.die();
 		}
-		else{this.approach(target);}
+		else{super.approach(target);}					// call to method of superClass
 	}
 	
 	public void behaviour(){
 		kamikaze(game.getHero());
 	}
 	public void moveBlocked(){
-		System.out.println("I, saibaman, cannot move !" + this);
+		this.setDamage(-2); 			// Rests and gains energy
 	}
 
 

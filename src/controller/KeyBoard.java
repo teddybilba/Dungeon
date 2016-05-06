@@ -61,7 +61,7 @@ public class KeyBoard implements KeyListener{
 						break;
 					case KeyEvent.VK_S:
 						System.out.println("Save game !");
-						//game.save();
+						game.save("savedGame");
 				}
 				
 			}

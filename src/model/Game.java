@@ -360,27 +360,13 @@ public class Game implements Serializable, Observer{
 		return res;
 	}
 
-	
-	
-	/*revoie l' indice d' un ennemi dans la liste et sachant sa position
-	private int listIndexPNJ(ArrayList<PNJ> list,int x,int y){
-		int range= hero.getAttackRange();
-		int res=0;
-		for(int i=0; i<list.size();i++){
-			if(Math.abs(list.get(i).getPosX()-x )<=range&& Math.abs( list.get(i).getPosY()-y)<=range){
-				res=i;
-			}
-		}
-		return res;
-	}*/
-	
+	/*	***		Movement player	***		*/
 	public void movePlayerLeft(){
 		if (Collision(hero.getPosX() - 1, hero.getPosY()) == false){
 			hero.move(-1, 0);
 			takeCoin();
 			teleportation();
 			hurt();
-			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -391,7 +377,6 @@ public class Game implements Serializable, Observer{
 			takeCoin();
 			teleportation();
 			hurt();
-			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
@@ -402,7 +387,6 @@ public class Game implements Serializable, Observer{
 			takeCoin();
 			teleportation();
 			hurt();
-			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 			
@@ -414,12 +398,12 @@ public class Game implements Serializable, Observer{
 			takeCoin();
 			teleportation();
 			hurt();
-			//playerDeath();
 			window.settings(hero);
 			window.draw(this.getMap());
 		}
 	}
 	
+	/*	+++		Other interaction functions 	+++	*/
 	public TeleportationTile randomTeleTile(TeleportationTile tile){
 		int index = Fonctions.randomNum(0,teleNum-1);
 		while(teleportationTiles.get(index).equals(tile)){
@@ -437,7 +421,6 @@ public class Game implements Serializable, Observer{
 	private void hurt(){
 		for(DamageTile dTile: damTiles){
 			dTile.hurt(hero);
-			//playerDeath();
 		}
 	}
 	
@@ -446,38 +429,21 @@ public class Game implements Serializable, Observer{
 		window.settings(hero);
 		System.out.println("Attack !");
 	}
-	/*public void playerDeath (){ // Diparition du joueur ou des ennemis car morts
-		
-		if(hero.getLife()==0){
-			System.out.println("Game Over!!!"); 	
-			window.gameOver();
-			perdu = new Perdu();
-		}
-		
-		for (int i=0; i<PNJs.size();i++){
-			if(PNJs.get(i).getLife()==0){
-				dropItem(PNJs.get(i));
-				PNJs.remove(i);
-				System.out.println("Well Done!!!"); 		
-			}
-		}
-		window.settings(hero);
-		window.draw(this.getMap());
-		
-	}*/
+	
 	
 	public void gameOver(){
-		//listThreads.get(listThreads.indexOf(hero)).interrupt();
-		//listThreads.remove(hero);
 		window.gameOver();
+		Thread thisThread = Thread.currentThread();
+		thisThread.interrupt();
+		for(Thread thread: listThreads){
+			thread.interrupt();
+			listThreads.clear();
+		}
 		perdu = new Perdu();
 		window.settings(hero);
 		window.draw(this.getMap());
 	}
-	/*private void dropItem(PNJ pnj){
-		//remplacement par un objet piï¿½ce ou potion
-		pnj.dropItem();
-	}*/
+
 
 	private void takeCoin(){
 		int x= hero.getPosX();
@@ -505,12 +471,10 @@ public class Game implements Serializable, Observer{
 		}
 	}
 	public void drinkPotion(){
-		//if(hero.getPotionNumInventory()>0){ sert à rien car on verifie la taille deja dans hero.drinkPotion
 			hero.drinkPotion();
 			window.settings(hero);
-			//playerDeath();
-		//}
 	}
+	
 	public void usePower(){
 		hero.reduceDamagePower();
 		window.settings(hero);
@@ -523,8 +487,8 @@ public class Game implements Serializable, Observer{
 	}
 	
 	public void pnjDie(PNJ pnj){
-		int indexPNJ = PNJs.indexOf(pnj);
-		Thread thread = listThreads.get(indexPNJ);
+		int indexPNJ = PNJs.indexOf(pnj);	
+		Thread thread = listThreads.get(indexPNJ+1);			// Because Krilin is the first thread, thus + 1 par rapport a la liste des pnjs
 		thread.interrupt();
 		listThreads.remove(thread);
 		PNJs.remove(pnj);	
@@ -602,7 +566,6 @@ public class Game implements Serializable, Observer{
 		
 		map[MAP_RANGE][MAP_RANGE] = 2;				// Hero is in the center of the map
 
-		//System.out.println(map);
 		return map;
 	}
 

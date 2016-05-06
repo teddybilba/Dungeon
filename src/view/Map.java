@@ -14,18 +14,18 @@ public class Map extends JPanel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int[][] mapMatrix;
-	private BufferedImage wallImage;
-	private BufferedImage coinImage;
+	private transient BufferedImage wallImage;
+	private transient BufferedImage coinImage;
 
-	private BufferedImage gokuImage;
-	private BufferedImage krilinImage;
-	private BufferedImage tileImage;
-	private BufferedImage ratImage;
-	private BufferedImage saibamanImage;
-	private BufferedImage freezaImage;
-	private BufferedImage potionImage;
-	private BufferedImage teleTileImage;
-	private BufferedImage damTileImage;
+	private transient BufferedImage gokuImage;
+	private transient BufferedImage krilinImage;
+	private transient BufferedImage tileImage;
+	private transient BufferedImage ratImage;
+	private transient BufferedImage saibamanImage;
+	private transient BufferedImage freezaImage;
+	private transient BufferedImage potionImage;
+	private transient BufferedImage teleTileImage;
+	private transient BufferedImage damTileImage;
 	
 	
 	/* ### CONSTRUCTEUR ### */

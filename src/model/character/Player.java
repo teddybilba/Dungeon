@@ -192,7 +192,7 @@ public abstract class Player implements Serializable, Subject{
 		}else{System.out.println("Mauvais setDirection de " + this + "direction demandee : " + direction);}
 	}
 	
-	/* Position just in face of a given position determined by the direction of the player /
+	/* Position just in face of a given position determined by the direction of the player /		If we implement the direction system and the attack directed in a way and not local zone atacks
 	public int getPosXInFace(){
 		int returnedPosition = posX;
 		if(this.getDirection().equals("E")){
@@ -222,7 +222,7 @@ public abstract class Player implements Serializable, Subject{
 		setPosX(getPosX() + X);
 		setPosY(getPosY() + Y);
 		/*try{
-			this.wait(Math.round(500/this.getVit()));
+			this.wait(Math.round(500/this.getVit()));				// To move according to speed
 			}
 		catch(Exception e){e.printStackTrace();
 		System.out.println("ERROR WAITING TIME");}*/
