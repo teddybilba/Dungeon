@@ -1,11 +1,24 @@
 package model.item;
 
-public class Coin extends Item{
+import java.io.Serializable;
+
+public class Coin implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	public Coin(int x, int y){
-		super(x,y);
-	}
+	private int posX;
+	private int posY;
 	
+	/* CONSTRUCTOR */
+	public Coin(int posX, int posY){
+		this.posX = posX;
+		this.posY = posY;
+	}	
+	
+	/* GETTERS */
+	public int getPosX(){
+		return posX;
+	}
+	public int getPosY(){
+		return posY;
+	}
 }

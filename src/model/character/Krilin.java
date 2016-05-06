@@ -1,9 +1,8 @@
 package model.character;
 
-import java.util.ArrayList;
-
+//import java.util.ArrayList;
 import model.Game;
-import outils.Fonctions;
+//import outils.Fonctions;
 
 public class Krilin extends PNJ implements Runnable{
 	
