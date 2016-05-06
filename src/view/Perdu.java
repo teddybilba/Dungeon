@@ -85,7 +85,7 @@ public class Perdu extends JFrame implements Serializable{
 		small.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize = 30;
+				gameSize = 50;
 			}
 
 		});
@@ -97,7 +97,7 @@ public class Perdu extends JFrame implements Serializable{
 		medium.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize = 40;
+				gameSize = 70;
 			}
 
 		});
@@ -108,7 +108,7 @@ public class Perdu extends JFrame implements Serializable{
 		large.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameSize = 50;
+				gameSize = 100;
 			}
 
 		});

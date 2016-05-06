@@ -584,9 +584,7 @@ public class Game implements Serializable, Observer{
 			e1.printStackTrace();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 		return game;
 	}
 	
@@ -599,9 +597,7 @@ public class Game implements Serializable, Observer{
 			o = new ObjectOutputStream(file);
 			o.writeObject(this);
 			o.close();
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		}catch(IOException e){}
 	}
 
 }

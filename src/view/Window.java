@@ -30,11 +30,11 @@ public class Window implements Serializable{
 	    window.getContentPane().setBackground(Color.gray);
 	    
 	    split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, health,inventory);
-	    //On place le premier s�parateur
+	    //On place le premier separateur
 	    split1.setDividerLocation(100);
 	    
 	    split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,map, split1);
-	    //On place le deuxi�me s�parateur
+	    //On place le deuxieme separateur
 	    split2.setDividerLocation(950);
 	    
 	    window.getContentPane().add(split2,BorderLayout.CENTER);
