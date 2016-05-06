@@ -505,11 +505,11 @@ public class Game implements Serializable, Observer{
 		}
 	}
 	public void drinkPotion(){
-		if (hero.getPotionNumInventory()>0){
+		//if(hero.getPotionNumInventory()>0){ sert à rien car on verifie la taille deja dans hero.drinkPotion
 			hero.drinkPotion();
 			window.settings(hero);
 			//playerDeath();
-		}
+		//}
 	}
 	public void usePower(){
 		hero.reduceDamagePower();
