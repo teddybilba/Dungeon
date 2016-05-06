@@ -37,14 +37,14 @@ public class Game implements Serializable, Observer{
 	private Perdu perdu;
 	private int size;
 	protected final int MAP_RANGE = 9; /*1*/  // wall is 9 cases thick to avoid any problem with the painting of the map centered of the hero
-	private int teleNum;						
+	private int teleNumber;						
 	private int ratNumber;
 	private int saibamanNumber;
 	private int freezaNumber;
 	private int coinNumber;
 	private int potionNumber;
-	private int blockNum;
-	private int damNum;
+	private int blockNumber;
+	private int damNumber;
 	
 	
 	
@@ -93,7 +93,7 @@ public class Game implements Serializable, Observer{
 				listThreads.add(threadKrilin);
 		
 		// create random walls on the map to block the players		
-		for (int i=0; i < blockNum; i++){ 	
+		for (int i=0; i < blockNumber; i++){ 	
 			int bX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int bY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			while(collisionHero(bX, bY) == true || collisionKrilin(bX,bY) == true){
@@ -104,7 +104,7 @@ public class Game implements Serializable, Observer{
 			}
 				
 		//creating teleportation tiles
-		for (int i=0; i<teleNum; i++){
+		for (int i=0; i<teleNumber; i++){
 			int tX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int tY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			while(collisionWall(tX, tY) == true || collisionHero(tX, tY) == true || collisionKrilin(tX,tY) == true){
@@ -114,7 +114,7 @@ public class Game implements Serializable, Observer{
 			teleportationTiles.add(new TeleportationTile(tX, tY, this));
 		}
 		//creation des dalles blessantes
-		for (int i=0; i<damNum; i++){
+		for (int i=0; i<damNumber; i++){
 			int dX = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			int dY = Fonctions.randomNum(MAP_RANGE, size+MAP_RANGE-1);
 			while(collisionWall(dX,dY) == true || beOnTeleTile(dX,dY) == true || collisionHero(dX, dY) == true || collisionKrilin(dX,dY) == true){
@@ -254,35 +254,35 @@ public class Game implements Serializable, Observer{
 	// Determine the number of each elements based on the size of the map.
 	private void modifyNumbers(int size){
 		if(size == 50){
-			this.teleNum = 10;
+			this.teleNumber = 10;
 			this.ratNumber = 20;
 			this.saibamanNumber = 20;
 			this.freezaNumber = 10;
 			this.coinNumber = 50;
 			this.potionNumber = 14;
-			this.blockNum = 100;
-			this.damNum = 16;
+			this.blockNumber = 100;
+			this.damNumber = 16;
 			
 		}
 		else if (size == 70){
-			this.teleNum = 20;
+			this.teleNumber = 20;
 			this.ratNumber = 30;
 			this.saibamanNumber = 30;
 			this.freezaNumber = 15;
 			this.coinNumber = 70;
 			this.potionNumber = 25;
-			this.blockNum = 300;
-			this.damNum = 30;
+			this.blockNumber = 300;
+			this.damNumber = 30;
 		}
 		else{
-			this.teleNum = 30;
+			this.teleNumber = 30;
 			this.ratNumber = 60;
 			this.saibamanNumber = 60;
 			this.freezaNumber = 25;
 			this.coinNumber = 120;
 			this.potionNumber = 40;
-			this.blockNum = 500;
-			this.damNum = 50;
+			this.blockNumber = 500;
+			this.damNumber = 50;
 			
 		}
 		
@@ -405,9 +405,9 @@ public class Game implements Serializable, Observer{
 	
 	/*	+++		Other interaction functions 	+++	*/
 	public TeleportationTile randomTeleTile(TeleportationTile tile){
-		int index = Fonctions.randomNum(0,teleNum-1);
+		int index = Fonctions.randomNum(0,teleNumber-1);
 		while(teleportationTiles.get(index).equals(tile)){
-			index = Fonctions.randomNum(0,teleNum-1);
+			index = Fonctions.randomNum(0,teleNumber-1);
 			}
 		return teleportationTiles.get(index);
 	}
