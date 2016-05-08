@@ -219,8 +219,9 @@ public abstract class Player implements Serializable, Subject{
 	/* °°°° Methods °°° */
 	
 	public void move(int X, int Y){
-		setPosX(getPosX() + X);
-		setPosY(getPosY() + Y);
+		this.setPosX(getPosX() + X);
+		this.setPosY(getPosY() + Y);
+		notifyObservers();
 		/*try{
 			this.wait(Math.round(500/this.getVit()));				// To move according to speed
 			}
