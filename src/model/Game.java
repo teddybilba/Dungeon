@@ -249,7 +249,12 @@ public class Game implements Serializable, Observer{
 	public void resumeGame(){
 		this.pause = false;
 	}
-
+	public void setListThreads(){
+		listThreads.add(new Thread(krilin));
+		for(PNJ pnj : PNJs){
+			listThreads.add(new Thread(pnj));
+		}
+	}
 	
 	// Determine the number of each elements based on the size of the map.
 	private void modifyNumbers(int size){

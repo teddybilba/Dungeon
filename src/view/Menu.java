@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
@@ -75,6 +79,7 @@ public class Menu extends JFrame implements Serializable{
 		load.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				reprendreJeu();
 				menu.dispose();
 			}
 
@@ -132,6 +137,27 @@ public class Menu extends JFrame implements Serializable{
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 		game.startThreads();					// To begin all the threads
+	}
+	
+	private void reprendreJeu(){
+		FileInputStream file;
+		ObjectInputStream i;
+		try{
+			file = new FileInputStream("savedGame");
+			i = new ObjectInputStream(file);
+			Game game = (Game) i.readObject();
+			KeyBoard keyboard = new KeyBoard(game);
+			Window window = new Window();
+			window.setKeyListener(keyboard);
+			game.setListThreads();
+			game.startThreads();
+			
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {}
+	
 	}
 
 }
