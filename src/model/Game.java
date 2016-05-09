@@ -578,6 +578,7 @@ public class Game implements Serializable, Observer{
 		return map;
 	}
 
+	/*
 	public Game load(String filename){
 		FileInputStream file;
 		ObjectInputStream i;
@@ -591,7 +592,7 @@ public class Game implements Serializable, Observer{
 			e1.printStackTrace();
 		} catch (IOException e) {}
 		return game;
-	}
+	}*/
 	
 	public void save(String filename){
 		this.pauseGame();
