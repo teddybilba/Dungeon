@@ -34,6 +34,7 @@ public abstract class Player implements Serializable, Subject{
 		maxDamage = 10;
 		this.attackRange= attackRange;
 		attackDamage = 3;
+		attach(game);
 		
 	}
 	// constructeur surcharge	
