@@ -146,11 +146,14 @@ public class Menu extends JFrame implements Serializable{
 			file = new FileInputStream("savedGame");
 			i = new ObjectInputStream(file);
 			Game game = (Game) i.readObject();
-			KeyBoard keyboard = new KeyBoard(game);
 			Window window = new Window();
+			window.settings(game.getHero());
+			KeyBoard keyboard = new KeyBoard(game);
 			window.setKeyListener(keyboard);
 			game.setListThreads();
 			game.startThreads();
+			window.draw(game.getMap());
+
 			
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();

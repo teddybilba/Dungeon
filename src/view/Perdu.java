@@ -63,7 +63,9 @@ public class Perdu extends JFrame implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				restartGame();
+				perdu.setVisible(false);
 				perdu.dispose();
+				
 			}	
 		});
 		load.setBounds((1050-200)/2, 850/2, 200, 50);
@@ -126,6 +128,7 @@ public class Perdu extends JFrame implements Serializable{
 	public void restartGame(){
 		Window window = new Window();
 		Game game = new Game(window,gameSize);
+		game.startThreads();
 		KeyBoard keyboard = new KeyBoard(game);
 		window.setKeyListener(keyboard);
 	}

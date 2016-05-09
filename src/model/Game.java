@@ -250,6 +250,7 @@ public class Game implements Serializable, Observer{
 		this.pause = false;
 	}
 	public void setListThreads(){
+		listThreads = new ArrayList<Thread>();
 		listThreads.add(new Thread(krilin));
 		for(PNJ pnj : PNJs){
 			listThreads.add(new Thread(pnj));
@@ -437,16 +438,16 @@ public class Game implements Serializable, Observer{
 	
 	
 	public void gameOver(){
-		window.gameOver();
 		Thread thisThread = Thread.currentThread();
 		thisThread.interrupt();
 		for(Thread thread: listThreads){
 			thread.interrupt();
-			listThreads.clear();
 		}
+		listThreads.clear();
+		window.gameOver();
 		perdu = new Perdu();
-		window.settings(hero);
-		window.draw(this.getMap());
+		//window.settings(hero);
+		//window.draw(this.getMap());
 	}
 
 
